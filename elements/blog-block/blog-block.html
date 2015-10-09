@@ -55,7 +55,7 @@
                 }
             }
         </style>
-        <!-- <iron-ajax auto url="[[source]]" handle-as="json" on-response="postsLoaded"></iron-ajax> -->
+        <iron-ajax auto url="[[source]]" handle-as="json" on-response="postsLoaded"></iron-ajax>
         <div id="posts" class="container flex layout horizontal center-justified wrap">
             <template is="dom-repeat" items="[[posts]]" as="post">
                 <div class="card-wrapper layout horizontal">
@@ -91,10 +91,6 @@
         ],
         properties: {
             source: String,
-            posts: {
-                type: Array,
-                observer: '_postsChanged'
-            },
             opened: {
                 type: Boolean,
                 observer: '_openedChanged'
@@ -140,8 +136,8 @@
         listeners: {
             'neon-animation-finish': '_onNeonAnimationFinish'
         },
-        _postsChanged: function() {
-            this.posts = this.posts.reverse();
+        postsLoaded: function(event, response) {
+            this.posts = response.response.reverse();
 
             this.async(function() {
                 var nodeList = this.$.posts.querySelectorAll('.card-wrapper');

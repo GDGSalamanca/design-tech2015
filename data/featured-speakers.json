@@ -1,0 +1,26 @@
+[{
+    "id": 1,
+    "name": "Lole Román",
+    "company": "The Big House",
+    "photoUrl": "../../images/people/loleroman.jpeg"
+}, {
+    "id": 2,
+    "name": "Alejando Becerro (Muokkaa)",
+    "company": "Muokkaa Studio",
+    "photoUrl": "../../images/people/alexmuokkaa.jpg"
+}, {
+    "id": 3,
+    "name": "To be confirmed 1",
+    "company": "?",
+    "photoUrl": "../../images/people/michal_tajchert.jpg"
+}, {
+    "id": 4,
+    "name": "To be confirmed 2",
+    "company": "?",
+    "photoUrl": "../../images/people/yehor_lvivski.jpg"
+}, {
+    "id": 5,
+    "name": "To be confirmed 3",
+    "company": "?",
+    "photoUrl": "../../images/people/valentyn_shybanov.jpg"
+}]

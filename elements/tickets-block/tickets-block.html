@@ -3,8 +3,10 @@
         <style>
             :host {
                 display: block;
-                background: var(--default-primary-color);
-                color: #fff;
+                //background: var(--default-primary-color);
+                background: #FFF;
+                //color: #fff;
+                color: var(--default-primary-color);
             }
 
             .container {
@@ -22,15 +24,6 @@
 
             .price-block {
                 margin-bottom: 15px;
-            }
-
-            .sold-out > *:not(.sold-out-text) {
-                opacity: .3;
-            }
-
-            .sold-out-text {
-                font-size: 28px;
-                text-transform: uppercase;
             }
 
             .currency {
@@ -55,6 +48,7 @@
 
             .open-dialog-button {
                 margin-top: 30px;
+                color: #00BCD4
             }
 
             paper-dialog {
@@ -68,40 +62,41 @@
             }
 
             paper-dialog .buttons {
-                color: initial;
+                //color: initial;
+                color: var(--default-primary-color);
             }
         </style>
         <div id="pricetable" class="container wrap relative layout vertical text-center">
-            <h4 class="heading">Tickets</h4>
+            <h4 class="heading">Entradas</h4>
             <div class="price-block-wrapper flex layout vertical-horizontal">
                 <div class="price-block flex text-center">
-                    <span class="ticket-name block">Student</span>
-                    <span class="price">400</span>
-                    <span class="currency">UAH</span>
-                    <span class="additional-info block">*Before October 23 or 100 tickets.
-                        <br/>Requires valid student ID</span>
-                </div>
-                <div class="price-block flex text-center relative sold-out">
-                    <span class="ticket-name block">Early Bird</span>
-                    <span class="price">600</span>
-                    <span class="currency">UAH</span>
-                    <span class="additional-info block">*Before September 27 or 150 tickets</span>
-                    <div class="fit layout vertical center-center sold-out-text"><span>Sold Out</span></div>
+                    <span class="ticket-name block">Workshop Cinema4D</span>
+                    <span class="price">5</span>
+                    <span class="currency">Euros</span>
+                    <span class="additional-info block">*Hasta 15 tickets</span>
                 </div>
                 <div class="price-block flex text-center">
-                    <span class="ticket-name block">Lazy Bird</span>
-                    <span class="price">800</span>
-                    <span class="currency">UAH</span>
-                    <span class="additional-info block">*Before October 23</span>
+                    <span class="ticket-name block">Evento Design&Tech 2015</span>
+                    <span class="price">0</span>
+                    <span class="currency">Euros</span>
+                    <span class="additional-info block">*Hasta 150 plazas
+                        <!-- <br/>Requires valid student ID</span> -->
                 </div>
+                <div class="price-block flex text-center">
+                    <span class="ticket-name block">Workshop Sketch</span>
+                    <span class="price">5</span>
+                    <span class="currency">Euros</span>
+                    <span class="additional-info block">*Hasta 15 tickets</span>
+                </div> 
             </div>
-            <span class="details">Tickets grant access to all conference sections, coffee breaks, lunch and party. Accommodation is NOT included in the ticket price.</span>
+            <span class="details">Las entradas solo incluyen la entrada al evento o workshop, no incluyen comidas o coffee breaks</span>
             <div class="flex">
-                <paper-button class="white border-button open-dialog-button" on-tap="openTicketsDialog">Buy a ticket</paper-button>
+            <br>
+                <paper-button class="colorful" on-tap="openTicketsDialog" raised>Comprar entradas</paper-button>
             </div>
         </div>
         <paper-dialog id="ticketsDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" modal>
-            <div id="2event_tickets_widget" style="width: 640px; height: 300px; background:#fff;"></div>
+                <div id="2event_tickets_widget" style="width: 640px; height: 300px; background:#fff;"></div>
             <div class="buttons">
                 <a href="http://2event.com/events/312113" target="_blank">
                     <paper-button>Buy on the website</paper-button>

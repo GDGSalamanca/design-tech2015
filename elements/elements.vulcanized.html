@@ -568,7 +568,7 @@ debouncer.stop();
 }
 }
 });
-Polymer.version = '1.1.3';
+Polymer.version = '1.1.5';
 Polymer.Base._addFeature({
 _registerFeatures: function () {
 this._prepIs();
@@ -2447,7 +2447,15 @@ this.listen(node, name, listeners[key]);
 }
 },
 listen: function (node, eventName, methodName) {
-this._listen(node, eventName, this._createEventHandler(node, eventName, methodName));
+var handler = this._recallEventHandler(this, eventName, node, methodName);
+if (!handler) {
+handler = this._createEventHandler(node, eventName, methodName);
+}
+if (handler._listening) {
+return;
+}
+this._listen(node, eventName, handler);
+handler._listening = true;
 },
 _boundListenerKey: function (eventName, methodName) {
 return eventName + ':' + methodName;
@@ -2486,6 +2494,7 @@ host[methodName](e, e.detail);
 host._warn(host._logf('_createEventHandler', 'listener method `' + methodName + '` not defined'));
 }
 };
+handler._listening = false;
 this._recordEventHandler(host, eventName, node, methodName, handler);
 return handler;
 },
@@ -2493,6 +2502,7 @@ unlisten: function (node, eventName, methodName) {
 var handler = this._recallEventHandler(this, eventName, node, methodName);
 if (handler) {
 this._unlisten(node, eventName, handler);
+handler._listening = false;
 }
 },
 _listen: function (node, eventName, handler) {
@@ -3340,6 +3350,12 @@ elt[n] = props[n];
 }
 }
 return elt;
+},
+isLightDescendant: function (node) {
+return this.contains(node) && Polymer.dom(this).getOwnerRoot() === Polymer.dom(node).getOwnerRoot();
+},
+isLocalDescendant: function (node) {
+return this.root === Polymer.dom(node).getOwnerRoot();
 }
 });
 Polymer.Bind = {
@@ -3907,6 +3923,7 @@ var h$ = this._handlers;
 for (var i = 0, l = h$.length, h; i < l && (h = h$[i]); i++) {
 h[0].call(this, h[1], h[2]);
 }
+this._handlers = [];
 }
 });
 (function () {
@@ -4030,7 +4047,7 @@ this._boundPaths = this._boundPaths || {};
 if (from) {
 this._boundPaths[to] = from;
 } else {
-this.unbindPath(to);
+this.unlinkPaths(to);
 }
 },
 unlinkPaths: function (path) {
@@ -4039,23 +4056,13 @@ delete this._boundPaths[path];
 }
 },
 _notifyBoundPaths: function (path, value) {
-var from, to;
 for (var a in this._boundPaths) {
 var b = this._boundPaths[a];
 if (path.indexOf(a + '.') == 0) {
-from = a;
-to = b;
-break;
+this.notifyPath(this._fixPath(b, a, path), value);
+} else if (path.indexOf(b + '.') == 0) {
+this.notifyPath(this._fixPath(a, b, path), value);
 }
-if (path.indexOf(b + '.') == 0) {
-from = b;
-to = a;
-break;
-}
-}
-if (from && to) {
-var p = this._fixPath(to, from, path);
-this.notifyPath(p, value);
 }
 },
 _fixPath: function (property, root, path) {
@@ -4150,6 +4157,22 @@ if (args.length) {
 this._notifySplice(array, path, 0, args.length, []);
 }
 return ret;
+},
+prepareModelNotifyPath: function (model) {
+this.mixin(model, {
+fire: Polymer.Base.fire,
+notifyPath: Polymer.Base.notifyPath,
+_EVENT_CHANGED: Polymer.Base._EVENT_CHANGED,
+_notifyPath: Polymer.Base._notifyPath,
+_pathEffector: Polymer.Base._pathEffector,
+_annotationPathEffect: Polymer.Base._annotationPathEffect,
+_complexObserverPathEffect: Polymer.Base._complexObserverPathEffect,
+_annotatedComputationPathEffect: Polymer.Base._annotatedComputationPathEffect,
+_computePathEffect: Polymer.Base._computePathEffect,
+_modelForPath: Polymer.Base._modelForPath,
+_pathMatchesEffect: Polymer.Base._pathMatchesEffect,
+_notifyBoundPaths: Polymer.Base._notifyBoundPaths
+});
 }
 });
 }());
@@ -4283,7 +4306,7 @@ MIXIN_RULE: 1000
 OPEN_BRACE: '{',
 CLOSE_BRACE: '}',
 _rx: {
-comments: /\/\*[^*]*\*+([^/*][^*]*\*+)*\//gim,
+comments: /\/\*[^*]*\*+([^\/*][^*]*\*+)*\//gim,
 port: /@import[^;]*;/gim,
 customProp: /(?:^|[\s;])--[^;{]*?:[^{};]*?(?:[;\n]|$)/gim,
 mixinProp: /(?:^|[\s;])--[^;{]*?:[^{;]*?{[^}]*?}(?:[;\n]|$)?/gim,
@@ -5357,6 +5380,7 @@ properties: { __hideTemplateChildren__: { observer: '_showHideChildren' } },
 _instanceProps: Polymer.nob,
 _parentPropPrefix: '_parent_',
 templatize: function (template) {
+this._templatized = template;
 if (!template._content) {
 template._content = template.content;
 }
@@ -5367,11 +5391,11 @@ return;
 }
 var archetype = Object.create(Polymer.Base);
 this._customPrepAnnotations(archetype, template);
+this._prepParentProperties(archetype, template);
 archetype._prepEffects();
 this._customPrepEffects(archetype);
 archetype._prepBehaviors();
 archetype._prepBindings();
-this._prepParentProperties(archetype, template);
 archetype._notifyPath = this._notifyPathImpl;
 archetype._scopeElementClass = this._scopeElementClassImpl;
 archetype.listen = this._listenImpl;
@@ -5454,6 +5478,7 @@ delete parentProps[prop];
 proto = archetype._parentPropProto = Object.create(null);
 if (template != this) {
 Polymer.Bind.prepareModel(proto);
+Polymer.Base.prepareModelNotifyPath(proto);
 }
 for (prop in parentProps) {
 var parentProp = this._parentPropPrefix + prop;
@@ -5472,6 +5497,7 @@ Polymer.Bind.prepareInstance(template);
 template._forwardParentProp = this._forwardParentProp.bind(this);
 }
 this._extendTemplate(template, proto);
+template._pathEffector = this._pathEffectorImpl.bind(this);
 }
 },
 _createForwardPropEffector: function (prop) {
@@ -5482,7 +5508,7 @@ this._forwardParentProp(prop, value);
 _createHostPropEffector: function (prop) {
 var prefix = this._parentPropPrefix;
 return function (source, value) {
-this.dataHost[prefix + prop] = value;
+this.dataHost._templatized[prefix + prop] = value;
 };
 },
 _createInstancePropEffector: function (prop) {
@@ -5514,16 +5540,17 @@ var dot = path.indexOf('.');
 var root = dot < 0 ? path : path.slice(0, dot);
 dataHost._forwardInstancePath.call(dataHost, this, path, value);
 if (root in dataHost._parentProps) {
-dataHost.notifyPath(dataHost._parentPropPrefix + path, value);
+dataHost._templatized.notifyPath(dataHost._parentPropPrefix + path, value);
 }
 },
-_pathEffector: function (path, value, fromAbove) {
+_pathEffectorImpl: function (path, value, fromAbove) {
 if (this._forwardParentPath) {
 if (path.indexOf(this._parentPropPrefix) === 0) {
-this._forwardParentPath(path.substring(8), value);
+var subPath = path.substring(this._parentPropPrefix.length);
+this._forwardParentPath(subPath, value);
 }
 }
-Polymer.Base._pathEffector.apply(this, arguments);
+Polymer.Base._pathEffector.call(this._templatized, path, value, fromAbove);
 },
 _constructorImpl: function (model, host) {
 this._rootDataHost = host._getRootDataHost();
@@ -5566,8 +5593,9 @@ return host._scopeElementClass(node, value);
 stamp: function (model) {
 model = model || {};
 if (this._parentProps) {
+var templatized = this._templatized;
 for (var prop in this._parentProps) {
-model[prop] = this[this._parentPropPrefix + prop];
+model[prop] = templatized[this._parentPropPrefix + prop];
 }
 }
 return new this.ctor(model, this);
@@ -6175,7 +6203,7 @@ this.deselect(item);
 }
 } else {
 this.push('selected', item);
-skey = this._selectedColl.getKey(item);
+var skey = this._selectedColl.getKey(item);
 this.linkPaths('selected.' + skey, 'items.' + key);
 }
 } else {
@@ -7152,23 +7180,47 @@ Example:
       query: {
         type: String,
         observer: 'queryChanged'
+      },
+
+      _boundMQHandler: {
+        value: function() {
+          return this.queryHandler.bind(this);
+        }
       }
-
     },
 
-    created: function() {
-      this._mqHandler = this.queryHandler.bind(this);
+    attached: function() {
+      this.queryChanged();
     },
 
-    queryChanged: function(query) {
+    detached: function() {
+      this._remove();
+    },
+
+    _add: function() {
       if (this._mq) {
-        this._mq.removeListener(this._mqHandler);
+        this._mq.addListener(this._boundMQHandler);
+      }
+    },
+
+    _remove: function() {
+      if (this._mq) {
+        this._mq.removeListener(this._boundMQHandler);
+      }
+      this._mq = null;
+    },
+
+    queryChanged: function() {
+      this._remove();
+      var query = this.query;
+      if (!query) {
+        return;
       }
       if (query[0] !== '(') {
         query = '(' + query + ')';
       }
       this._mq = window.matchMedia(query);
-      this._mq.addListener(this._mqHandler);
+      this._add();
       this.queryHandler(this._mq);
     },
 
@@ -7201,7 +7253,7 @@ Example:
      * the selected item or undefined if there is no selection.
      */
     get: function() {
-      return this.multi ? this.selection : this.selection[0];
+      return this.multi ? this.selection.slice() : this.selection[0];
     },
 
     /**
@@ -7288,34 +7340,38 @@ Example:
   Polymer.IronSelectableBehavior = {
 
       /**
-       *  Fired when iron-selector is activated (selected or deselected).
-       *  It is fired before the selected items are changed.
-       *  Cancel the event to abort selection.
+       * Fired when iron-selector is activated (selected or deselected).
+       * It is fired before the selected items are changed.
+       * Cancel the event to abort selection.
        *
        * @event iron-activate
-       *
-       **/
+       */
+
       /**
-       *  Fired when an item is selected
+       * Fired when an item is selected
        *
        * @event iron-select
-       *
-       **/
+       */
+
       /**
-       *  Fired when an item is deselected
+       * Fired when an item is deselected
        *
        * @event iron-deselect
+       */
+
+      /**
+       * Fired when the list of selectable items changes (e.g., items are
+       * added or removed). The detail of the event is a list of mutation
+       * records that describe what changed.
        *
-       **/
+       * @event iron-items-changed
+       */
 
     properties: {
 
       /**
        * If you want to use the attribute value of an element for `selected` instead of the index,
        * set this to the name of the attribute.
-       *
-       * @attribute attrForSelected
-       * @type {string}
        */
       attrForSelected: {
         type: String,
@@ -7324,9 +7380,6 @@ Example:
 
       /**
        * Gets or sets the selected element. The default is to use the index of the item.
-       *
-       * @attribute selected
-       * @type {string}
        */
       selected: {
         type: String,
@@ -7335,9 +7388,6 @@ Example:
 
       /**
        * Returns the currently selected item.
-       *
-       * @attribute selectedItem
-       * @type {Object}
        */
       selectedItem: {
         type: Object,
@@ -7349,10 +7399,6 @@ Example:
        * The event that fires from items when they are selected. Selectable
        * will listen for this event from items and update the selection state.
        * Set to empty string to listen to no events.
-       *
-       * @attribute activateEvent
-       * @type {string}
-       * @default 'tap'
        */
       activateEvent: {
         type: String,
@@ -7363,17 +7409,11 @@ Example:
       /**
        * This is a CSS selector string.  If this is set, only items that match the CSS selector
        * are selectable.
-       *
-       * @attribute selectable
-       * @type {string}
        */
       selectable: String,
 
       /**
        * The class to set on elements when selected.
-       *
-       * @attribute selectedClass
-       * @type {string}
        */
       selectedClass: {
         type: String,
@@ -7382,9 +7422,6 @@ Example:
 
       /**
        * The attribute to set on elements when selected.
-       *
-       * @attribute selectedAttribute
-       * @type {string}
        */
       selectedAttribute: {
         type: String,
@@ -7392,14 +7429,13 @@ Example:
       },
 
       /**
-       * The set of excluded elements where the key is the `localName` 
+       * The set of excluded elements where the key is the `localName`
        * of the element that will be ignored from the item list.
        *
        * @type {object}
        * @default {template: 1}
        */
-
-      excludedLocalNames: {
+      _excludedLocalNames: {
         type: Object,
         value: function() {
           return {
@@ -7416,11 +7452,18 @@ Example:
     created: function() {
       this._bindFilterItem = this._filterItem.bind(this);
       this._selection = new Polymer.IronSelection(this._applySelection.bind(this));
+      // TODO(cdata): When polymer/polymer#2535 lands, we do not need to do this
+      // book keeping anymore:
+      this.__listeningForActivate = false;
     },
 
     attached: function() {
       this._observer = this._observeItems(this);
       this._contentObserver = this._observeContent(this);
+      if (!this.selectedItem && this.selected) {
+        this._updateSelected(this.attrForSelected,this.selected)
+      }
+      this._addListener(this.activateEvent);
     },
 
     detached: function() {
@@ -7487,11 +7530,17 @@ Example:
     },
 
     _addListener: function(eventName) {
+      if (!this.isAttached || this.__listeningForActivate) {
+        return;
+      }
+
+      this.__listeningForActivate = true;
       this.listen(this, eventName, '_activateHandler');
     },
 
     _removeListener: function(eventName) {
       this.unlisten(this, eventName, '_activateHandler');
+      this.__listeningForActivate = false;
     },
 
     _activateEventChanged: function(eventName, old) {
@@ -7508,7 +7557,7 @@ Example:
     },
 
     _filterItem: function(node) {
-      return !this.excludedLocalNames[node.localName];
+      return !this._excludedLocalNames[node.localName];
     },
 
     _valueToItem: function(value) {
@@ -7567,7 +7616,15 @@ Example:
 
     // observe items change under the given node.
     _observeItems: function(node) {
-      var observer = new MutationObserver(function() {
+      // TODO(cdata): Update this when we get distributed children changed.
+      var observer = new MutationObserver(function(mutations) {
+        // Let other interested parties know about the change so that
+        // we don't have to recreate mutation observers everywher.
+        this.fire('iron-items-changed', mutations, {
+          bubbles: false,
+          cancelable: false
+        });
+
         if (this.selected != null) {
           this._updateSelected();
         }
@@ -7695,9 +7752,9 @@ Example:
       var i = this.selectedValues.indexOf(value);
       var unselected = i < 0;
       if (unselected) {
-        this.selectedValues.push(value);
+        this.push('selectedValues',value);
       } else {
-        this.selectedValues.splice(i, 1);
+        this.splice('selectedValues',i,1);
       }
       this._selection.setItemSelected(this._valueToItem(value), unselected);
     }
@@ -8073,6 +8130,20 @@ Or, in a Polymer element, you can include a meta in your template:
 
   })();
 </script>
+<!--
+The `<iron-flex-layout>` component provides simple ways to use [CSS flexible box layout](https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Flexible_boxes), also known as flexbox. This component provides two different ways to use flexbox:
+
+1. [Layout classes](https://github.com/PolymerElements/iron-flex-layout/tree/master/classes). The layout class stylesheet provides a simple set of class-based flexbox rules. Layout classes let you specify layout properties directly in markup.
+
+2. [Custom CSS mixins](https://github.com/PolymerElements/iron-flex-layout/blob/master/iron-flex-layout.html). The mixin stylesheet includes custom CSS mixins that can be applied inside a CSS rule using the `@apply` function.
+
+A complete [guide](https://elements.polymer-project.org/guides/flex-layout) to `<iron-flex-layout>` is available.
+
+@group Iron Elements
+@pseudoElement iron-flex-layout
+@demo demo/index.html
+-->
+
 <style>
   /* IE 10 support for HTML5 hidden attr */
   [hidden] {
@@ -8564,6 +8635,9 @@ Custom property | Description | Default
      */
     _nameChanged: function() {
       new Polymer.IronMeta({type: 'iconset', key: this.name, value: this});
+      this.async(function() {
+        this.fire('iron-iconset-added', this, {node: window});
+      });
     },
 
     /**
@@ -8604,13 +8678,15 @@ Custom property | Description | Default
      */
     _prepareSvgClone: function(sourceSvg, size) {
       if (sourceSvg) {
-        var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svg.setAttribute('viewBox', ['0', '0', size, size].join(' '));
+        var content = sourceSvg.cloneNode(true),
+            svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+            viewBox = content.getAttribute('viewBox') || '0 0 ' + size + ' ' + size;
+        svg.setAttribute('viewBox', viewBox);
         svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
         // TODO(dfreedm): `pointer-events: none` works around https://crbug.com/370136
         // TODO(sjmiles): inline style may not be ideal, but avoids requiring a shadow-root
         svg.style.cssText = 'pointer-events: none; display: block; width: 100%; height: 100%;';
-        svg.appendChild(sourceSvg.cloneNode(true)).removeAttribute('id');
+        svg.appendChild(content).removeAttribute('id');
         return svg;
       }
       return null;
@@ -8832,20 +8908,21 @@ if (!window.Promise) {
 }
 </script>
 <!--
-@group Iron Elements
-
 iron-request can be used to perform XMLHttpRequests.
 
     <iron-request id="xhr"></iron-request>
     ...
     this.$.xhr.send({url: url, params: params});
-
-@element iron-request
 -->
-
 <script>
+  'use strict'
+
   Polymer({
     is: 'iron-request',
+
+    hostAttributes: {
+      hidden: true
+    },
 
     properties: {
 
@@ -8853,9 +8930,7 @@ iron-request can be used to perform XMLHttpRequests.
        * A reference to the XMLHttpRequest instance used to generate the
        * network request.
        *
-       * @attribute xhr
-       * @type XMLHttpRequest
-       * @default `new XMLHttpRequest`
+       * @type {XMLHttpRequest}
        */
       xhr: {
         type: Object,
@@ -8870,8 +8945,7 @@ iron-request can be used to perform XMLHttpRequests.
        * A reference to the parsed response body, if the `xhr` has completely
        * resolved.
        *
-       * @attribute response
-       * @type Object
+       * @type {*}
        * @default null
        */
       response: {
@@ -8884,12 +8958,30 @@ iron-request can be used to perform XMLHttpRequests.
       },
 
       /**
+       * A reference to the status code, if the `xhr` has completely resolved.
+       */
+      status: {
+        type: Number,
+        notify: true,
+        readOnly: true,
+        value: 0
+      },
+
+      /**
+       * A reference to the status text, if the `xhr` has completely resolved.
+       */
+      statusText: {
+        type: String,
+        notify: true,
+        readOnly: true,
+        value: ''
+      },
+
+      /**
        * A promise that resolves when the `xhr` response comes back, or rejects
        * if there is an error before the `xhr` completes.
        *
-       * @attribute completes
-       * @type Promise
-       * @default `new Promise`
+       * @type {Promise}
        */
       completes: {
         type: Object,
@@ -8907,8 +8999,6 @@ iron-request can be used to perform XMLHttpRequests.
        * An object that contains progress information emitted by the XHR if
        * available.
        *
-       * @attribute progress
-       * @type Object
        * @default {}
        */
       progress: {
@@ -8922,28 +9012,50 @@ iron-request can be used to perform XMLHttpRequests.
 
       /**
        * Aborted will be true if an abort of the request is attempted.
-       *
-       * @attribute aborted
-       * @type boolean
-       * @default false
        */
       aborted: {
         type: Boolean,
         notify: true,
         readOnly: true,
         value: false,
+      },
+
+      /**
+       * Errored will be true if the browser fired an error event from the
+       * XHR object (mainly network errors).
+       */
+      errored: {
+        type: Boolean,
+        notify: true,
+        readOnly: true,
+        value: false
+      },
+
+      /**
+       * TimedOut will be true if the XHR threw a timeout event.
+       */
+      timedOut: {
+        type: Boolean,
+        notify: true,
+        readOnly: true,
+        value: false
       }
     },
 
     /**
-     * Succeeded is true if the request succeeded. The request succeeded if the
-     * status code is greater-than-or-equal-to 200, and less-than 300. Also,
-     * the status code 0 is accepted as a success even though the outcome may
-     * be ambiguous.
+     * Succeeded is true if the request succeeded. The request succeeded if it
+     * loaded without error, wasn't aborted, and the status code is ≥ 200, and
+     * < 300, or if the status code is 0.
      *
-     * @return boolean
+     * The status code 0 is accepted as a success because some schemes - e.g.
+     * file:// - don't provide status codes.
+     *
+     * @return {boolean}
      */
     get succeeded() {
+      if (this.errored || this.aborted || this.timedOut) {
+        return false;
+      }
       var status = this.xhr.status || 0;
 
       // Note: if we are using the file:// protocol, the status code will be 0
@@ -8955,12 +9067,11 @@ iron-request can be used to perform XMLHttpRequests.
     /**
      * Sends an HTTP request to the server and returns the XHR object.
      *
-     * @method request
      * @param {{
      *   url: string,
      *   method: (string|undefined),
      *   async: (boolean|undefined),
-     *   body: (ArrayBuffer|ArrayBufferView|Blob|Document|FormData|null|string|undefined),
+     *   body: (ArrayBuffer|ArrayBufferView|Blob|Document|FormData|null|string|undefined|Object),
      *   headers: (Object|undefined),
      *   handleAs: (string|undefined),
      *   withCredentials: (boolean|undefined)}} options -
@@ -8972,27 +9083,15 @@ iron-request can be used to perform XMLHttpRequests.
      *     headers HTTP request headers.
      *     handleAs The response type. Default is 'text'.
      *     withCredentials Whether or not to send credentials on the request. Default is false.
-     * @return Promise
+     *   timeout: (Number|undefined)
+     * @return {Promise}
      */
     send: function (options) {
       var xhr = this.xhr;
 
       if (xhr.readyState > 0) {
-        return;
+        return null;
       }
-
-      xhr.addEventListener('readystatechange', function () {
-        if (xhr.readyState === 4 && !this.aborted) {
-
-          if (!this.succeeded) {
-            this.rejectCompletes(new Error('The request failed with status code: ' + this.xhr.status));
-            return;
-          }
-
-          this._setResponse(this.parseResponse());
-          this.resolveCompletes(this);
-        }
-      }.bind(this));
 
       xhr.addEventListener('progress', function (progress) {
         this._setProgress({
@@ -9003,13 +9102,36 @@ iron-request can be used to perform XMLHttpRequests.
       }.bind(this))
 
       xhr.addEventListener('error', function (error) {
+        this._setErrored(true);
+        this._updateStatus();
+        this.rejectCompletes(error);
+      }.bind(this));
+
+      xhr.addEventListener('timeout', function (error) {
+        this._setTimedOut(true);
+        this._updateStatus();
         this.rejectCompletes(error);
       }.bind(this));
 
       xhr.addEventListener('abort', function () {
+        this._updateStatus();
         this.rejectCompletes(new Error('Request aborted.'));
       }.bind(this));
 
+      // Called after all of the above.
+      xhr.addEventListener('loadend', function () {
+        this._updateStatus();
+
+        if (!this.succeeded) {
+          this.rejectCompletes(new Error('The request failed with status code: ' + this.xhr.status));
+          return;
+        }
+
+        this._setResponse(this.parseResponse());
+        this.resolveCompletes(this);
+      }.bind(this));
+
+      this.url = options.url;
       xhr.open(
         options.method || 'GET',
         options.url,
@@ -9025,41 +9147,59 @@ iron-request can be used to perform XMLHttpRequests.
         }, this);
       }
 
+      var contentType;
+      if (options.headers) {
+        contentType = options.headers['Content-Type'];
+      }
+      var body = this._encodeBodyObject(options.body, contentType);
+
       // In IE, `xhr.responseType` is an empty string when the response
       // returns. Hence, caching it as `xhr._responseType`.
-      xhr.responseType = xhr._responseType = (options.handleAs || 'text');
+      if (options.async !== false) {
+        xhr.responseType = xhr._responseType = (options.handleAs || 'text');
+      }
       xhr.withCredentials = !!options.withCredentials;
+      xhr.timeout = options.timeout;
 
-      xhr.send(options.body);
+
+
+      xhr.send(
+        /** @type {ArrayBuffer|ArrayBufferView|Blob|Document|FormData|
+                   null|string|undefined} */
+        (body));
 
       return this.completes;
     },
 
+    /**
+     * Attempts to parse the response body of the XHR. If parsing succeeds,
+     * the value returned will be deserialized based on the `responseType`
+     * set on the XHR.
+     *
+     * @return {*} The parsed response,
+     * or undefined if there was an empty response or parsing failed.
+     */
     parseResponse: function () {
       var xhr = this.xhr;
-      var responseType = this.xhr.responseType ||
-        this.xhr._responseType;
-      // If we don't have a natural `xhr.responseType`, we prefer parsing
-      // `xhr.responseText` over returning `xhr.response`..
+      var responseType = xhr.responseType || xhr._responseType;
       var preferResponseText = !this.xhr.responseType;
 
       try {
         switch (responseType) {
           case 'json':
-            // If xhr.response is undefined, responseType `json` may
-            // not be supported.
+            // If the xhr object doesn't have a natural `xhr.responseType`,
+            // we can assume that the browser hasn't parsed the response for us,
+            // and so parsing is our responsibility. Likewise if response is
+            // undefined, as there's no way to encode undefined in JSON.
             if (preferResponseText || xhr.response === undefined) {
-              // If accessing `xhr.responseText` throws, responseType `json`
-              // is supported and the result is rightly `undefined`.
+              // Try to emulate the JSON section of the response body section of
+              // the spec: https://xhr.spec.whatwg.org/#response-body
+              // That is to say, we try to parse as JSON, but if anything goes
+              // wrong return null.
               try {
-                xhr.responseText;
-              } catch (e) {
-                return xhr.response;
-              }
-
-              // Otherwise, attempt to parse `xhr.responseText` as JSON.
-              if (xhr.responseText) {
-                return JSON.parse(xhr.responseText);
+                return JSON.parse(xhr.responseText);;
+              } catch (_) {
+                return null;
               }
             }
 
@@ -9079,9 +9219,71 @@ iron-request can be used to perform XMLHttpRequests.
       }
     },
 
+    /**
+     * Aborts the request.
+     */
     abort: function () {
       this._setAborted(true);
       this.xhr.abort();
+    },
+
+    /**
+     * @param {*} body The given body of the request to try and encode.
+     * @param {?string} contentType The given content type, to infer an encoding
+     *     from.
+     * @return {*} Either the encoded body as a string, if successful,
+     *     or the unaltered body object if no encoding could be inferred.
+     */
+    _encodeBodyObject: function(body, contentType) {
+      if (typeof body == 'string') {
+        return body;  // Already encoded.
+      }
+      var bodyObj = /** @type {Object} */ (body);
+      switch(contentType) {
+        case('application/json'):
+          return JSON.stringify(bodyObj);
+        case('application/x-www-form-urlencoded'):
+          return this._wwwFormUrlEncode(bodyObj);
+      }
+      return body;
+    },
+
+    /**
+     * @param {Object} object The object to encode as x-www-form-urlencoded.
+     * @return {string} .
+     */
+    _wwwFormUrlEncode: function(object) {
+      if (!object) {
+        return '';
+      }
+      var pieces = [];
+      Object.keys(object).forEach(function(key) {
+        // TODO(rictic): handle array values here, in a consistent way with
+        //   iron-ajax params.
+        pieces.push(
+            this._wwwFormUrlEncodePiece(key) + '=' +
+            this._wwwFormUrlEncodePiece(object[key]));
+      }, this);
+      return pieces.join('&');
+    },
+
+    /**
+     * @param {*} str A key or value to encode as x-www-form-urlencoded.
+     * @return {string} .
+     */
+    _wwwFormUrlEncodePiece: function(str) {
+      // Spec says to normalize newlines to \r\n and replace %20 spaces with +.
+      // jQuery does this as well, so this is likely to be widely compatible.
+      return encodeURIComponent(str.toString().replace(/\r?\n/g, '\r\n'))
+          .replace(/%20/g, '+');
+    },
+
+    /**
+     * Updates the status code and status text.
+     */
+    _updateStatus: function() {
+      this._setStatus(this.xhr.status);
+      this._setStatusText((this.xhr.statusText === undefined) ? '' : this.xhr.statusText);
     }
   });
 </script>
@@ -9106,9 +9308,13 @@ Note: The `params` attribute must be double quoted JSON.
 
 You can trigger a request explicitly by calling `generateRequest` on the
 element.
+
+@demo demo/index.html
+@hero hero.svg
 -->
 
 <script>
+  'use strict';
 
   Polymer({
 
@@ -9132,6 +9338,10 @@ element.
      * @event error
      */
 
+    hostAttributes: {
+      hidden: true
+    },
+
     properties: {
       /**
        * The URL target of the request.
@@ -9143,7 +9353,9 @@ element.
 
       /**
        * An object that contains query parameters to be appended to the
-       * specified `url` when generating a request.
+       * specified `url` when generating a request. If you wish to set the body
+       * content when making a POST request, you should use the `body` property
+       * instead.
        */
       params: {
         type: Object,
@@ -9170,8 +9382,10 @@ element.
        *         auto
        *         url="http://somesite.com"
        *         headers='{"X-Requested-With": "XMLHttpRequest"}'
-       *         handle-as="json"
-       *         last-response-changed="{{handleResponse}}"></iron-ajax>
+       *         handle-as="json"></iron-ajax>
+       *
+       * Note: setting a `Content-Type` header here will override the value
+       * specified by the `contentType` property of this element.
        */
       headers: {
         type: Object,
@@ -9181,27 +9395,37 @@ element.
       },
 
       /**
-       * Content type to use when sending data. If the contenttype is set
-       * and a `Content-Type` header is specified in the `headers` attribute,
-       * the `headers` attribute value will take precedence.
+       * Content type to use when sending data. If the `contentType` property
+       * is set and a `Content-Type` header is specified in the `headers`
+       * property, the `headers` property value will take precedence.
        */
       contentType: {
         type: String,
-        value: 'application/x-www-form-urlencoded'
+        value: null
       },
 
       /**
-       * Optional raw body content to send when method === "POST".
+       * Body content to send with the request, typically used with "POST"
+       * requests.
        *
-       * Example:
+       * If body is a string it will be sent unmodified.
        *
-       *     <iron-ajax method="POST" auto url="http://somesite.com"
-       *         body='{"foo":1, "bar":2}'>
-       *     </iron-ajax>
+       * If Content-Type is set to a value listed below, then
+       * the body will be encoded accordingly.
+       *
+       *    * `content-type="application/json"`
+       *      * body is encoded like `{"foo":"bar baz","x":1}`
+       *    * `content-type="application/x-www-form-urlencoded"`
+       *      * body is encoded like `foo=bar+baz&x=1`
+       *
+       * Otherwise the body will be passed to the browser unmodified, and it
+       * will handle any encoding (e.g. for FormData, Blob, ArrayBuffer).
+       *
+       * @type (ArrayBuffer|ArrayBufferView|Blob|Document|FormData|null|string|undefined|Object)
        */
       body: {
-        type: String,
-        value: ''
+        type: Object,
+        value: null
       },
 
       /**
@@ -9215,7 +9439,7 @@ element.
 
       /**
        * Specifies what data to store in the `response` property, and
-       * to deliver as `event.response` in `response` events.
+       * to deliver as `event.detail.response` in `response` events.
        *
        * One of:
        *
@@ -9245,6 +9469,14 @@ element.
       },
 
       /**
+       * Set the timeout flag on the request.
+       */
+      timeout: {
+        type: Number,
+        value: 0
+      },
+
+      /**
        * If true, automatically performs an Ajax request when either `url` or
        * `params` changes.
        */
@@ -9262,17 +9494,7 @@ element.
       },
 
       /**
-       * Will be set to true if there is at least one in-flight request
-       * associated with this iron-ajax element.
-       */
-      loading: {
-        type: Boolean,
-        notify: true,
-        readOnly: true
-      },
-
-      /**
-       * Will be set to the most recent request made by this iron-ajax element.
+       * The most recent request made by this iron-ajax element.
        */
       lastRequest: {
         type: Object,
@@ -9281,10 +9503,23 @@ element.
       },
 
       /**
-       * Will be set to the most recent response received by a request
-       * that originated from this iron-ajax element. The type of the response
-       * is determined by the value of `handleas` at the time that the request
-       * was generated.
+       * True while lastRequest is in flight.
+       */
+      loading: {
+        type: Boolean,
+        notify: true,
+        readOnly: true
+      },
+
+      /**
+       * lastRequest's response.
+       *
+       * Note that lastResponse and lastError are set when lastRequest finishes,
+       * so if loading is true, then lastResponse and lastError will correspond
+       * to the result of the previous request.
+       *
+       * The type of the response is determined by the value of `handleAs` at
+       * the time that the request was generated.
        */
       lastResponse: {
         type: Object,
@@ -9293,8 +9528,7 @@ element.
       },
 
       /**
-       * Will be set to the most recent error that resulted from a request
-       * that originated from this iron-ajax element.
+       * lastRequest's error, if any.
        */
       lastError: {
         type: Object,
@@ -9311,7 +9545,7 @@ element.
         notify: true,
         readOnly: true,
         value: function() {
-          this._setActiveRequests([]);
+          return [];
         }
       },
 
@@ -9327,23 +9561,22 @@ element.
       _boundHandleResponse: {
         type: Function,
         value: function() {
-          return this.handleResponse.bind(this);
-        }
-      },
-
-      _boundDiscardRequest: {
-        type: Function,
-        value: function() {
-          return this.discardRequest.bind(this);
+          return this._handleResponse.bind(this);
         }
       }
     },
 
     observers: [
-      'requestOptionsChanged(url, method, params, headers,' +
-        'contentType, body, sync, handleAs, withCredentials, auto)'
+      '_requestOptionsChanged(url, method, params.*, headers,' +
+        'contentType, body, sync, handleAs, withCredentials, timeout, auto)'
     ],
 
+    /**
+     * The query string that should be appended to the `url`, serialized from
+     * the current value of `params`.
+     *
+     * @return {string}
+     */
     get queryString () {
       var queryParts = [];
       var param;
@@ -9353,30 +9586,53 @@ element.
         value = this.params[param];
         param = window.encodeURIComponent(param);
 
-        if (value !== null) {
-          param += '=' + window.encodeURIComponent(value);
+        if (Array.isArray(value)) {
+          for (var i = 0; i < value.length; i++) {
+            queryParts.push(param + '=' + window.encodeURIComponent(value[i]));
+          }
+        } else if (value !== null) {
+          queryParts.push(param + '=' + window.encodeURIComponent(value));
+        } else {
+          queryParts.push(param);
         }
-
-        queryParts.push(param);
       }
 
       return queryParts.join('&');
     },
 
+    /**
+     * The `url` with query string (if `params` are specified), suitable for
+     * providing to an `iron-request` instance.
+     *
+     * @return {string}
+     */
     get requestUrl() {
       var queryString = this.queryString;
 
       if (queryString) {
-        return this.url + '?' + queryString;
+        var bindingChar = this.url.indexOf('?') >= 0 ? '&' : '?';
+        return this.url + bindingChar + queryString;
       }
 
       return this.url;
     },
 
+    /**
+     * An object that maps header names to header values, first applying the
+     * the value of `Content-Type` and then overlaying the headers specified
+     * in the `headers` property.
+     *
+     * @return {Object}
+     */
     get requestHeaders() {
-      var headers = {
-        'content-type': this.contentType
-      };
+      var headers = {};
+      var contentType = this.contentType;
+      if (contentType == null && (typeof this.body === 'string')) {
+        contentType = 'application/x-www-form-urlencoded';
+      }
+      if (contentType) {
+        headers['Content-Type'] = contentType;
+      }
       var header;
 
       if (this.headers instanceof Object) {
@@ -9388,6 +9644,19 @@ element.
       return headers;
     },
 
+    /**
+     * Request options suitable for generating an `iron-request` instance based
+     * on the current state of the `iron-ajax` instance's properties.
+     *
+     * @return {{
+     *   url: string,
+     *   method: (string|undefined),
+     *   async: (boolean|undefined),
+     *   body: (ArrayBuffer|ArrayBufferView|Blob|Document|FormData|null|string|undefined|Object),
+     *   headers: (Object|undefined),
+     *   handleAs: (string|undefined),
+     *   withCredentials: (boolean|undefined)}}
+     */
     toRequestOptions: function() {
       return {
         url: this.requestUrl,
@@ -9396,11 +9665,80 @@ element.
         body: this.body,
         async: !this.sync,
         handleAs: this.handleAs,
-        withCredentials: this.withCredentials
+        withCredentials: this.withCredentials,
+        timeout: this.timeout
       };
     },
 
-    requestOptionsChanged: function() {
+    /**
+     * Performs an AJAX request to the specified URL.
+     *
+     * @return {!IronRequestElement}
+     */
+    generateRequest: function() {
+      var request = /** @type {!IronRequestElement} */ (document.createElement('iron-request'));
+      var requestOptions = this.toRequestOptions();
+
+      this.activeRequests.push(request);
+
+      request.completes.then(
+        this._boundHandleResponse
+      ).catch(
+        this._handleError.bind(this, request)
+      ).then(
+        this._discardRequest.bind(this, request)
+      );
+
+      request.send(requestOptions);
+
+      this._setLastRequest(request);
+      this._setLoading(true);
+
+      this.fire('request', {
+        request: request,
+        options: requestOptions
+      }, {bubbles: false});
+
+      return request;
+    },
+
+    _handleResponse: function(request) {
+      if (request === this.lastRequest) {
+        this._setLastResponse(request.response);
+        this._setLastError(null);
+        this._setLoading(false);
+      }
+      this.fire('response', request, {bubbles: false});
+    },
+
+    _handleError: function(request, error) {
+      if (this.verbose) {
+        console.error(error);
+      }
+
+      if (request === this.lastRequest) {
+        this._setLastError({
+          request: request,
+          error: error
+        });
+        this._setLastResponse(null);
+        this._setLoading(false);
+      }
+      this.fire('error', {
+        request: request,
+        error: error
+      }, {bubbles: false});
+    },
+
+    _discardRequest: function(request) {
+      var requestIndex = this.activeRequests.indexOf(request);
+
+      if (requestIndex > -1) {
+        this.activeRequests.splice(requestIndex, 1);
+      }
+    },
+
+    _requestOptionsChanged: function() {
       this.debounce('generate-request', function() {
         if (!this.url && this.url !== '') {
           return;
@@ -9412,64 +9750,6 @@ element.
       }, this.debounceDuration);
     },
 
-    /**
-     * Performs an AJAX request to the specified URL.
-     *
-     * @method generateRequest
-     */
-    generateRequest: function() {
-      var request = document.createElement('iron-request');
-      var requestOptions = this.toRequestOptions();
-
-      this.activeRequests.push(request);
-
-      request.completes.then(
-        this._boundHandleResponse
-      ).catch(
-        this.handleError.bind(this, request)
-      ).then(
-        this._boundDiscardRequest
-      );
-
-      request.send(requestOptions);
-
-      this._setLastRequest(request);
-
-      this.fire('request', {
-        request: request,
-        options: requestOptions
-      });
-
-      return request;
-    },
-
-    handleResponse: function(request) {
-      this._setLastResponse(request.response);
-      this.fire('response', request);
-    },
-
-    handleError: function(request, error) {
-      if (this.verbose) {
-        console.error(error);
-      }
-
-      this._setLastError({
-        request: request,
-        error: error
-      });
-      this.fire('error', {
-        request: request,
-        error: error
-      });
-    },
-
-    discardRequest: function(request) {
-      var requestIndex = this.activeRequests.indexOf(request);
-
-      if (requestIndex > 0) {
-        this.activeRequests.splice(requestIndex, 1);
-      }
-    }
   });
 </script>
 <!--
@@ -9530,9 +9810,19 @@ bound from the model object provided to the template scope):
       </iron-list>
     </template>
 
+### Styling
+
+Use the `--iron-list-items-container` mixin to style the container of items, e.g.
+
+    iron-list {
+     --iron-list-items-container: {
+        margin: auto;
+      };
+    }
+
 ### Resizing
 
-`iron-list` lays out the items when it recives a notification via the `resize` event.
+`iron-list` lays out the items when it recives a notification via the `iron-resize` event.
 This event is fired by any element that implements `IronResizableBehavior`.
 
 By default, elements such as `iron-pages`, `paper-tabs` or `paper-dialog` will trigger
@@ -9540,12 +9830,14 @@ this event automatically. If you hide the list manually (e.g. you use `display: 
 you might want to implement `IronResizableBehavior` or fire this event manually right
 after the list became visible again. e.g.
 
-    document.querySelector('iron-list').fire('resize');
+    document.querySelector('iron-list').fire('iron-resize');
 
 
 @group Iron Element
 @element iron-list
-@demo demo/index.html
+@demo demo/index.html Simple list
+@demo demo/selection.html Selection of items
+@demo demo/collapse.html Collapsable items
 -->
 
 <!-- Paper elements -->
@@ -10073,7 +10365,7 @@ To change the panel container in different modes:
      * `keys` property is pressed.
      *
      * @demo demo/index.html
-     * @polymerBehavior IronA11yKeysBehavior
+     * @polymerBehavior
      */
     Polymer.IronA11yKeysBehavior = {
       properties: {
@@ -10459,33 +10751,7 @@ To change the panel container in different modes:
       }
     },
 
-    _eventSourceIsPrimaryInput: function(event) {
-      event = event.detail.sourceEvent || event;
-
-      // Always true for non-mouse events....
-      if (!this._mouseEventRe.test(event.type)) {
-        return true;
-      }
-
-      // http://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/buttons
-      if ('buttons' in event) {
-        return event.buttons === 1;
-      }
-
-      // http://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/which
-      if (typeof event.which === 'number') {
-        return event.which < 2;
-      }
-
-      // http://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
-      return event.button < 1;
-    },
-
     _downHandler: function(event) {
-      if (!this._eventSourceIsPrimaryInput(event)) {
-        return;
-      }
-
       this._setPointerDown(true);
       this._setPressed(true);
       this._setReceivedFocusFromKeyboard(false);
@@ -10565,94 +10831,27 @@ To change the panel container in different modes:
   ];
 
 </script>
-<script>
-
-  /** @polymerBehavior */
-  Polymer.PaperButtonBehaviorImpl = {
-
-    properties: {
-
-      _elevation: {
-        type: Number
-      }
-
-    },
-
-    observers: [
-      '_calculateElevation(focused, disabled, active, pressed, receivedFocusFromKeyboard)'
-    ],
-
-    hostAttributes: {
-      role: 'button',
-      tabindex: '0'
-    },
-
-    _calculateElevation: function() {
-      var e = 1;
-      if (this.disabled) {
-        e = 0;
-      } else if (this.active || this.pressed) {
-        e = 4;
-      } else if (this.receivedFocusFromKeyboard) {
-        e = 3;
-      }
-      this._elevation = e;
-    }
-  };
-
-  /** @polymerBehavior */
-  Polymer.PaperButtonBehavior = [
-    Polymer.IronButtonState,
-    Polymer.IronControlState,
-    Polymer.PaperButtonBehaviorImpl
-  ];
-
-</script>
-<script>
-
-  /**
-   * `Polymer.PaperInkyFocusBehavior` implements a ripple when the element has keyboard focus.
-   *
-   * @polymerBehavior Polymer.PaperInkyFocusBehavior
-   */
-  Polymer.PaperInkyFocusBehaviorImpl = {
-
-    observers: [
-      '_focusedChanged(receivedFocusFromKeyboard)'
-    ],
-
-    _focusedChanged: function(receivedFocusFromKeyboard) {
-      if (!this.$.ink) {
-        return;
-      }
-
-      this.$.ink.holdDown = receivedFocusFromKeyboard;
-    }
-
-  };
-
-  /** @polymerBehavior Polymer.PaperInkyFocusBehavior */
-  Polymer.PaperInkyFocusBehavior = [
-    Polymer.IronButtonState,
-    Polymer.IronControlState,
-    Polymer.PaperInkyFocusBehaviorImpl
-  ];
-
-</script>
 <!--
+Material design: [Surface reaction](https://www.google.com/design/spec/animation/responsive-interaction.html#responsive-interaction-surface-reaction)
+
 `paper-ripple` provides a visual effect that other paper elements can
 use to simulate a rippling effect emanating from the point of contact.  The
 effect can be visualized as a concentric circle with motion.
 
 Example:
 
-    <paper-ripple></paper-ripple>
+    <div style="position:relative">
+      <paper-ripple></paper-ripple>
+    </div>
+
+Note, it's important that the parent container of the ripple be relative position, otherwise
+the ripple will emanate outside of the desired container. 
 
 `paper-ripple` listens to "mousedown" and "mouseup" events so it would display ripple
 effect when touches on it.  You can also defeat the default behavior and
 manually route the down and up actions to the ripple element.  Note that it is
-important if you call downAction() you will have to make sure to call
-upAction() so that `paper-ripple` would end the animation loop.
+important if you call `downAction()` you will have to make sure to call
+`upAction()` so that `paper-ripple` would end the animation loop.
 
 Example:
 
@@ -10695,8 +10894,237 @@ Apply `circle` class to make the rippling effect within a circle.
 @demo demo/index.html
 -->
 
+<script>
+
+  /** 
+   * `Polymer.PaperRippleBehavior` dynamically implements a ripple 
+   * when the element has focus via pointer or keyboard.
+   *
+   * NOTE: This behavior is intended to be used in conjunction with and after
+   * `Polymer.IronButtonState` and `Polymer.IronControlState`.
+   *
+   * @polymerBehavior Polymer.PaperRippleBehavior 
+   */
+  Polymer.PaperRippleBehavior = {
+
+    properties: {
+      /**
+       * If true, the element will not produce a ripple effect when interacted
+       * with via the pointer.
+       */
+      noink: {
+        type: Boolean,
+        observer: '_noinkChanged'
+      }
+    },
+
+    /**
+     * Ensures a `<paper-ripple>` element is available when the element is 
+     * focused.
+     */
+    _buttonStateChanged: function() {
+      if (this.focused) {
+        this.ensureRipple();
+      }
+    },
+
+    /** 
+     * In addition to the functionality provided in `IronButtonState`, ensures
+     * a ripple effect is created when the element is in a `pressed` state.
+     */
+    _downHandler: function(event) {
+      Polymer.IronButtonStateImpl._downHandler.call(this, event);
+      if (this.pressed) {
+        this.ensureRipple(event);
+      }
+    },
+
+    /**
+     * Ensures this element contains a ripple effect. For startup efficiency 
+     * the ripple effect is dynamically on demand when needed.
+     * @param {event} triggeringEvent (optional) event that triggered the 
+     * ripple.
+     */
+    ensureRipple: function(triggeringEvent) {
+      if (!this.hasRipple()) {
+        this._ripple = this._createRipple();
+        this._ripple.noink = this.noink;
+        var rippleContainer = this._rippleContainer || this.root;
+        if (rippleContainer) {
+          Polymer.dom(rippleContainer).appendChild(this._ripple);
+        }
+        var domContainer = rippleContainer === this.shadyRoot ? this : 
+          rippleContainer;
+        if (triggeringEvent && domContainer.contains(triggeringEvent.target)) {
+          this._ripple.uiDownAction(triggeringEvent);
+        }
+      }
+    },
+
+    /**
+     * Returns the `<paper-ripple>` element used by this element to create
+     * ripple effects. The element's ripple is created on demand, when
+     * necessary, and calling this method will force the 
+     * ripple to be created.
+     */
+    getRipple: function() {
+      this.ensureRipple();
+      return this._ripple;
+    },
+
+    /**
+     * Returns true if this element currently contains a ripple effect.
+     * @return {boolean}
+     */
+    hasRipple: function() {
+      return Boolean(this._ripple);
+    },
+
+    /**
+     * Create the element's ripple effect via creating a `<paper-ripple>`.
+     * Override this method to customize the ripple element.
+     * @return {element} Returns a `<paper-ripple>` element.
+     */
+    _createRipple: function() {
+      return document.createElement('paper-ripple');
+    },
+
+    _noinkChanged: function(noink) {
+      if (this.hasRipple()) {
+        this._ripple.noink = noink;
+      }
+    }
+
+  };
+
+</script>
+<script>
+
+  /** @polymerBehavior Polymer.PaperButtonBehavior */
+  Polymer.PaperButtonBehaviorImpl = {
+
+    properties: {
+
+      /**
+       * The z-depth of this element, from 0-5. Setting to 0 will remove the
+       * shadow, and each increasing number greater than 0 will be "deeper"
+       * than the last.
+       *
+       * @attribute elevation
+       * @type number
+       * @default 1
+       */
+      elevation: {
+        type: Number,
+        reflectToAttribute: true,
+        readOnly: true
+      }
+
+    },
+
+    observers: [
+      '_calculateElevation(focused, disabled, active, pressed, receivedFocusFromKeyboard)',
+      '_computeKeyboardClass(receivedFocusFromKeyboard)'
+    ],
+
+    hostAttributes: {
+      role: 'button',
+      tabindex: '0',
+      animated: true
+    },
+
+    _calculateElevation: function() {
+      var e = 1;
+      if (this.disabled) {
+        e = 0;
+      } else if (this.active || this.pressed) {
+        e = 4;
+      } else if (this.receivedFocusFromKeyboard) {
+        e = 3;
+      }
+      this._setElevation(e);
+    },
+
+    _computeKeyboardClass: function(receivedFocusFromKeyboard) {
+      this.classList.toggle('keyboard-focus', receivedFocusFromKeyboard);
+    },
+
+    /**
+     * In addition to `IronButtonState` behavior, when space key goes down, 
+     * create a ripple down effect.
+     */
+    _spaceKeyDownHandler: function(event) {
+      Polymer.IronButtonStateImpl._spaceKeyDownHandler.call(this, event);
+      if (this.hasRipple()) {
+        this._ripple.uiDownAction();
+      }
+    },
+
+    /**
+     * In addition to `IronButtonState` behavior, when space key goes up, 
+     * create a ripple up effect.
+     */
+    _spaceKeyUpHandler: function(event) {
+      Polymer.IronButtonStateImpl._spaceKeyUpHandler.call(this, event);
+      if (this.hasRipple()) {
+        this._ripple.uiUpAction();
+      }
+    }
+
+  };
+
+  /** @polymerBehavior */
+  Polymer.PaperButtonBehavior = [
+    Polymer.IronButtonState,
+    Polymer.IronControlState,
+    Polymer.PaperRippleBehavior,
+    Polymer.PaperButtonBehaviorImpl
+  ];
+
+</script>
+<script>
+
+  /**
+   * `Polymer.PaperInkyFocusBehavior` implements a ripple when the element has keyboard focus.
+   *
+   * @polymerBehavior Polymer.PaperInkyFocusBehaviorImpl
+   */
+  Polymer.PaperInkyFocusBehaviorImpl = {
+
+    observers: [
+      '_focusedChanged(receivedFocusFromKeyboard)'
+    ],
+
+    _focusedChanged: function(receivedFocusFromKeyboard) {
+      if (receivedFocusFromKeyboard) {
+        this.ensureRipple();
+      }
+      if (this.hasRipple()) {
+        this._ripple.holdDown = receivedFocusFromKeyboard;
+      }
+    },
+
+    _createRipple: function() {
+      var ripple = Polymer.PaperRippleBehavior._createRipple();
+      ripple.id = 'ink';
+      ripple.setAttribute('center', '');
+      ripple.classList.add('circle');
+      return ripple;
+    }
+
+  };
+
+  /** @polymerBehavior Polymer.PaperInkyFocusBehavior */
+  Polymer.PaperInkyFocusBehavior = [
+    Polymer.IronButtonState,
+    Polymer.IronControlState,
+    Polymer.PaperRippleBehavior,
+    Polymer.PaperInkyFocusBehaviorImpl
+  ];
+
+</script>
 <!--
-Material Design: <a href="http://www.google.com/design/spec/components/buttons.html">Buttons</a>
+Material design: [Icon toggles](https://www.google.com/design/spec/components/buttons.html#buttons-toggle-buttons)
 
 `paper-icon-button` is a button with an image placed at the center. When the user touches
 the button, a ripple effect emanates from the center of the button.
@@ -10716,7 +11144,7 @@ Example:
     <paper-icon-button icon="favorite"></paper-icon-button>
     <paper-icon-button src="star.png"></paper-icon-button>
 
-###Styling
+### Styling
 
 Style the button with CSS as you would a normal DOM element. If you are using the icons
 provided by `iron-icons`, they will inherit the foreground color of the button.
@@ -10725,21 +11153,14 @@ provided by `iron-icons`, they will inherit the foreground color of the button.
     <paper-icon-button icon="favorite" style="color: red;"></paper-icon-button>
 
 By default, the ripple is the same color as the foreground at 25% opacity. You may
-customize the color using this selector:
-
-    /* make #my-button use a blue ripple instead of foreground color */
-    #my-button::shadow #ripple {
-      color: blue;
-    }
-
-The opacity of the ripple is not customizable via CSS.
+customize the color using the `--paper-icon-button-ink-color` custom property.
 
 The following custom properties and mixins are available for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--paper-icon-button-disabled-text` | The color of the disabled button | `--primary-text-color`
-`--paper-icon-button-ink-color` | Selected/focus ripple color | `--default-primary-color`
+`--paper-icon-button-disabled-text` | The color of the disabled button | `--disabled-text-color`
+`--paper-icon-button-ink-color` | Selected/focus ripple color | `--primary-text-color`
 `--paper-icon-button` | Mixin for a button | `{}`
 `--paper-icon-button-disabled` | Mixin for a disabled button | `{}`
 
@@ -11121,7 +11542,8 @@ intent. Closing generally implies that the user acknowledged the content on the 
 it will cancel whenever the user taps outside it or presses the escape key. This behavior is
 configurable with the `no-cancel-on-esc-key` and the `no-cancel-on-outside-click` properties.
 `close()` should be called explicitly by the implementer when the user interacts with a control
-in the overlay element.
+in the overlay element. When the dialog is canceled, the overlay fires an 'iron-overlay-canceled'
+event. Call `preventDefault` on this event to prevent the overlay from closing.
 
 ### Positioning
 
@@ -11232,7 +11654,7 @@ context. You should place this element as a child of `<body>` whenever possible.
     },
 
     listeners: {
-      'click': '_onClick',
+      'tap': '_onClick',
       'iron-resize': '_onIronResize'
     },
 
@@ -11292,7 +11714,12 @@ context. You should place this element as a child of `<body>` whenever possible.
      * Cancels the overlay.
      */
     cancel: function() {
-      this.opened = false,
+      var cancelEvent = this.fire('iron-overlay-canceled', undefined, {cancelable: true});
+      if (cancelEvent.defaultPrevented) {
+        return;
+      }
+
+      this.opened = false;
       this._setCanceled(true);
     },
 
@@ -11350,8 +11777,16 @@ context. You should place this element as a child of `<body>` whenever possible.
 
     _toggleListener: function(enable, node, event, boundListener, capture) {
       if (enable) {
+        // enable document-wide tap recognizer
+        if (event === 'tap') {
+          Polymer.Gestures.add(document, 'tap', null);
+        }
         node.addEventListener(event, boundListener, capture);
       } else {
+        // disable document-wide tap recognizer
+        if (event === 'tap') {
+          Polymer.Gestures.remove(document, 'tap', null);
+        }
         node.removeEventListener(event, boundListener, capture);
       }
     },
@@ -11362,10 +11797,10 @@ context. You should place this element as a child of `<body>` whenever possible.
       }
       // async so we don't auto-close immediately via a click.
       this._toggleListenersAsync = this.async(function() {
-        this._toggleListener(this.opened, document, 'click', this._boundOnCaptureClick, true);
+        this._toggleListener(this.opened, document, 'tap', this._boundOnCaptureClick, true);
         this._toggleListener(this.opened, document, 'keydown', this._boundOnCaptureKeydown, true);
         this._toggleListenersAsync = null;
-      });
+      }, 1);
     },
 
     // tasks which must occur before opening; e.g. making the element visible
@@ -13203,7 +13638,55 @@ styles. All other styles should exist as single lines."
   ];
 
 </script>
+<script>
+
+  /**
+   * Use `Polymer.PaperCheckedElementBehavior` to implement a custom element
+   * that has a `checked` property similar to `Polymer.IronCheckedElementBehavior`
+   * and is compatible with having a ripple effect.
+   * @polymerBehavior Polymer.PaperCheckedElementBehavior
+   */
+  Polymer.PaperCheckedElementBehaviorImpl = {
+
+    /**
+     * Synchronizes the element's checked state with its ripple effect.
+     */
+    _checkedChanged: function() {
+      Polymer.IronCheckedElementBehaviorImpl._checkedChanged.call(this);
+      if (this.hasRipple()) {
+        if (this.checked) {
+          this._ripple.setAttribute('checked', '');
+        } else {
+          this._ripple.removeAttribute('checked');
+        }
+      }
+    },
+
+    /**
+     * Synchronizes the element's `active` and `checked` state.
+     */
+    _buttonStateChanged: function() {
+      Polymer.PaperRippleBehavior._buttonStateChanged.call(this);
+      if (this.disabled) {
+        return;
+      }
+      if (this.isAttached) {
+        this.checked = this.active;
+      }
+    }
+
+  };
+
+  /** @polymerBehavior Polymer.PaperCheckedElementBehavior */
+  Polymer.PaperCheckedElementBehavior = [
+    Polymer.PaperInkyFocusBehavior,
+    Polymer.IronCheckedElementBehavior,
+    Polymer.PaperCheckedElementBehaviorImpl
+  ];
+
+</script>
 <!--
+Material design: [Checkbox](https://www.google.com/design/spec/components/selection-controls.html#selection-controls-checkbox)
 
 `paper-checkbox` is a button that can be either checked or unchecked.  User
 can tap the checkbox to check or uncheck it.  Usually you use checkboxes
@@ -13619,7 +14102,7 @@ The `aria-labelledby` attribute will be set to the header element, if one exists
     },
 
     listeners: {
-      'click': '_onDialogClick',
+      'tap': '_onDialogClick',
       'iron-overlay-opened': '_onIronOverlayOpened',
       'iron-overlay-closed': '_onIronOverlayClosed'
     },
@@ -13806,8 +14289,7 @@ element.
 -->
 
 <!--
-
-Material Design: <a href="http://www.google.com/design/spec/components/buttons.html">Buttons</a>
+Material design: [Buttons](https://www.google.com/design/spec/components/buttons.html)
 
 `paper-button` is a button. When the user touches the button, a ripple effect emanates
 from the point of contact. It may be flat or raised. A raised button is styled with a
@@ -13815,10 +14297,10 @@ shadow.
 
 Example:
 
-    <paper-button>flat button</paper-button>
-    <paper-button raised>raised button</paper-button>
+    <paper-button>Flat button</paper-button>
+    <paper-button raised>Raised button</paper-button>
     <paper-button noink>No ripple effect</paper-button>
-    <paper-button toggles>toggle-able button</paper-button>
+    <paper-button toggles>Toggle-able button</paper-button>
 
 A button that has `toggles` true will remain `active` after being clicked (and
 will have an `active` attribute set). For more information, see the `Polymer.IronButtonState`
@@ -13836,29 +14318,32 @@ create a button with an icon and some text:
 
 Style the button with CSS as you would a normal DOM element.
 
-    /* make #my-button green with yellow text */
-    #my-button {
-        background: green;
-        color: yellow;
+    paper-button.fancy {
+      background: green;
+      color: yellow;
+    }
+
+    paper-button.fancy:hover {
+      background: lime;
+    }
+
+    paper-button[disabled],
+    paper-button[toggles][active] {
+      background: red;
     }
 
 By default, the ripple is the same color as the foreground at 25% opacity. You may
-customize the color using this selector:
-
-    /* make #my-button use a blue ripple instead of foreground color */
-    #my-button::shadow paper-ripple {
-      color: blue;
-    }
-
-The opacity of the ripple is not customizable via CSS.
+customize the color using the `--paper-button-ink-color` custom property.
 
 The following custom properties and mixins are also available for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--paper-button-flat-focus-color` | Background color of a focused flat button | `--paper-grey-200`
+`--paper-button-ink-color` | Background color of the ripple | `Based on the button's color`
 `--paper-button` | Mixin applied to the button | `{}`
-`--paper-button-disabled` | Mixin applied to the disabled button | `{}`
+`--paper-button-disabled` | Mixin applied to the disabled button. Note that you can also use the `paper-button[disabled]` selector | `{}`
+`--paper-button-flat-keyboard-focus` | Mixin applied to a flat button after it's been focused using the keyboard | `{}`
+`--paper-button-raised-keyboard-focus` | Mixin applied to a raised button after it's been focused using the keyboard | `{}`
 
 @demo demo/index.html
 -->
@@ -14407,6 +14892,20 @@ is separate from validation, and `allowed-pattern` does not affect how the input
         value: 'off'
       },
 
+      /**
+       * Bind this to the `<input is="iron-input">`'s `autosave` property, used with type=search.
+       */
+      autosave: {
+        type: String
+      },
+
+      /**
+       * Bind this to the `<input is="iron-input">`'s `results` property, , used with type=search.
+       */
+      results: {
+        type: Number
+      },
+
       _ariaDescribedBy: {
         type: String,
         value: ''
@@ -14716,6 +15215,14 @@ for `suffix`).
       <paper-icon-button suffix icon="clear"></paper-icon-button>
     </paper-input>
 
+A `paper-input` can use the native `type=search` features. However, since
+we can't control the native styling of the input, it's recommended to use
+a placeholder text, or `always-float-label`, as to not overlap the native search icon.
+
+    <paper-input label="search!" type="search"
+        placeholder="search for cats" autosave="test" results="5">
+    </paper-input>
+
 See `Polymer.PaperInputBehavior` for more API docs.
 
 ### Styling
@@ -14814,59 +15321,27 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
 
     listeners: {
       'focus': '_onFocus',
-      'keydown': '_onKeydown'
+      'keydown': '_onKeydown',
+      'iron-items-changed': '_onIronItemsChanged'
     },
 
     keyBindings: {
       'up': '_onUpKey',
       'down': '_onDownKey',
       'esc': '_onEscKey',
-      'enter': '_onEnterKey',
       'shift+tab:keydown': '_onShiftTabDown'
     },
 
-    _updateMultiselectable: function(multi) {
-      if (multi) {
-        this.setAttribute('aria-multiselectable', 'true');
-      } else {
-        this.removeAttribute('aria-multiselectable');
-      }
+    attached: function() {
+      this._resetTabindices();
     },
 
-    _onShiftTabDown: function() {
-      var oldTabIndex;
-
-      Polymer.IronMenuBehaviorImpl._shiftTabPressed = true;
-
-      oldTabIndex = this.getAttribute('tabindex');
-
-      this.setAttribute('tabindex', '-1');
-
-      this.async(function() {
-        this.setAttribute('tabindex', oldTabIndex);
-        Polymer.IronMenuBehaviorImpl._shiftTabPressed = false;
-      // Note: polymer/polymer#1305
-      }, 1);
-    },
-
-    _applySelection: function(item, isSelected) {
-      if (isSelected) {
-        item.setAttribute('aria-selected', 'true');
-      } else {
-        item.removeAttribute('aria-selected');
-      }
-
-      Polymer.IronSelectableBehavior._applySelection.apply(this, arguments);
-    },
-
-    _focusedItemChanged: function(focusedItem, old) {
-      old && old.setAttribute('tabindex', '-1');
-      if (focusedItem) {
-        focusedItem.setAttribute('tabindex', '0');
-        focusedItem.focus();
-      }
-    },
-
+    /**
+     * Selects the given value. If the `multi` property is true, then the selected state of the
+     * `value` will be toggled; otherwise the `value` will be selected.
+     *
+     * @param {string} value the value to select.
+     */
     select: function(value) {
       if (this._defaultFocusAsync) {
         this.cancelAsync(this._defaultFocusAsync);
@@ -14878,6 +15353,152 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       Polymer.IronMultiSelectableBehaviorImpl.select.apply(this, arguments);
     },
 
+    /**
+     * Resets all tabindex attributes to the appropriate value based on the
+     * current selection state. The appropriate value is `0` (focusable) for
+     * the default selected item, and `-1` (not keyboard focusable) for all
+     * other items.
+     */
+    _resetTabindices: function() {
+      var selectedItem = this.multi ? (this.selectedItems && this.selectedItems[0]) : this.selectedItem;
+
+      this.items.forEach(function(item) {
+        item.setAttribute('tabindex', item === selectedItem ? '0' : '-1');
+      }, this);
+    },
+
+    /**
+     * Sets appropriate ARIA based on whether or not the menu is meant to be
+     * multi-selectable.
+     *
+     * @param {boolean} multi True if the menu should be multi-selectable.
+     */
+    _updateMultiselectable: function(multi) {
+      if (multi) {
+        this.setAttribute('aria-multiselectable', 'true');
+      } else {
+        this.removeAttribute('aria-multiselectable');
+      }
+    },
+
+    /**
+     * Given a KeyboardEvent, this method will focus the appropriate item in the
+     * menu (if there is a relevant item, and it is possible to focus it).
+     *
+     * @param {KeyboardEvent} event A KeyboardEvent.
+     */
+    _focusWithKeyboardEvent: function(event) {
+      for (var i = 0, item; item = this.items[i]; i++) {
+        var attr = this.attrForItemTitle || 'textContent';
+        var title = item[attr] || item.getAttribute(attr);
+        if (title && title.trim().charAt(0).toLowerCase() === String.fromCharCode(event.keyCode).toLowerCase()) {
+          this._setFocusedItem(item);
+          break;
+        }
+      }
+    },
+
+    /**
+     * Focuses the previous item (relative to the currently focused item) in the
+     * menu.
+     */
+    _focusPrevious: function() {
+      var length = this.items.length;
+      var index = (Number(this.indexOf(this.focusedItem)) - 1 + length) % length;
+      this._setFocusedItem(this.items[index]);
+    },
+
+    /**
+     * Focuses the next item (relative to the currently focused item) in the
+     * menu.
+     */
+    _focusNext: function() {
+      var index = (Number(this.indexOf(this.focusedItem)) + 1) % this.items.length;
+      this._setFocusedItem(this.items[index]);
+    },
+
+    /**
+     * Mutates items in the menu based on provided selection details, so that
+     * all items correctly reflect selection state.
+     *
+     * @param {Element} item An item in the menu.
+     * @param {boolean} isSelected True if the item should be shown in a
+     * selected state, otherwise false.
+     */
+    _applySelection: function(item, isSelected) {
+      if (isSelected) {
+        item.setAttribute('aria-selected', 'true');
+      } else {
+        item.removeAttribute('aria-selected');
+      }
+
+      Polymer.IronSelectableBehavior._applySelection.apply(this, arguments);
+    },
+
+    /**
+     * Discretely updates tabindex values among menu items as the focused item
+     * changes.
+     *
+     * @param {Element} focusedItem The element that is currently focused.
+     * @param {?Element} old The last element that was considered focused, if
+     * applicable.
+     */
+    _focusedItemChanged: function(focusedItem, old) {
+      old && old.setAttribute('tabindex', '-1');
+      if (focusedItem) {
+        focusedItem.setAttribute('tabindex', '0');
+        focusedItem.focus();
+      }
+    },
+
+    /**
+     * A handler that responds to mutation changes related to the list of items
+     * in the menu.
+     *
+     * @param {CustomEvent} event An event containing mutation records as its
+     * detail.
+     */
+    _onIronItemsChanged: function(event) {
+      var mutations = event.detail;
+      var mutation;
+      var index;
+
+      for (index = 0; index < mutations.length; ++index) {
+        mutation = mutations[index];
+
+        if (mutation.addedNodes.length) {
+          this._resetTabindices();
+          break;
+        }
+      }
+    },
+
+    /**
+     * Handler that is called when a shift+tab keypress is detected by the menu.
+     *
+     * @param {CustomEvent} event A key combination event.
+     */
+    _onShiftTabDown: function(event) {
+      var oldTabIndex;
+
+      Polymer.IronMenuBehaviorImpl._shiftTabPressed = true;
+
+      oldTabIndex = this.getAttribute('tabindex');
+
+      this.setAttribute('tabindex', '-1');
+
+      this.async(function() {
+        this.setAttribute('tabindex', oldTabIndex);
+        Polymer.IronMenuBehaviorImpl._shiftTabPressed = false;
+      // NOTE(cdata): polymer/polymer#1305
+      }, 1);
+    },
+
+    /**
+     * Handler that is called when the menu receives focus.
+     *
+     * @param {FocusEvent} event A focus event.
+     */
     _onFocus: function(event) {
       if (Polymer.IronMenuBehaviorImpl._shiftTabPressed) {
         return;
@@ -14899,62 +15520,48 @@ This element has `role="listitem"` by default. Depending on usage, it may be mor
       }, 100);
     },
 
-    _onUpKey: function() {
+    /**
+     * Handler that is called when the up key is pressed.
+     *
+     * @param {CustomEvent} event A key combination event.
+     */
+    _onUpKey: function(event) {
       // up and down arrows moves the focus
       this._focusPrevious();
     },
 
-    _onDownKey: function() {
+    /**
+     * Handler that is called when the down key is pressed.
+     *
+     * @param {CustomEvent} event A key combination event.
+     */
+    _onDownKey: function(event) {
       this._focusNext();
     },
 
-    _onEscKey: function() {
+    /**
+     * Handler that is called when the esc key is pressed.
+     *
+     * @param {CustomEvent} event A key combination event.
+     */
+    _onEscKey: function(event) {
       // esc blurs the control
       this.focusedItem.blur();
     },
 
-    _onEnterKey: function(event) {
-      // enter activates the item unless it is disabled
-      this._activateFocused(event.detail.keyboardEvent);
-    },
-
+    /**
+     * Handler that is called when a keydown event is detected.
+     *
+     * @param {KeyboardEvent} event A keyboard event.
+     */
     _onKeydown: function(event) {
-      if (this.keyboardEventMatchesKeys(event, 'up down esc enter')) {
+      if (this.keyboardEventMatchesKeys(event, 'up down esc')) {
         return;
       }
 
       // all other keys focus the menu item starting with that character
       this._focusWithKeyboardEvent(event);
-    },
-
-    _focusWithKeyboardEvent: function(event) {
-      for (var i = 0, item; item = this.items[i]; i++) {
-        var attr = this.attrForItemTitle || 'textContent';
-        var title = item[attr] || item.getAttribute(attr);
-        if (title && title.trim().charAt(0).toLowerCase() === String.fromCharCode(event.keyCode).toLowerCase()) {
-          this._setFocusedItem(item);
-          break;
-        }
-      }
-    },
-
-    _activateFocused: function(event) {
-      if (!this.focusedItem.hasAttribute('disabled')) {
-        this._activateHandler(event);
-      }
-    },
-
-    _focusPrevious: function() {
-      var length = this.items.length;
-      var index = (Number(this.indexOf(this.focusedItem)) - 1 + length) % length;
-      this._setFocusedItem(this.items[index]);
-    },
-
-    _focusNext: function() {
-      var index = (Number(this.indexOf(this.focusedItem)) + 1) % this.items.length;
-      this._setFocusedItem(this.items[index]);
     }
-
   };
 
   Polymer.IronMenuBehaviorImpl._shiftTabPressed = false;
@@ -15037,11 +15644,13 @@ of a menu item will also focus it.
     },
 
     _onUpKey: function(event) {
-      this._activateFocused(event.detail.keyboardEvent);
+      this.focusedItem.click();
+      event.detail.keyboardEvent.preventDefault();
     },
 
     _onDownKey: function(event) {
-      this._activateFocused(event.detail.keyboardEvent);
+      this.focusedItem.click();
+      event.detail.keyboardEvent.preventDefault();
     },
 
     _onLeftKey: function() {
@@ -15053,7 +15662,7 @@ of a menu item will also focus it.
     },
 
     _onKeydown: function(event) {
-      if (this.keyboardEventMatchesKeys(event, 'up down left right esc enter')) {
+      if (this.keyboardEventMatchesKeys(event, 'up down left right esc')) {
         return;
       }
 
@@ -15095,6 +15704,8 @@ Custom property | Description | Default
 -->
 
 <!--
+Material design: [Tabs](https://www.google.com/design/spec/components/tabs.html)
+
 `paper-tabs` makes it easy to explore and switch between different views or functional aspects of
 an app, or to browse categorized data sets.
 
@@ -15171,6 +15782,12 @@ Example:
       </div>
     </paper-card>
 
+Example - top card image:
+
+    <paper-card heading="Card Title" image="/path/to/image.png">
+      ...
+    </paper-card>
+    
 ### Accessibility
 
 By default, the `aria-label` will be set to the value of the `heading` attribute.
@@ -15196,7 +15813,7 @@ Custom property | Description | Default
 -->
 
 <!--
-Material Design: <a href="http://www.google.com/design/spec/components/buttons.html">Button</a>
+Material design: [Floating Action Button](https://www.google.com/design/spec/components/buttons-floating-action-button.html)
 
 `paper-fab` is a floating action button. It contains an image placed in the center and
 comes in two sizes: regular size and a smaller size by applying the attribute `mini`. When
@@ -15227,6 +15844,7 @@ Custom property | Description | Default
 `--paper-fab` | Mixin applied to the button | `{}`
 `--paper-fab-mini` | Mixin applied to a mini button | `{}`
 `--paper-fab-disabled` | Mixin applied to a disabled button | `{}`
+`--paper-fab-iron-icon` | Mixin applied to the iron-icon within the button | `{}`
 
 @group Paper Elements
 @demo demo/index.html
@@ -15547,15 +16165,6 @@ Any number of components can use `<google-maps-api>` elements, and the library w
       },
 
       /**
-       * The libraries to load with this map. For more information
-       * see https://developers.google.com/maps/documentation/javascript/libraries.
-       */
-      libraries: {
-        type: String,
-        value: ''
-      },
-
-      /**
        * Version of the Maps API to use.
        */
       version: {
@@ -15598,16 +16207,15 @@ Any number of components can use `<google-maps-api>` elements, and the library w
       /** @private */
       libraryUrl: {
         type: String,
-        computed: '_computeUrl(mapsUrl, version, libraries, apiKey, clientId, language, signedIn)'
+        computed: '_computeUrl(mapsUrl, version, apiKey, clientId, language, signedIn)'
       }
     },
 
-    _computeUrl: function(mapsUrl, version, libraries, apiKey, clientId, language, signedIn) {
+    _computeUrl: function(mapsUrl, version, apiKey, clientId, language, signedIn) {
       var url = mapsUrl + '&v=' + version;
 
-      if (libraries) {
-        url += "&libraries=" + libraries;
-      }
+      // Always load all Maps API libraries.
+      url += '&libraries=drawing,geometry,places,visualization';
 
       if (apiKey && !clientId) {
         url += '&key=' + apiKey;
@@ -15698,7 +16306,7 @@ The `google-map` element renders a Google Map.
 
 <b>Example</b> - with Google directions, using data-binding inside another Polymer element
 
-    <google-map map="{{map}}" libraries="places"></google-map>
+    <google-map map="{{map}}"></google-map>
     <google-map-directions map="{{map}}"
         start-address="San Francisco" end-address="Mountain View">
     </google-map-directions>
@@ -17151,24 +17759,15 @@ if (typeof module !== 'undefined' && typeof exports === 'object') {
 }());
 </script>
 <!--
-Element wrapper for the [marked](https://github.com/chjj/marked) library.
+Element wrapper for the [marked](http://marked.org/) library.
 
-`<marked-element>` accepts Markdown source, and renders it to a child
-element with the class `markdown-html`. This child element can be styled
-as you would a normal DOM element. If you do not provide a child element
-with the `markdown-html` class, the Markdown source will still be rendered,
-but to a shadow DOM child that cannot be styled.
+`<marked-element>` accepts Markdown source either via its `markdown` attribute:
 
-The Markdown source can be specified either via the `markdown` attribute:
-
-    <marked-element markdown="`Markdown` is _awesome_!">
-      <div class="markdown-html"></div>
-    </marked-element>
+    <marked-element markdown="`Markdown` is _awesome_!"></marked-element>
 
 Or, you can provide it via a `<script type="text/markdown">` element child:
 
     <marked-element>
-      <div class="markdown-html"></div>
       <script type="text/markdown">
         Check out my markdown!
 
@@ -17185,19 +17784,6 @@ Or, you can provide it via a `<script type="text/markdown">` element child:
 
 Note that the `<script type="text/markdown">` approach is _static_. Changes to
 the script content will _not_ update the rendered markdown!
-
-### Styling
-If you are using a child with the `markdown-html` class, you can style it
-as you would a regular DOM element:
-
-    .markdown-html p {
-      color: red;
-    }
-
-    .markdown-html td:first-child {
-      padding-left: 24px;
-    }
-
 @element marked-element
 @group Molecules
 @hero hero.svg
@@ -18461,15 +19047,17 @@ Configuration:
     _constructServiceWorkerUrl: function() {
       var paramsPromises = [];
       var children = Polymer.dom(this).children;
+      var baseUri = new URL(this.baseUri, window.location.href);
+
       for (var i = 0; i < children.length; i++) {
         if (typeof children[i]._getParameters === 'function') {
-          paramsPromises.push(children[i]._getParameters(this.baseUri));
+          paramsPromises.push(children[i]._getParameters(baseUri));
         }
       }
 
       return Promise.all(paramsPromises).then(function(paramsResolutions) {
         var params = {
-          baseURI: this.baseUri,
+          baseURI: baseUri,
           version: this._version
         };
 
@@ -19896,11 +20484,14 @@ module.exports = Array.isArray || function (arr) {
           type: String,
           observer: '_srcChanged'
         },
-        
+
+        /**
+         * @type {!Polymer.IronMeta}
+         */
         _meta: {
           value: Polymer.Base.create('iron-meta', {type: 'iconset'})
         }
-        
+
       },
 
       _DEFAULT_ICONSET: 'icons',
@@ -19924,12 +20515,13 @@ module.exports = Array.isArray || function (arr) {
       _updateIcon: function() {
         if (this._usesIconset()) {
           if (this._iconsetName) {
-            this._iconset = this._meta.byKey(this._iconsetName);
+            this._iconset = /** @type {?Polymer.Iconset} */ (
+              this._meta.byKey(this._iconsetName));
             if (this._iconset) {
               this._iconset.applyIcon(this, this._iconName, this.theme);
+              this.unlisten(window, 'iron-iconset-added', '_updateIcon');
             } else {
-              this._warn(this._logf('_updateIcon', 'could not find iconset `'
-                + this._iconsetName + '`, did you import the iconset?'));
+              this.listen(window, 'iron-iconset-added', '_updateIcon');
             }
           }
         } else {
@@ -20653,30 +21245,33 @@ module.exports = Array.isArray || function (arr) {
 </defs></svg>
 </iron-iconset-svg>
 <dom-module id="iron-list" assetpath="../bower_components/iron-list/">
-  <style>
-
-    :host {
-      display: block;
-    }
-
-    :host(.has-scroller) {
-      overflow: auto;
-    }
-
-    #items {
-      position: relative;
-    }
-
-    #items > ::content > * {
-      width: 100%;
-      box-sizing: border-box;
-      position: absolute;
-      top: 0;
-      will-change: transform;
-    }
-
-  </style>
   <template>
+    <style>
+      :host {
+        display: block;
+      }
+  
+      :host(.has-scroller) {
+        overflow: auto;
+      }
+  
+      :host(:not(.has-scroller)) {
+        position: relative;
+      }
+  
+      #items {
+        @apply(--iron-list-items-container);
+        position: relative;
+      }
+  
+      #items > ::content > * {
+        width: 100%;
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        will-change: transform;
+      }
+    </style>
 
     <array-selector id="selector" items="{{items}}" selected="{{selectedItems}}" selected-item="{{selectedItem}}">
     </array-selector>
@@ -20796,12 +21391,13 @@ module.exports = Array.isArray || function (arr) {
 
     /**
      * The ratio of hidden tiles that should remain in the scroll direction.
-     * Recommended value ≈ 0.5, so it will distribute tiles evely in both directions.
+     * Recommended value ~0.5, so it will distribute tiles evely in both directions.
      */
     _ratio: 0.5,
 
     /**
      * The element that controls the scroll
+     * @type {?Element}
      */
     _scroller: null,
 
@@ -20867,9 +21463,14 @@ module.exports = Array.isArray || function (arr) {
     _physicalIndexForKey: null,
 
     /**
-     * The average scroll size
+     * The estimated scroll height based on `_physicalAverage`
      */
-    _scrollSize: 0,
+    _estScrollHeight: 0,
+
+    /**
+     * The scroll height of the dom node
+     */
+    _scrollHeight: 0,
 
     /**
      * The size of the viewport
@@ -20878,22 +21479,26 @@ module.exports = Array.isArray || function (arr) {
 
     /**
      * An array of DOM nodes that are currently in the tree
+     * @type {?Array<!TemplatizerNode>}
      */
     _physicalItems: null,
 
     /**
      * An array of heights for each item in `_physicalItems`
+     * @type {?Array<number>}
      */
     _physicalSizes: null,
 
     /**
      * A cached value for the visible index.
      * See `firstVisibleIndex`
+     * @type {?number}
      */
     _firstVisibleIndexVal: null,
 
     /**
      * A Polymer collection for the items.
+     * @type {?Polymer.Collection}
      */
     _collection: null,
 
@@ -20941,7 +21546,7 @@ module.exports = Array.isArray || function (arr) {
      * The maximum scroll top value.
      */
     get _maxScrollTop() {
-      return this._scrollSize - this._viewportSize;
+      return this._estScrollHeight - this._viewportSize;
     },
 
     /**
@@ -20982,7 +21587,7 @@ module.exports = Array.isArray || function (arr) {
     /**
      * Gets the first visible item in the viewport.
      *
-     * @property firstVisibleIndex
+     * @type {number}
      */
     get firstVisibleIndex() {
       var physicalOffset;
@@ -21021,8 +21626,9 @@ module.exports = Array.isArray || function (arr) {
       // e.g. paper-scroll-header-panel
       var el = Polymer.dom(this);
 
-      if (el.parentNode && el.parentNode.scroller) {
-        this._scroller = el.parentNode.scroller;
+      var parentNode = /** @type {?{scroller: ?Element}} */ (el.parentNode);
+      if (parentNode && parentNode.scroller) {
+        this._scroller = parentNode.scroller;
       } else {
         this._scroller = this;
         this.classList.add('has-scroller');
@@ -21056,7 +21662,7 @@ module.exports = Array.isArray || function (arr) {
      */
     updateViewportBoundaries: function() {
       var scrollerStyle = window.getComputedStyle(this._scroller);
-      this._scrollerPaddingTop = parseInt(scrollerStyle['padding-top']);
+      this._scrollerPaddingTop = parseInt(scrollerStyle['padding-top'], 10);
       this._viewportSize = this._scroller.offsetHeight;
     },
 
@@ -21168,14 +21774,15 @@ module.exports = Array.isArray || function (arr) {
 
     /**
      * Update the list of items, starting from the `_virtualStartVal` item.
+     * @param {!Array<number>=} itemSet
+     * @param {!Array<number>=} movingUp
      */
     _update: function(itemSet, movingUp) {
       // update models
       this._assignModels(itemSet);
 
       // measure heights
-      // TODO(blasten) pass `recycledTileSet`
-      this._updateMetrics();
+      this._updateMetrics(itemSet);
 
       // adjust offset after measuring
       if (movingUp) {
@@ -21183,7 +21790,6 @@ module.exports = Array.isArray || function (arr) {
           this._physicalTop -= this._physicalSizes[movingUp.pop()];
         }
       }
-
       // update the position of the items
       this._positionItems();
 
@@ -21191,9 +21797,9 @@ module.exports = Array.isArray || function (arr) {
       this._updateScrollerSize();
 
       // increase the pool of physical items if needed
-      if (itemSet = this._increasePoolIfNeeded()) {
+      if (this._increasePoolIfNeeded()) {
         // set models to the new items
-        this.async(this._update.bind(this, itemSet));
+        this.async(this._update);
       }
     },
 
@@ -21223,11 +21829,11 @@ module.exports = Array.isArray || function (arr) {
      * (limited by `MAX_PHYSICAL_COUNT`) if the content size is shorter than
      * `_optPhysicalSize`
      *
-     * @return Array
+     * @return boolean
      */
     _increasePoolIfNeeded: function() {
       if (this._physicalSize >= this._optPhysicalSize || this._physicalAverage === 0) {
-        return null;
+        return false;
       }
 
       // the estimated number of physical items that we will need to reach
@@ -21247,7 +21853,7 @@ module.exports = Array.isArray || function (arr) {
       var delta = nextPhysicalCount - prevPhysicalCount;
 
       if (delta <= 0) {
-        return null;
+        return false;
       }
 
       var newPhysicalItems = this._createPool(delta);
@@ -21257,13 +21863,8 @@ module.exports = Array.isArray || function (arr) {
       [].push.apply(this._physicalSizes, emptyArray);
 
       this._physicalCount = prevPhysicalCount + delta;
-
-      // fill the array with the new item pos
-      while (delta > 0) {
-        emptyArray[--delta] = prevPhysicalCount + delta;
-      }
-
-      return emptyArray;
+ 
+      return true;
     },
 
     /**
@@ -21370,6 +21971,10 @@ module.exports = Array.isArray || function (arr) {
       }
     },
 
+    /**
+     * Called when the items have changed. That is, ressignments
+     * to `items`, splices or updates to a single item.
+     */
     _itemsChanged: function(change) {
       if (change.path === 'items') {
         // render the new set
@@ -21409,6 +22014,9 @@ module.exports = Array.isArray || function (arr) {
       }
     },
 
+    /**
+     * @param {!Array<!PolymerSplice>} splices
+     */
     _adjustVirtualIndex: function(splices) {
       var i, splice, idx;
 
@@ -21433,6 +22041,13 @@ module.exports = Array.isArray || function (arr) {
       this._refresh();
     },
 
+    /**
+     * Executes a provided function per every physical index in `itemSet`
+     * `itemSet` default value is equivalent to the entire set of physical indexes.
+     * 
+     * @param {!function(number, number)} fn
+     * @param {!Array<number>=} itemSet
+     */
     _iterateItems: function(fn, itemSet) {
       var pidx, vidx, rtn, i;
 
@@ -21468,6 +22083,10 @@ module.exports = Array.isArray || function (arr) {
       }
     },
 
+    /**
+     * Assigns the data models to a given set of items.
+     * @param {!Array<number>=} itemSet
+     */
     _assignModels: function(itemSet) {
       this._iterateItems(function(pidx, vidx) {
         var el = this._physicalItems[pidx];
@@ -21477,7 +22096,8 @@ module.exports = Array.isArray || function (arr) {
         if (item) {
           inst[this.as] = item;
           inst.__key__ = this._collection.getKey(item);
-          inst[this.selectedAs] = this.$.selector.isSelected(item);
+          inst[this.selectedAs] =
+            /** @type {!ArraySelectorElement} */ (this.$.selector).isSelected(item);
           inst[this.indexAs] = vidx;
           el.removeAttribute('hidden');
           this._physicalIndexForKey[inst.__key__] = pidx;
@@ -21489,32 +22109,42 @@ module.exports = Array.isArray || function (arr) {
       }, itemSet);
     },
 
-    _updateMetrics: function() {
-      var total = 0;
+    /**
+     * Updates the height for a given set of items.
+     *
+     * @param {!Array<number>=} itemSet
+     */
+     _updateMetrics: function(itemSet) {
+      var newPhysicalSize = 0;
+      var oldPhysicalSize = 0;
       var prevAvgCount = this._physicalAverageCount;
       var prevPhysicalAvg = this._physicalAverage;
-
       // Make sure we distributed all the physical items
       // so we can measure them
       Polymer.dom.flush();
 
-      for (var i = 0; i < this._physicalCount; i++) {
-        this._physicalSizes[i] = this._physicalItems[i].offsetHeight;
-        total += this._physicalSizes[i];
-        this._physicalAverageCount += this._physicalSizes[i] ? 1 : 0;
-      }
+      this._iterateItems(function(pidx, vidx) {
+        oldPhysicalSize += this._physicalSizes[pidx] || 0;
+        this._physicalSizes[pidx] = this._physicalItems[pidx].offsetHeight;
+        newPhysicalSize += this._physicalSizes[pidx];
+        this._physicalAverageCount += this._physicalSizes[pidx] ? 1 : 0;
+      }, itemSet);
 
-      this._physicalSize = total;
+      this._physicalSize = this._physicalSize + newPhysicalSize - oldPhysicalSize;
       this._viewportSize = this._scroller.offsetHeight;
 
+      // update the average if we measured something
       if (this._physicalAverageCount !== prevAvgCount) {
         this._physicalAverage = Math.round(
-            ((prevPhysicalAvg * prevAvgCount) + total) /
+            ((prevPhysicalAvg * prevAvgCount) + newPhysicalSize) /
             this._physicalAverageCount);
       }
     },
 
-    _positionItems: function(itemSet) {
+    /**
+     * Updates the position of the physical items.
+     */
+    _positionItems: function() {
       this._adjustScrollPosition();
 
       var y = this._physicalTop;
@@ -21524,9 +22154,12 @@ module.exports = Array.isArray || function (arr) {
         this.transform('translate3d(0, ' + y + 'px, 0)', this._physicalItems[pidx]);
         y += this._physicalSizes[pidx];
 
-      }, itemSet);
+      });
     },
 
+    /**
+     * Adjusts the scroll position when it was overestimated.
+     */
     _adjustScrollPosition: function() {
       var deltaHeight = this._virtualStartVal === 0 ? this._physicalTop :
           Math.min(this._scrollPosition + this._physicalTop, 0);
@@ -21541,6 +22174,9 @@ module.exports = Array.isArray || function (arr) {
       }
     },
 
+    /**
+     * Sets the position of the scroll.
+     */
     _resetScrollPosition: function(pos) {
       if (this._scroller) {
         this._scroller.scrollTop = pos;
@@ -21548,11 +22184,23 @@ module.exports = Array.isArray || function (arr) {
       }
     },
 
-    _updateScrollerSize: function() {
-      this._scrollSize = (this._physicalBottom +
+    /**
+     * Sets the scroll height, that's the height of the content,
+     * 
+     * @param {boolean=} forceUpdate If true, updates the height no matter what.
+     */
+    _updateScrollerSize: function(forceUpdate) {
+      this._estScrollHeight = (this._physicalBottom +
           Math.max(this._virtualCount - this._physicalCount - this._virtualStartVal, 0) * this._physicalAverage);
 
-      this.$.items.style.height = this._scrollSize + 'px';
+      forceUpdate = forceUpdate || this._scrollHeight === 0;
+      forceUpdate = forceUpdate || this._scrollPosition >= this._estScrollHeight - this._physicalSize;
+
+      // amortize height adjustment, so it won't trigger repaints very often
+      if (forceUpdate || Math.abs(this._estScrollHeight - this._scrollHeight) >= this._optPhysicalSize) {
+        this.$.items.style.height = this._estScrollHeight + 'px';
+        this._scrollHeight = this._estScrollHeight;
+      }
     },
 
     /**
@@ -21567,7 +22215,6 @@ module.exports = Array.isArray || function (arr) {
         return;
       }
 
-      var itemSet;
       var firstVisible = this.firstVisibleIndex;
 
       idx = Math.min(Math.max(idx, 0), this._virtualCount-1);
@@ -21598,7 +22245,7 @@ module.exports = Array.isArray || function (arr) {
       }
 
       // update the scroller size
-      this._updateScrollerSize();
+      this._updateScrollerSize(true);
 
       // update the position of the items
       this._positionItems();
@@ -21607,9 +22254,9 @@ module.exports = Array.isArray || function (arr) {
       this._resetScrollPosition(this._physicalTop + targetOffsetTop + 1);
 
       // increase the pool of physical items if needed
-      if (itemSet = this._increasePoolIfNeeded()) {
+      if (this._increasePoolIfNeeded()) {
         // set models to the new items
-        this.async(this._update.bind(this, itemSet));
+        this.async(this._update);
       }
 
       // clear cached visible index
@@ -21625,7 +22272,7 @@ module.exports = Array.isArray || function (arr) {
     },
 
     /**
-     * A handler for the `resize` event triggered by `IronResizableBehavior`
+     * A handler for the `iron-resize` event triggered by `IronResizableBehavior`
      * when the element is resized.
      */
     _resizeHandler: function() {
@@ -21650,23 +22297,30 @@ module.exports = Array.isArray || function (arr) {
     },
 
     /**
-     * Select the list item at the given index.
+     * Gets a valid item instance from its index or the object value.
      *
-     * @method selectItem
-     * @param {(Object|number)} item the item object or its index
+     * @param {(Object|number)} item The item object or its index
      */
-    selectItem: function(item) {
+    _getNormalizedItem: function(item) {
       if (typeof item === 'number') {
         item = this.items[item];
         if (!item) {
           throw new RangeError('<item> not found');
         }
-      } else {
-        if (this._collection.getKey(item) === undefined) {
-          throw new TypeError('<item> should be a valid item');
-        }
+      } else if (this._collection.getKey(item) === undefined) {
+        throw new TypeError('<item> should be a valid item');
       }
+      return item;
+    },
 
+    /**
+     * Select the list item at the given index.
+     *
+     * @method selectItem
+     * @param {(Object|number)} item The item object or its index
+     */
+    selectItem: function(item) {
+      item = this._getNormalizedItem(item);
       var model = this._getModelFromItem(item);
 
       if (!this.multiSelection && this.selectedItem) {
@@ -21681,21 +22335,12 @@ module.exports = Array.isArray || function (arr) {
     /**
      * Deselects the given item list if it is already selected.
      *
+
      * @method deselect
-     * @param {(Object|number)} item the item object or its index
+     * @param {(Object|number)} item The item object or its index
      */
     deselectItem: function(item) {
-      if (typeof item === 'number') {
-        item = this.items[item];
-        if (!item) {
-          throw new RangeError('<item> not found');
-        }
-      } else {
-        if (this._collection.getKey(item) === undefined) {
-          throw new TypeError('<item> should be a valid item');
-        }
-      }
-
+      item = this._getNormalizedItem(item);
       var model = this._getModelFromItem(item);
 
       if (model) {
@@ -21709,11 +22354,11 @@ module.exports = Array.isArray || function (arr) {
      * has already been selected.
      *
      * @method toggleSelectionForItem
-     * @param {(Object|number)} item the item object or its index
+     * @param {(Object|number)} item The item object or its index
      */
     toggleSelectionForItem: function(item) {
-      var item = typeof item === 'number' ? this.items[item] : item;
-      if (this.$.selector.isSelected(item)) {
+      item = this._getNormalizedItem(item);
+      if (/** @type {!ArraySelectorElement} */ (this.$.selector).isSelected(item)) {
         this.deselectItem(item);
       } else {
         this.selectItem(item);
@@ -21738,8 +22383,8 @@ module.exports = Array.isArray || function (arr) {
       } else if (this.selectedItem) {
         unselect.call(this, this.selectedItem);
       }
-     
-      this.$.selector.clearSelection();    
+
+      /** @type {!ArraySelectorElement} */ (this.$.selector).clearSelection();
     },
 
     /**
@@ -21749,8 +22394,10 @@ module.exports = Array.isArray || function (arr) {
     _selectionEnabledChanged: function(selectionEnabled) {
       if (selectionEnabled) {
         this.listen(this, 'tap', '_selectionHandler');
+        this.listen(this, 'keypress', '_selectionHandler');
       } else {
         this.unlisten(this, 'tap', '_selectionHandler');
+        this.unlisten(this, 'keypress', '_selectionHandler');
       }
     },
 
@@ -21758,15 +22405,34 @@ module.exports = Array.isArray || function (arr) {
      * Select an item from an event object.
      */
     _selectionHandler: function(e) {
-      var model = this.modelForElement(e.target);
-      if (model) {
-        this.toggleSelectionForItem(model[this.as]);
+      if (e.type !== 'keypress' || e.keyCode === 13) {
+        var model = this.modelForElement(e.target);
+        if (model) {
+          this.toggleSelectionForItem(model[this.as]);
+        }
       }
     },
 
     _multiSelectionChanged: function(multiSelection) {
       this.clearSelection();
       this.$.selector.multi = multiSelection;
+    },
+
+    /**
+     * Updates the size of an item.
+     *
+     * @method updateSizeForItem
+     * @param {(Object|number)} item The item object or its index
+     */
+    updateSizeForItem: function(item) {
+      item = this._getNormalizedItem(item);
+      var key = this._collection.getKey(item);
+      var pidx = this._physicalIndexForKey[key];
+
+      if (pidx !== undefined) {
+        this._updateMetrics([pidx]);
+        this._positionItems();
+      }
     }
   });
 
@@ -23777,6 +24443,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           observer: '_holdDownChanged'
         },
 
+        /**
+         * If true, the ripple will not generate a ripple effect 
+         * via pointer interaction.
+         * Calling ripple's imperative api like `simulatedRipple` will 
+         * still generate the ripple effect.
+         */
+        noink: {
+          type: Boolean,
+          value: false
+        },
+
         _animating: {
           type: Boolean
         },
@@ -23788,6 +24465,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         }
       },
+
+      observers: [
+        '_noinkChanged(noink, isAttached)'
+      ],
 
       get target () {
         var ownerRoot = Polymer.dom(this).getOwnerRoot();
@@ -23809,12 +24490,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       attached: function() {
-        this.listen(this.target, 'up', 'upAction');
-        this.listen(this.target, 'down', 'downAction');
+        this.listen(this.target, 'up', 'uiUpAction');
+        this.listen(this.target, 'down', 'uiDownAction');
+      },
 
-        if (!this.target.hasAttribute('noink')) {
-          this.keyEventTarget = this.target;
-        }
+      detached: function() {
+        this.unlisten(this.target, 'up', 'uiUpAction');
+        this.unlisten(this.target, 'down', 'uiDownAction');
       },
 
       get shouldKeepAnimating () {
@@ -23836,7 +24518,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }, 1);
       },
 
-      /** @param {Event=} event */
+      /** 
+       * Provokes a ripple down effect via a UI event, 
+       * respecting the `noink` property.
+       * @param {Event=} event 
+       */
+      uiDownAction: function(event) {
+        if (!this.noink) {
+          this.downAction(event);
+        }
+      },
+
+      /** 
+       * Provokes a ripple down effect via a UI event, 
+       * *not* respecting the `noink` property.
+       * @param {Event=} event 
+       */
       downAction: function(event) {
         if (this.holdDown && this.ripples.length > 0) {
           return;
@@ -23851,7 +24548,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      /** @param {Event=} event */
+      /** 
+       * Provokes a ripple up effect via a UI event, 
+       * respecting the `noink` property.
+       * @param {Event=} event 
+       */
+      uiUpAction: function(event) {
+        if (!this.noink) {
+          this.upAction(event);
+        }
+      },
+
+      /** 
+       * Provokes a ripple up effect via a UI event, 
+       * *not* respecting the `noink` property.
+       * @param {Event=} event 
+       */
       upAction: function(event) {
         if (this.holdDown) {
           return;
@@ -23924,114 +24636,130 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _onEnterKeydown: function() {
-        this.downAction();
-        this.async(this.upAction, 1);
+        this.uiDownAction();
+        this.async(this.uiUpAction, 1);
       },
 
       _onSpaceKeydown: function() {
-        this.downAction();
+        this.uiDownAction();
       },
 
       _onSpaceKeyup: function() {
-        this.upAction();
+        this.uiUpAction();
       },
 
-      _holdDownChanged: function(holdDown) {
-        if (holdDown) {
+      // note: holdDown does not respect noink since it can be a focus based
+      // effect.
+      _holdDownChanged: function(newVal, oldVal) {
+        if (oldVal === undefined) {
+          return;
+        }
+        if (newVal) {
           this.downAction();
         } else {
           this.upAction();
+        }
+      },
+
+      _noinkChanged: function(noink, attached) {
+        if (attached) {
+          this.keyEventTarget = noink ? this : this.target;
         }
       }
     });
   })();
 </script>
 <dom-module id="paper-icon-button" assetpath="../bower_components/paper-icon-button/">
-  <style>
+  <template strip-whitespace="">
+    <style>
+      :host {
+        display: inline-block;
+        position: relative;
+        padding: 8px;
+        outline: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        z-index: 0;
 
-    :host {
-      display: inline-block;
-      position: relative;
-      padding: 8px;
-      outline: none;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      cursor: pointer;
-      z-index: 0;
+        width: 24px;
+        @apply(--paper-icon-button);
+      }
 
-      @apply(--paper-icon-button);
-    }
+      :host #ink {
+        color: var(--paper-icon-button-ink-color, --primary-text-color);
+        opacity: 0.6;
+      }
 
-    :host #ink {
-      color: var(--paper-icon-button-ink-color, --primary-text-color);
-      opacity: 0.6;
-    }
+      :host([disabled]) {
+        color: var(--paper-icon-button-disabled-text, --disabled-text-color);
+        pointer-events: none;
+        cursor: auto;
+        @apply(--paper-icon-button-disabled);
+      }
 
-    :host([disabled]) {
-      color: var(--paper-icon-button-disabled-text, --disabled-text-color);
-      pointer-events: none;
-      cursor: auto;
-      @apply(--paper-icon-button-disabled);
-    }
-  </style>
-  <template>
-    <paper-ripple id="ink" class="circle" center=""></paper-ripple>
+      iron-icon {
+        --iron-icon-width: 100%;
+        --iron-icon-height: 100%;
+      }
+    </style>
     <iron-icon id="icon" src="[[src]]" icon="[[icon]]" alt$="[[alt]]"></iron-icon>
   </template>
+
+  <script>
+    Polymer({
+      is: 'paper-icon-button',
+
+      hostAttributes: {
+        role: 'button',
+        tabindex: '0'
+      },
+
+      behaviors: [
+        Polymer.PaperInkyFocusBehavior
+      ],
+
+      properties: {
+        /**
+         * The URL of an image for the icon. If the src property is specified,
+         * the icon property should not be.
+         */
+        src: {
+          type: String
+        },
+
+        /**
+         * Specifies the icon name or index in the set of icons available in
+         * the icon's icon set. If the icon property is specified,
+         * the src property should not be.
+         */
+        icon: {
+          type: String
+        },
+
+        /**
+         * Specifies the alternate text for the button, for accessibility.
+         */
+        alt: {
+          type: String,
+          observer: "_altChanged"
+        }
+      },
+
+      _altChanged: function(newValue, oldValue) {
+        var label = this.getAttribute('aria-label');
+
+        // Don't stomp over a user-set aria-label.
+        if (!label || oldValue == label) {
+          this.setAttribute('aria-label', newValue);
+        }
+      }
+    });
+  </script>
 </dom-module>
-<script>
-  Polymer({
-    is: 'paper-icon-button',
-
-    hostAttributes: {
-      role: 'button',
-      tabindex: '0'
-    },
-
-    behaviors: [
-      Polymer.PaperInkyFocusBehavior
-    ],
-
-    properties: {
-      /**
-       * The URL of an image for the icon. If the src property is specified,
-       * the icon property should not be.
-       */
-      src: {
-        type: String
-      },
-
-      /**
-       * Specifies the icon name or index in the set of icons available in
-       * the icon's icon set. If the icon property is specified,
-       * the src property should not be.
-       */
-      icon: {
-        type: String
-      },
-
-      /**
-       * Specifies the alternate text for the button, for accessibility.
-       */
-      alt: {
-        type: String,
-        observer: "_altChanged"
-      }
-    },
-
-    _altChanged: function(newValue, oldValue) {
-      var label = this.getAttribute('aria-label');
-
-      // Don't stomp over a user-set aria-label.
-      if (!label || oldValue == label) {
-        this.setAttribute('aria-label', newValue);
-      }
-    }
-  });
-</script>
 <dom-module id="iron-overlay-backdrop" assetpath="../bower_components/iron-overlay-behavior/">
 
   <style>
@@ -24255,6 +24983,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
 
           /**
+           * By default, the dropdown will constrain scrolling on the page
+           * to itself when opened.
+           * Set to true in order to prevent scroll from being constrained
+           * to the dropdown when it opens.
+           */
+          allowOutsideScroll: {
+            type: Boolean,
+            value: false
+          },
+
+          /**
            * We memoize the positionTarget bounding rectangle so that we can
            * limit the number of times it is queried per resize / relayout.
            * @type {?Object}
@@ -24374,7 +25113,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          * Overridden from `IronOverlayBehavior`.
          */
         _renderOpened: function() {
-          Polymer.IronDropdownScrollManager.pushScrollLock(this);
+          if (!this.allowOutsideScroll) {
+            Polymer.IronDropdownScrollManager.pushScrollLock(this);
+          }
+
           if (!this.noAnimations && this.animationConfig && this.animationConfig.open) {
             this.$.contentWrapper.classList.add('animating');
             this.playAnimation('open');
@@ -24906,7 +25648,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   })();
 </script>
 <dom-module id="paper-checkbox" assetpath="../bower_components/paper-checkbox/">
-  <template>
+  <template strip-whitespace="">
     <style>
       :host {
         display: inline-block;
@@ -25058,7 +25800,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div id="checkboxContainer">
-      <paper-ripple id="ink" class="circle" center="" checked$="[[checked]]"></paper-ripple>
       <div id="checkbox" class$="[[_computeCheckboxClass(checked, invalid)]]">
         <div id="checkmark" class$="[[_computeCheckmarkClass(checked)]]"></div>
       </div>
@@ -25072,8 +25813,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'paper-checkbox',
 
       behaviors: [
-        Polymer.PaperInkyFocusBehavior,
-        Polymer.IronCheckedElementBehavior
+        Polymer.PaperCheckedElementBehavior
       ],
 
       hostAttributes: {
@@ -25100,37 +25840,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      attached: function() {
-        this._isReady = true;
-
-        // Don't stomp over a user-set aria-label.
-        if (!this.getAttribute('aria-label')) {
-          this.updateAriaLabel();
-        }
-      },
-
-      /**
-       * Update the checkbox aria-label. This is a temporary workaround not
-       * being able to observe changes in <content>
-       * (see: https://github.com/Polymer/polymer/issues/1773)
-       *
-       * Call this if you manually change the contents of the checkbox
-       * and want the aria-label to match the new contents.
-       */
-      updateAriaLabel: function() {
-        this.setAttribute('aria-label', Polymer.dom(this).textContent.trim());
-      },
-
-      // button-behavior hook
-      _buttonStateChanged: function() {
-        if (this.disabled) {
-          return;
-        }
-        if (this._isReady) {
-          this.checked = this.active;
-        }
-      },
-
       _computeCheckboxClass: function(checked, invalid) {
         var className = '';
         if (checked) {
@@ -25144,7 +25853,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _computeCheckmarkClass: function(checked) {
         return checked ? '' : 'hidden';
+      },
+
+      // create ripple inside the checkboxContainer
+      _createRipple: function() {
+        this._rippleContainer = this.$.checkboxContainer;
+        return Polymer.PaperInkyFocusBehaviorImpl._createRipple.call(this);
       }
+
     });
   </script>
 </dom-module>
@@ -25471,11 +26187,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 :host {
   display: block;
   margin: 24px 40px;
+  -webkit-overflow-scrolling: touch;
 
   background: var(--paper-dialog-background-color, --primary-background-color);
   color: var(--paper-dialog-color, --primary-text-color);
 
-  @apply(--layout-scroll);
   @apply(--paper-font-body1);
   @apply(--shadow-elevation-16dp);
   @apply(--paper-dialog);
@@ -25570,9 +26286,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 </script>
 <dom-module id="paper-button" assetpath="../bower_components/paper-button/">
-  <template>
+  <template strip-whitespace="">
 
-    <style>
+    <style include="paper-material">
       :host {
         display: inline-block;
         position: relative;
@@ -25591,12 +26307,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         user-select: none;
         cursor: pointer;
         z-index: 0;
+        padding: 0.7em 0.57em;
 
         @apply(--paper-button);
       }
 
-      .keyboard-focus {
+      :host([raised].keyboard-focus) {
         font-weight: bold;
+        @apply(--paper-button-raised-keyboard-focus);
+      }
+
+      :host(:not([raised]).keyboard-focus) {
+        font-weight: bold;
+        @apply(--paper-button-flat-keyboard-focus);
       }
 
       :host([disabled]) {
@@ -25608,29 +26331,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         @apply(--paper-button-disabled);
       }
 
-      :host([noink]) paper-ripple {
-        display: none;
+      paper-ripple {
+        color: var(--paper-button-ink-color);
       }
 
-      paper-material {
-        border-radius: inherit;
-      }
-
-      .content > ::content * {
+      :host > ::content * {
         text-transform: inherit;
       }
-
-      .content {
-        padding: 0.7em 0.57em
-      }
     </style>
-
-    <paper-ripple></paper-ripple>
-
-    <paper-material class$="[[_computeContentClass(receivedFocusFromKeyboard)]]" elevation="[[_elevation]]" animated="">
-      <content></content>
-    </paper-material>
-
+    <content></content>
   </template>
 </dom-module>
 
@@ -25656,18 +26365,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     _calculateElevation: function() {
       if (!this.raised) {
-        this._elevation = 0;
+        this.elevation = 0;
       } else {
         Polymer.PaperButtonBehaviorImpl._calculateElevation.apply(this);
       }
-    },
-
-    _computeContentClass: function(receivedFocusFromKeyboard) {
-      var className = 'content ';
-      if (receivedFocusFromKeyboard) {
-        className += ' keyboard-focus';
-      }
-      return className;
     }
   });
 </script>
@@ -25681,7 +26382,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
 
   <template>
-    <span aria-live$="[[mode]]">[[_text]]</span>
+    <div aria-live$="[[mode]]">[[_text]]</div>
   </template>
 
   <script>
@@ -25996,8 +26697,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .input-content.label-is-floating ::content label,
       .input-content.label-is-floating ::content .paper-input-label {
-        -webkit-transform: translate3d(0, -75%, 0) scale(0.75);
-        transform: translate3d(0, -75%, 0) scale(0.75);
+        -webkit-transform: translateY(-75%) scale(0.75);
+        transform: translateY(-75%) scale(0.75);
         -webkit-transform-origin: left top;
         transform-origin: left top;
         -webkit-transition: -webkit-transform 0.25s;
@@ -26035,6 +26736,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background: transparent;
         border: none;
         color: var(--paper-input-container-input-color, --primary-text-color);
+        -webkit-appearance: none;
 
         @apply(--paper-font-subhead);
         @apply(--paper-input-container-input);
@@ -26132,7 +26834,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       /**
        * True if the input is invalid. This property is set automatically when the input value
-       * changes if auto-validating, or when the `iron-input-valid` event is heard from a child.
+       * changes if auto-validating, or when the `iron-input-validate` event is heard from a child.
        */
       invalid: {
         observer: '_invalidChanged',
@@ -26335,9 +27037,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
           // The label might have a horizontal offset if a prefix element exists
           // which needs to be undone when displayed as a floating label.
-          if (this.$.prefix && label && label.offsetParent &&
-              Polymer.dom(this.$.prefix).getDistributedNodes().length > 0) {
-           label.style.left = -label.offsetParent.offsetLeft + 'px';
+          if (Polymer.dom(this.$.prefix).getDistributedNodes().length > 0 &&
+              label && label.offsetParent) {
+            label.style.left = -label.offsetParent.offsetLeft + 'px';
           }
         } else {
           // When the label is not floating, it should overlap the input element.
@@ -26381,12 +27083,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: inline-block;
         visibility: hidden;
-        float: left;
 
         color: var(--paper-input-container-invalid-color, --google-red-500);
 
         @apply(--paper-font-caption);
         @apply(--paper-input-error);
+        position: absolute;
       }
 
       :host([invalid]) {
@@ -26395,7 +27097,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <content></content>
-
+    
   </template>
 </dom-module>
 
@@ -26504,7 +27206,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <label hidden$="[[!label]]">[[label]]</label>
 
-      <input is="iron-input" id="input" aria-labelledby$="[[_ariaLabelledBy]]" aria-describedby$="[[_ariaDescribedBy]]" disabled$="[[disabled]]" bind-value="{{value}}" invalid="{{invalid}}" prevent-invalid-input="[[preventInvalidInput]]" allowed-pattern="[[allowedPattern]]" validator="[[validator]]" type$="[[type]]" pattern$="[[pattern]]" required$="[[required]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]" min$="[[min]]" max$="[[max]]" step$="[[step]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" list$="[[list]]" size$="[[size]]" autocapitalize$="[[autocapitalize]]" autocorrect$="[[autocorrect]]" on-change="_onChange">
+      <input is="iron-input" id="input" aria-labelledby$="[[_ariaLabelledBy]]" aria-describedby$="[[_ariaDescribedBy]]" disabled$="[[disabled]]" bind-value="{{value}}" invalid="{{invalid}}" prevent-invalid-input="[[preventInvalidInput]]" allowed-pattern="[[allowedPattern]]" validator="[[validator]]" type$="[[type]]" pattern$="[[pattern]]" required$="[[required]]" autocomplete$="[[autocomplete]]" autofocus$="[[autofocus]]" inputmode$="[[inputmode]]" minlength$="[[minlength]]" maxlength$="[[maxlength]]" min$="[[min]]" max$="[[max]]" step$="[[step]]" name$="[[name]]" placeholder$="[[placeholder]]" readonly$="[[readonly]]" list$="[[list]]" size$="[[size]]" autocapitalize$="[[autocapitalize]]" autocorrect$="[[autocorrect]]" on-change="_onChange" autosave$="[[autosave]]" ,="" results$="[[results]]">
 
       <content select="[suffix]"></content>
 
@@ -26532,66 +27234,53 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     ]
   });
 </script>
-<dom-module id="paper-item" assetpath="../bower_components/paper-item/">
-
-  <style>
-/*
-    @license
-    Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-    Code distributed by Google as part of the polymer project is also
-    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-*/
-
-:host {
-  display: block;
-  min-height: var(--paper-item-min-height, 48px);
-  padding: 0px 16px;
-}
-
-:host > ::content > *:not(:first-child):not(:last-child) {
-  margin-right: 16px;
-}
-
-</style>
-
-  <style>
-
-    :host {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-      @apply(--paper-font-subhead);
-
-      @apply(--paper-item);
-    }
-
-  </style>
-
+<dom-module id="paper-item-shared-styles" assetpath="../bower_components/paper-item/">
   <template>
+    <style>
+      :host {
+        display: block;
+        min-height: var(--paper-item-min-height, 48px);
+        padding: 0px 16px;
+      }
+
+      :host > ::content > *:not(:first-child):not(:last-child) {
+        margin-right: 16px;
+      }
+    </style>
+  </template>
+</dom-module>
+<dom-module id="paper-item" assetpath="../bower_components/paper-item/">
+  <template>
+    <style include="paper-item-shared-styles"></style>
+    <style>
+      :host {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        @apply(--paper-font-subhead);
+
+        @apply(--paper-item);
+      }
+    </style>
+
     <content></content>
   </template>
 
+  <script>
+    Polymer({
+      is: 'paper-item',
+
+      hostAttributes: {
+        role: 'listitem',
+        tabindex: '0'
+      },
+
+      behaviors: [
+        Polymer.IronControlState,
+        Polymer.IronButtonState
+      ]
+    });
+  </script>
 </dom-module>
-
-<script>
-
-(function() {
-
-  Polymer({
-
-    is: 'paper-item',
-
-    hostAttributes: {
-      role: 'listitem'
-    }
-
-  });
-
-})();
-
-</script>
 <dom-module id="paper-menu" assetpath="../bower_components/paper-menu/">
   <style>
 /**
@@ -26847,6 +27536,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     .not-visible {
       opacity: 0;
+      cursor: default;
     }
 
     paper-icon-button {
@@ -26894,9 +27584,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template>
 
-    <paper-icon-button icon="paper-tabs:chevron-left" class$="[[_computeScrollButtonClass(_leftHidden, scrollable, hideScrollButtons)]]" on-up="_onScrollButtonUp" on-down="_onLeftScrollButtonDown"></paper-icon-button>
+    <paper-icon-button icon="paper-tabs:chevron-left" class$="[[_computeScrollButtonClass(_leftHidden, scrollable, hideScrollButtons)]]" on-up="_onScrollButtonUp" on-down="_onLeftScrollButtonDown" tabindex="-1"></paper-icon-button>
 
-    <div id="tabsContainer" class="flex" on-scroll="_scroll">
+    <div id="tabsContainer" class="flex" on-track="_scroll" on-down="_down">
 
       <div id="tabsContent" class$="[[_computeTabsContentClass(scrollable)]]">
 
@@ -26908,7 +27598,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </div>
 
-    <paper-icon-button icon="paper-tabs:chevron-right" class$="[[_computeScrollButtonClass(_rightHidden, scrollable, hideScrollButtons)]]" on-up="_onScrollButtonUp" on-down="_onRightScrollButtonDown"></paper-icon-button>
+    <paper-icon-button icon="paper-tabs:chevron-right" class$="[[_computeScrollButtonClass(_rightHidden, scrollable, hideScrollButtons)]]" on-up="_onScrollButtonUp" on-down="_onRightScrollButtonDown" tabindex="-1"></paper-icon-button>
 
   </template>
 
@@ -27031,6 +27721,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       'iron-deselect': '_onIronDeselect'
     },
 
+    ready: function() {
+      this.setScrollDirection('y', this.$.tabsContainer);
+    },
+
     _computeScrollButtonClass: function(hideThisButton, scrollable, hideScrollButtons) {
       if (!scrollable || hideScrollButtons) {
         return 'hidden';
@@ -27085,24 +27779,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       );
     },
 
-    _scroll: function() {
-      var scrollLeft;
 
+    _scroll: function(e, detail) {
       if (!this.scrollable) {
         return;
       }
 
-      scrollLeft = this.$.tabsContainer.scrollLeft;
+      var ddx = (detail && -detail.ddx) || 0;
+      this._affectScroll(ddx);
+    },
+
+    _down: function(e) {
+      // go one beat async to defeat IronMenuBehavior
+      // autorefocus-on-no-selection timeout
+      this.async(function() {
+        if (this._defaultFocusAsync) {
+          this.cancelAsync(this._defaultFocusAsync);
+          this._defaultFocusAsync = null;
+        }
+      }, 1);
+    },
+
+    _affectScroll: function(dx) {
+      this.$.tabsContainer.scrollLeft += dx;
+
+      var scrollLeft = this.$.tabsContainer.scrollLeft;
 
       this._leftHidden = scrollLeft === 0;
       this._rightHidden = scrollLeft === this._tabContainerScrollSize;
     },
 
     _onLeftScrollButtonDown: function() {
+      this._scrollToLeft();
       this._holdJob = setInterval(this._scrollToLeft.bind(this), this._holdDelay);
     },
 
     _onRightScrollButtonDown: function() {
+      this._scrollToRight();
       this._holdJob = setInterval(this._scrollToRight.bind(this), this._holdDelay);
     },
 
@@ -27112,11 +27825,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     _scrollToLeft: function() {
-      this.$.tabsContainer.scrollLeft -= this._step;
+      this._affectScroll(-this._step);
     },
 
     _scrollToRight: function() {
-      this.$.tabsContainer.scrollLeft += this._step;
+      this._affectScroll(this._step);
     },
 
     _tabChanged: function(tab, old) {
@@ -27220,8 +27933,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       paper-material {
         border-radius: inherit;
-        width: 100%;
-        height: 100%;
+        @apply(--layout-fit);
       }
 
       /* IE 10 support for HTML5 hidden attr */
@@ -27268,16 +27980,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <paper-material animated$="[[animatedShadow]]" elevation="[[elevation]]">
-      <div class="header">
-        <img hidden$="[[!image]]" src="[[image]]">
-        <div hidden$="[[!heading]]" class$="[[_computeHeadingClass(image)]]">[[heading]]</div>
-      </div>
+    <paper-material animated$="[[animatedShadow]]" elevation="[[elevation]]"></paper-material>
 
-      <content></content>
+    <div class="header">
+      <img hidden$="[[!image]]" src="[[image]]">
+      <div hidden$="[[!heading]]" class$="[[_computeHeadingClass(image)]]">[[heading]]</div>
+    </div>
 
-    </paper-material>
-
+    <content></content>
   </template>
 
 </dom-module>
@@ -27339,63 +28049,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   });
 </script>
 <dom-module id="paper-fab" assetpath="../bower_components/paper-fab/">
-  <style>
+  <template strip-whitespace="">
+    <style include="paper-material">
 
-    :host {
-      display: inline-block;
-      position: relative;
-      outline: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      -webkit-user-select: none;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-      user-select: none;
-      cursor: pointer;
+      :host {
+        display: inline-block;
+        position: relative;
+        outline: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        user-select: none;
+        cursor: pointer;
 
-      box-sizing: border-box;
-      min-width: 0;
-      width: 56px;
-      height: 56px;
-      background: var(--paper-fab-background, --accent-color);
-      color: var(--text-primary-color);
-      border-radius: 50%;
-      padding: 16px;
+        box-sizing: border-box;
+        min-width: 0;
+        width: 56px;
+        height: 56px;
+        background: var(--paper-fab-background, --accent-color);
+        color: var(--text-primary-color);
+        border-radius: 50%;
+        padding: 16px;
 
-      z-index: 0;
+        z-index: 0;
 
-      @apply(--paper-fab);
-    }
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+        @apply(--paper-fab);
+      }
 
-    :host([mini]) {
-      width: 40px;
-      height: 40px;
-      padding: 8px;
+      :host([mini]) {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
 
-      @apply(--paper-fab-mini);
-    }
+        @apply(--paper-fab-mini);
+      }
 
-    :host([disabled]) {
-      color: var(--paper-fab-disabled-text, --paper-grey-500);
-      background: var(--paper-fab-disabled-background, --paper-grey-300);
-      @apply(--paper-fab-disabled);
-    }
+      :host([disabled]) {
+        color: var(--paper-fab-disabled-text, --paper-grey-500);
+        background: var(--paper-fab-disabled-background, --paper-grey-300);
+        @apply(--paper-fab-disabled);
+      }
 
-    paper-material {
-      border-radius: inherit;
-      @apply(--layout-fit);
-      @apply(--layout-vertical);
-      @apply(--layout-center-center);
-    }
+      iron-icon {
+        @apply(--paper-fab-iron-icon);
+      }
 
-    .keyboard-focus {
-      background: var(--paper-fab-keyboard-focus-background, --paper-pink-900);
-    }
-  </style>
-  <template>
-    <paper-ripple></paper-ripple>
-    <paper-material class$="[[_computeContentClass(receivedFocusFromKeyboard)]]" elevation="[[_elevation]]" animated="">
-      <iron-icon id="icon" src="[[src]]" icon="[[icon]]"></iron-icon>
-    </paper-material>
+      :host(.keyboard-focus) {
+        background: var(--paper-fab-keyboard-focus-background, --paper-pink-900);
+      }
+    </style>
+    <iron-icon id="icon" src="[[src]]" icon="[[icon]]"></iron-icon>
   </template>
 </dom-module>
 <script>
@@ -27446,14 +28152,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         value: false,
         reflectToAttribute: true
       }
-    },
-
-    _computeContentClass: function(receivedFocusFromKeyboard) {
-      var className = 'content';
-      if (receivedFocusFromKeyboard) {
-        className += ' keyboard-focus';
-      }
-      return className;
     }
 
   });
@@ -27714,7 +28412,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this._listeners = {};
       this.marker = new google.maps.Marker({
         map: this.map,
-        position: {lat: this.latitude, lng: this.longitude},
+        position: new google.maps.LatLng(this.latitude, this.longitude),
         title: this.title,
         draggable: this.draggable,
         visible: !this.hidden,
@@ -27896,12 +28594,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       /**
        * A comma separated list (e.g. "places,geometry") of libraries to load
-       * with this map. Defaults to "". For more information see
+       * with this map. Defaults to "places". For more information see
        * https://developers.google.com/maps/documentation/javascript/libraries.
        */
       libraries: {
         type: String,
-        value: ''
+        value: 'places'
       },
 
       /**
@@ -27912,15 +28610,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         value: -122.41942,
         notify: true,
         reflectToAttribute: true
-      },
-
-      /**
-       * A kml file to load.
-       */
-      kml: {
-        type: String,
-        value: null,
-        observer: '_loadKml'
       },
 
       /**
@@ -28115,7 +28804,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       this.map = new google.maps.Map(this.$.map, this._getMapOptions());
       this._listeners = {};
       this._updateCenter();
-      this._loadKml();
       this._updateMarkers();
       this._addMapListeners();
       this.fire('google-map-ready');
@@ -28224,15 +28912,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (this.fitToMarkers) { // we might not have a center if we are doing fit-to-markers
           this._fitToMarkersChanged();
         }
-      }
-    },
-
-    _loadKml: function() {
-      if (this.kml) {
-        var kmlfile = new google.maps.KmlLayer({
-          url: this.kml,
-          map: this.map
-        });
       }
     },
 
@@ -29211,15 +29890,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   });
 </script>
 <dom-module id="marked-element" assetpath="../bower_components/marked-element/">
+
   <template>
-    <style>
-      /* Thanks IE 10. */
-      .hidden {
-        display: none !important;
-      }
-    </style>
-    <content select=".markdown-html"></content>
-    <div id="content" class="hidden"></div>
+    <div id="content"></div>
   </template>
 
 </dom-module>
@@ -29268,22 +29941,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      */
     attached: function() {
       this._attached = true;
-      this._outputElement = this.outputElement;
       this.render();
     },
 
     detached: function() {
       this._attached = false;
-    },
-
-    get outputElement () {
-      var child = Polymer.dom(this).queryDistributedElements('.markdown-html')[0];
-
-      if (child)
-        return child;
-
-      this.toggleClass('hidden', false, this.$.content);
-      return this.$.content;
     },
 
     /**
@@ -29298,11 +29960,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     render: function() {
       if (!this._attached) return;
       if (!this.markdown) {
-        Polymer.dom(this._outputElement).innerHTML = '';
+        this.$.content.innerHTML = '';
         return;
       }
 
-      Polymer.dom(this._outputElement).innerHTML = marked(this.markdown, {
+      this.$.content.innerHTML = marked(this.markdown, {
         highlight: this._highlight.bind(this),
       });
     },
@@ -29566,21 +30228,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 --angularjs: #E0343D;
                 --polymer: #D81B60;
                 --dart: #00B4AA;
-                --firebase: #FF9800;
-                --appengine: #0D47A1;
-                --serviceworkers: #311B92;
-                --web-rtc: #7B1FA2;
                 --kubernetes: #326DE6;
-                --v8-engine: #006064;
+                --v8-engine: #009688;
                 --gae: #FFC107;
                 --ndk: #4CAF50;
-                --ble: #1565C0;
                 --ci: #CDDC39;
-                --tv: #D32F2F;
-                --grpc: #607D8B;
+                --grpc: #617D8A;
                 --ux: #9C27B0;
                 --material-design: #009688;
-                --entrepreneurship: #673AB7;
             }
 
             paper-checkbox.android {
@@ -29625,30 +30280,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 --paper-checkbox-unchecked-ink-color: var(--dart);
             }
 
-            paper-checkbox.firebase {
-                --paper-checkbox-checked-color: var(--firebase);
-                --paper-checkbox-checked-ink-color: var(--firebase);
-                --paper-checkbox-unchecked-ink-color: var(--firebase);
-            }
-
-            paper-checkbox.appengine {
-                --paper-checkbox-checked-color: var(--appengine);
-                --paper-checkbox-checked-ink-color: var(--appengine);
-                --paper-checkbox-unchecked-ink-color: var(--appengine);
-            }
-
-            paper-checkbox.serviceworkers {
-                --paper-checkbox-checked-color: var(--serviceworkers);
-                --paper-checkbox-checked-ink-color: var(--serviceworkers);
-                --paper-checkbox-unchecked-ink-color: var(--serviceworkers);
-            }
-
-            paper-checkbox.web-rtc {
-                --paper-checkbox-checked-color: var(--web-rtc);
-                --paper-checkbox-checked-ink-color: var(--web-rtc);
-                --paper-checkbox-unchecked-ink-color: var(--web-rtc);
-            }
-
             paper-checkbox.kubernetes {
                 --paper-checkbox-checked-color: var(--kubernetes);
                 --paper-checkbox-checked-ink-color: var(--kubernetes);
@@ -29673,22 +30304,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 --paper-checkbox-unchecked-ink-color: var(--ndk);
             }
 
-            paper-checkbox.ble {
-                --paper-checkbox-checked-color: var(--ble);
-                --paper-checkbox-checked-ink-color: var(--ble);
-                --paper-checkbox-unchecked-ink-color: var(--ble);
-            }
-
             paper-checkbox.ci {
                 --paper-checkbox-checked-color: var(--ci);
                 --paper-checkbox-checked-ink-color: var(--ci);
                 --paper-checkbox-unchecked-ink-color: var(--ci);
-            }
-
-            paper-checkbox.tv {
-                --paper-checkbox-checked-color: var(--tv);
-                --paper-checkbox-checked-ink-color: var(--tv);
-                --paper-checkbox-unchecked-ink-color: var(--tv);
             }
 
             paper-checkbox.grpc {
@@ -29707,12 +30326,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 --paper-checkbox-checked-color: var(--material-design);
                 --paper-checkbox-checked-ink-color: var(--material-design);
                 --paper-checkbox-unchecked-ink-color: var(--material-design);
-            }
-
-            paper-checkbox.entrepreneurship {
-                --paper-checkbox-checked-color: var(--entrepreneurship);
-                --paper-checkbox-checked-ink-color: var(--entrepreneurship);
-                --paper-checkbox-unchecked-ink-color: var(--entrepreneurship);
             }
 
             .tag-label {
@@ -29750,22 +30363,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 background: var(--dart);
             }
 
-            .tag-label.firebase {
-                background: var(--firebase);
-            }
-
-            .tag-label.appengine {
-                background: var(--appengine);
-            }
-
-            .tag-label.serviceworkers {
-                background: var(--serviceworkers);
-            }
-
-            .tag-label.web-rtc {
-                background: var(--web-rtc);
-            }
-
             .tag-label.kubernetes {
                 background: var(--kubernetes);
             }
@@ -29782,16 +30379,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 background: var(--ndk);
             }
 
-            .tag-label.ble {
-                background: var(--ble);
-            }
-
             .tag-label.ci {
                 background: var(--ci);
-            }
-
-            .tag-label.tv {
-                background: var(--tv);
             }
 
             .tag-label.grpc {
@@ -29804,10 +30393,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             .tag-label.material-design {
                 background: var(--material-design);
-            }
-
-            .tag-label.entrepreneurship {
-                background: var(--entrepreneurship);
             }
 
             paper-scroll-header-panel.android {
@@ -29853,55 +30438,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 }
                 ;
             }
-        </style></template></dom-module><dom-module id="app-data" assetpath="app-data/">
-    <template>
-        <iron-ajax auto="" url="[[speakersSource]]" handle-as="json" last-response="{{speakers}}"></iron-ajax>
-        <iron-ajax auto="" url="[[sessionsSource]]" handle-as="json" last-response="{{sessions}}"></iron-ajax>
-        <iron-ajax auto="" url="[[postsSource]]" handle-as="json" last-response="{{posts}}"></iron-ajax>
-        <iron-ajax auto="" url="[[partnersSource]]" handle-as="json" last-response="{{partners}}"></iron-ajax>
-    </template>
-</dom-module>
-
-<script>
-    Polymer({
-        is: 'app-data',
-        properties: {
-            speakersSource: {
-                type: String,
-                value: '../../data/speakers.json'
-            },
-            sessionsSource: {
-                type: String,
-                value: '../../data/sessions.json'
-            },
-            postsSource: {
-                type: String,
-                value: '../../data/blog.json'
-            },
-            partnersSource: {
-                type: String,
-                value: '../../data/partners.json'
-            },
-            speakers: {
-                type: Array,
-                notify: true
-            },
-            sessions: {
-                type: Array,
-                notify: true
-            },
-            posts: {
-                type: Array,
-                notify: true
-            },
-            partners: {
-                type: Array,
-                notify: true
-            }
-        }
-    });
-</script>
-<dom-module id="hero-block" assetpath="hero-block/">
+        </style></template></dom-module><dom-module id="hero-block" assetpath="hero-block/">
     <template>
         <style>
             :host {
@@ -30006,11 +30543,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         </a>
                     </div>
                     <paper-tabs class="hidden-xs" attr-for-selected="data-route" selected="{{route}}">
-                        <paper-tab class="text-u-c">
+                        <!-- <paper-tab class="text-u-c">
                             <a data-route="blog" href="#!/blog" class="nav-link horizontal center-center layout">Blog</a>
-                        </paper-tab>
+                        </paper-tab> -->
                         <paper-tab class="text-u-c">
-                            <a data-route="speakers" href="#!/speakers" class="nav-link horizontal center-center layout">Speakers</a>
+                            <a data-route="speakers" href="#!/speakers" class="nav-link horizontal center-center layout">Ponentes</a>
                         </paper-tab>
                         <!-- <paper-tab class="text-u-c">
                             <a data-route="contact" href="#!/contact" class="nav-link horizontal center-center layout">Contact</a>
@@ -30049,10 +30586,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="container card-container flex relative layout vertical">
       <div class="card">
         <div class="card-content">
-          <span>The biggest Google related event in Ukraine carefully crafted for you by GDG community! Awesome speakers and lot's of fun! This time, right in the heart of Lviv!</span>
+          <span>El mayor evento abierto sobre diseño y tecnología en Salamanca. Más de 5 horas de charlas, 2 workshops, ponentes de gran nivel... ¡Únete!</span>
         </div>
         <div class="card-content">
-          <a class="bottom-link" data-route="about" href="/about">See DevFest 2014</a>
+          <a class="bottom-link" data-route="about" href="/about">Design&amp;Tech 2014</a>
         </div>
       </div>
     </div>
@@ -30179,20 +30716,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="flex relative big">
                 <iron-image src="{{photos.big}}" class="placeholder-color fit" sizing="cover" preload="" fade=""></iron-image>
                 <div class="open-photos layout vertical center-center fit pointer" on-tap="openGallery">
-                    <span>Click here to view more photos</span>
+                    <span>Haz clic aquí para ver más fotos</span>
                 </div>
             </div>
             <div class="flex layout vertical">
                 <div class="flex relative">
                     <iron-image src="{{photos.small.0}}" class="placeholder-color fit" sizing="cover" preload="" fade=""></iron-image>
                     <div class="open-photos layout vertical center-center fit pointer" on-tap="openGallery">
-                        <span>Click here to view more photos</span>
+                        <span>Haz clic aquí para ver más fotos</span>
                     </div>
                 </div>
                 <div class="flex relative hidden-xs">
                     <iron-image src="{{photos.small.1}}" class="placeholder-color fit" sizing="cover" preload="" fade=""></iron-image>
                     <div class="open-photos layout vertical center-center fit pointer" on-tap="openGallery">
-                        <span>Click here to view more photos</span>
+                        <span>Haz clic aquí para ver más fotos</span>
                     </div>
                 </div>
             </div>
@@ -30200,7 +30737,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <paper-dialog id="photosDialog" class="gallery-dialog fit" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
             <paper-toolbar class="navbar-overlay fit">
                 <paper-icon-button icon="icons:arrow-back" on-tap="closeGallery"></paper-icon-button>
-                <div class="title text-left">GDG DevFest Ukraine 2014 - Photos</div>
+                <div class="title text-left">Design&amp;Tech Salamanca 2014 - Fotos</div>
             </paper-toolbar>
             <div class="gallery-container fit">
                 <photo-gallery user-id="104154992083455126443" album-id="6189295328162771457"></photo-gallery>
@@ -30274,17 +30811,17 @@ Polymer({
         },
         attached: function() {
             this.statistics = [{
-                counter: 500,
-                caption: 'Attendees'
+                counter: 120,
+                caption: 'Asistentes'
             }, {
                 counter: 2,
-                caption: 'Days'
+                caption: 'Días'
             }, {
-                counter: 40,
-                caption: 'Sessions'
+                counter: 5,
+                caption: 'Charlas'
             }, {
-                counter: 3,
-                caption: 'Parallel tracks'
+                counter: 2,
+                caption: 'Workshops'
             }];
         }
     });
@@ -30347,10 +30884,11 @@ Polymer({
                 font-size: .9em;
             }
         </style>
+        <iron-ajax auto="" url="[[source]]" handle-as="json" on-response="peopleLoaded"></iron-ajax>
         <div class="container text-center">
             <content></content>
             <div class="flex wrap layout horizontal people-wraper">
-                <template is="dom-repeat" items="[[featuredPeople]]" as="person">
+                <template is="dom-repeat" items="[[people)]" as="person">
                     <div class="fe-people two-column-xs">
                         <iron-image src="[[person.photoUrl]]" class="fe-people-img placeholder-color img-circle" preload="" fade="" sizing="cover"></iron-image>
                         <h4 class="fe-people-name">
@@ -30373,19 +30911,10 @@ Polymer({
     Polymer({
         is: 'featured-people',
         properties: {
-            people: {
-                type: Array,
-                observer: '_peopleChanged'
-            }
+            source: String
         },
-        _peopleChanged: function() {
-            var filteredPeople = [];
-            for (var i = 0; i < this.people.length; i++) {
-                if (this.people[i].featured) {
-                    filteredPeople.push(this.people[i]);
-                }
-            }
-            this.featuredPeople = this.randomOrder(filteredPeople).slice(0, 4);
+        peopleLoaded: function(event, response) {
+            this.people = this.randomOrder(response.response).slice(0, 4);
         },
         randomOrder: function(array) {
             return array.sort(function() {
@@ -30403,11 +30932,11 @@ Polymer({
             }
 
             :host > .logos-block-wrapper {
-                margin-bottom: 30px;
+              margin-bottom: 30px;
             }
 
             .container .heading {
-                margin-bottom: 20px;
+              margin-bottom: 20px;
             }
 
             .container .block-link {
@@ -30415,10 +30944,10 @@ Polymer({
             }
 
             .logos-block-title {
-                margin: 20px 0;
-                font-weight: 100;
-                font-size: 22px;
-                letter-spacing: .05em;
+              margin: 20px 0;
+              font-weight: 100;
+              font-size: 22px;
+              letter-spacing: .05em;
             }
 
             .logo-item {
@@ -30430,9 +30959,10 @@ Polymer({
                 width: 140px;
             }
         </style>
+        <iron-ajax auto="" url="[[source]]" handle-as="json" on-response="logosLoaded" debounce-duration="300"></iron-ajax>
         <div class="container relative layout vertical center">
             <content></content>
-            <template is="dom-repeat" items="[[logosBlocks]]" as="block">
+            <template is="dom-repeat" items="[[logoBlocks]]" as="block">
                 <div class="logos-block-wrapper">
                     <h5 class="logos-block-title text-center">[[block.title]]</h5>
                     <div class="wrap layout horizontal center-center">
@@ -30455,8 +30985,10 @@ Polymer({
     Polymer({
         is: 'logos-block',
         properties: {
-            source: String,
-            logosBlocks: Array
+            source: String
+        },
+        logosLoaded: function(event, response) {
+            this.logoBlocks = response.response;
         }
     });
 </script>
@@ -30497,11 +31029,11 @@ Polymer({
             <form action="{{ url }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="mc-embedded-subscribe-form validate" target="_blank" novalidate="">
                 <div class="mc-field-group layout vertical">
                     <paper-input-container no-label-float="" class="text-left">
-                        <label>Your email</label>
+                        <label>Tu correo electrónico</label>
                         <input is="iron-input" type="email" name="EMAIL" id="mce-EMAIL" autocomplete="off">
-                        <paper-input-error>Plese enter valid email address</paper-input-error>
+                        <paper-input-error>Introduce una dirección válida de correo electrónico</paper-input-error>
                     </paper-input-container>
-                    <paper-button class="self-end" on-click="submitForm">Subscribe</paper-button>
+                    <paper-button class="self-end" on-click="submitForm">Subscribirme</paper-button>
                 </div>
                 <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups -->
                 <div style="position: absolute; left: -5000px;">
@@ -30652,54 +31184,54 @@ Polymer({
         <div class="container footer layout vertical">
             <div class="footer-content layout horizontal justified">
                 <div class="flex gplus">
-                    <g:plusone size="medium" width="200" annotation="inline" href="http://devfest.gdg.org.ua/"></g:plusone>
+                    <g:plusone size="medium" width="200" annotation="inline" href="/"></g:plusone>
                 </div>
                 <paper-button class="footer-backtotop" on-tap="backToTop" noink="">
-                    Back to top
+                    ¡Ir arriba!
                     <iron-icon icon="icons:expand-less"></iron-icon>
                 </paper-button>
             </div>
             <div class="footer-content footer-links-container">
                 <nav class="layout vertical-horizontal flex">
                     <div class="flex link-block-wrapper">
-                        <span class="link-block-title block">For visitors</span>
+                        <span class="link-block-title block">Para saber más de nosotros...</span>
                         <ul class="link-block">
-                            <li><a href="https://developers.google.com/" target="_blank">Google Developers</a></li>
-                            <li><a href="http://gdg-devfest-ua.appspot.com/" target="_blank">GDG DevFest Ukraine 2013</a></li>
-                            <li><a href="http://devfest.gdg.org.ua/2014/" target="_blank">GDG DevFest Ukraine 2014</a></li>
-                            <li><a href="/code-of-conduct">Code of Conduct</a></li>
+                            <li><a href="https://gdgsalamanca.com/" target="_blank">Google Developers Group Salamanca</a></li>
+                            <li><a href="http://design2014.gdgsalamanca.com/" target="_blank">Design&amp;Tech Salamanca 2014</a></li>
+                            <li><a href="http:///android2015.gdgsalamanca.com//" target="_blank">Android Day Salamanca 2015</a></li>
+                            <!-- <li><a href="/code-of-conduct">Code of Conduct</a></li> -->
                         </ul>
                     </div>
                     <div class="flex link-block-wrapper">
-                        <span class="link-block-title block">For partners</span>
+                        <span class="link-block-title block">Para patrocinadores</span>
                         <ul class="link-block">
-                            <li><a href="/assets/GDG_DevFest_Ukraine_2015_Partnership_Proposition.pdf" target="_blank">Partnership Proposition</a></li>
-                            <li><a href="http://bit.ly/dfua-media" target="_blank">Media Kit</a></li>
+                            <!-- <li><a href="/assets/GDG_DevFest_Ukraine_2015_Partnership_Proposition.pdf" target="_blank">Partnership Proposition</a></li> -->
+                            <li><a href="mailto:info@gdgsalamanca?subject=Patrocinio%20Evento%20Design%20Salamanca%202015" target="_blank">¿Quieres ser patrocinador?</a></li>
                         </ul>
                     </div>
                     <div class="flex link-block-wrapper">
                         <span class="link-block-title block">Contact us</span>
                         <ul class="link-block">
-                            <li><a href="mailto:devfest@gdg.org.ua">devfest@gdg.org.ua</a></li>
+                            <li><a href="mailto:info@gdgsalamanca.com">info@gdgsalamanca.com</a></li>
                         </ul>
                         <div class="icons-wrapper align-pb-block">
-                            <a href="https://plus.google.com/102444623953913144164" target="_blank">
-                                <paper-icon-button icon="app-icons:gplus"></paper-icon-button>
+                            <a href="https://plus.google.com/GDGSalamanca" target="_blank">
+                                <paper-icon-button icon="app-icons:glus"></paper-icon-button>
                             </a>
-                            <a href="https://www.facebook.com/GDGLviv" target="_blank">
-                                <paper-icon-button icon="app-icons:facebook"></paper-icon-button>
-                            </a>
-                            <a href="https://twitter.com/gdglviv" target="_blank">
+                            <a href="https://twitter.com/GDGSalamanca" target="_blank">
                                 <paper-icon-button icon="app-icons:twitter"></paper-icon-button>
                             </a>
-                            <a href="https://www.linkedin.com/company/google-developers-group-lviv" target="_blank">
-                                <paper-icon-button icon="app-icons:linkedin"></paper-icon-button>
+                            <a href="https://www.facebook.com/GDGSalamanca" target="_blank">
+                                <paper-icon-button icon="app-icons:facebook"></paper-icon-button>
                             </a>
+                            <!-- <a href="https://www.linkedin.com/company/google-developers-group-lviv" target="_blank">
+                                <paper-icon-button icon="app-icons:linkedin"></paper-icon-button> 
+                            </a> -->
                         </div>
                     </div>
                     <div class="flex">
-                        <span class="link-block-title block">Subscribe</span>
-                        <span>No spam, only the latest news and updates!</span>
+                        <span class="link-block-title block">Subscríbete a nuestras novedades</span>
+                        <span>Nada de SPAM, tranquilo</span>
                         <mailchimp-subscribe url="{{url}}" name="{{name}}"></mailchimp-subscribe>
                     </div>
                 </nav>
@@ -30707,8 +31239,8 @@ Polymer({
             <!-- <div class="line full-width"></div> -->
             <div class="footer-content footer-bottom layout vertical-horizontal justified">
                 <span class="flex self-center">
-                    © 2015 Based on <a href="https://github.com/gdg-x/hoverboard" target="_blank">Project Hoverboard</a>. Designed and created by <a href="http://o.zasadnyy.com/" target="_blank">Oleh Zasadnyy</a> ·
-                    <a href="http://lviv.gdg.org.ua" target="_blank">GDG Lviv</a>
+                    © Design&amp;Tech Salamanca 2015. Web basada en el <a href="https://github.com/gdg-x/hoverboard" target="_blank">Project Hoverboard</a> de <a href="http://o.zasadnyy.com/" target="_blank">Oleh Zasadnyy</a> ·
+                    <a href="http://gdgsalamanca.com" target="_blank">GDG Salamanca</a>
                 </span>
                 <div class="self-end">
                     <img class="gdg-logo" src="../images/gdg-logo.svg" alt="GDG Lviv">
@@ -30724,8 +31256,8 @@ Polymer({
     Polymer({
         is: 'footer-block',
         ready: function() {
-            this.url = 'http://gdg.us11.list-manage.com/subscribe/post?u=b7e853a79164ddfdbda3ed77b&amp;id=7993e39fbe';
-            this.name = 'b_b7e853a79164ddfdbda3ed77b_7993e39fbe';
+            this.url = 'http://gdgsalamanca.us9.list-manage1.com/subscribe?u=3eb7ba61bbd1cf8e2e454cad7&id=10f4e29949';
+            this.name = 'b_3eb7ba61bbd1cf8e2e454cad7_10f4e29949';
         },
         backToTop: function() {
             app.scrollToTop();
@@ -30743,20 +31275,17 @@ Polymer({
 <iron-iconset-svg name="app-icons" size="24">
     <svg>
         <defs>
-            <g id="gplus">
+            <g id="glus">
                 <path d="M11.2 8.87c0-1.02-.63-3.02-2.08-3.02-.64 0-1.32.44-1.32 1.67 0 1.18.63 2.93 1.97 2.93.06.01 1.43-.01 1.43-1.58zm-.63 4.94l-.31-.01h-.02c-.26 0-1.15.05-1.82.27-.65.24-1.42.72-1.42 1.7 0 1.08 1.04 2.23 2.96 2.23 1.52 0 2.44-1 2.44-1.97 0-.77-.46-1.24-1.83-2.22zm9.43-11.81h-16c-1.1 0-1.99.9-1.99 2l-.01 16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-16c0-1.1-.9-2-2-2zm-10.93 17.2c-2.8 0-4.07-1.56-4.07-3.01 0-.45.14-1.59 1.48-2.39.77-.47 1.85-.78 3.14-.91-.19-.25-.34-.55-.34-.99 0-.16.02-.31.05-.46h-.38c-1.97 0-3.15-1.55-3.15-3.04 0-1.73 1.29-3.6 4.11-3.6h4.21l-.34.34-.71.71-.06.06h-.71c.41.42.9 1.12.9 2.16 0 1.4-.74 2.09-1.56 2.73-.16.12-.42.38-.42.72 0 .3.24.5.39.62.13.11.3.22.47.34.81.57 1.92 1.34 1.92 2.88 0 1.77-1.29 3.84-4.93 3.84zm9.93-7.2h-2v2h-1v-2h-2v-1h2v-2h1v2h2v1z"></path>
             </g>
             <g id="twitter">
                 <path d="M20 2h-16c-1.1 0-1.99.9-1.99 2l-.01 16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-16c0-1.1-.9-2-2-2zm-2.29 7.33c-.06 4.62-3.02 7.78-7.42 7.98-1.82.08-3.14-.5-4.28-1.23 1.34.21 3.01-.32 3.9-1.09-1.32-.13-2.1-.8-2.46-1.88.38.07.78.05 1.14-.03-1.19-.4-2.04-1.13-2.08-2.67.33.15.68.29 1.14.32-.9-.5-1.55-2.35-.8-3.57 1.32 1.45 2.91 2.63 5.52 2.79-.65-2.8 3.06-4.32 4.61-2.44.66-.13 1.19-.38 1.7-.65-.21.65-.62 1.1-1.12 1.47.54-.07 1.03-.21 1.44-.41-.25.53-.81 1.01-1.29 1.41z"></path>
             </g>
             <g id="facebook">
-                <path d="M19,4V7H17A1,1 0 0,0 16,8V10H19V13H16V20H13V13H11V10H13V7.5C13,5.56 14.57,4 16.5,4M20,2H4A2,2 0 0,0 2,4V20A2,2 0 0,0 4,22H20A2,2 0 0,0 22,20V4C22,2.89 21.1,2 20,2Z"></path>
+              <path d="M19,4V7H17A1,1 0 0,0 16,8V10H19V13H16V20H13V13H11V10H13V7.5C13,5.56 14.57,4 16.5,4M20,2H4A2,2 0 0,0 2,4V20A2,2 0 0,0 4,22H20A2,2 0 0,0 22,20V4C22,2.89 21.1,2 20,2Z"></path>
             </g>
             <g id="linkedin">
-                <path d="M19,19H16V13.7A1.5,1.5 0 0,0 14.5,12.2A1.5,1.5 0 0,0 13,13.7V19H10V10H13V11.2C13.5,10.36 14.59,9.8 15.5,9.8A3.5,3.5 0 0,1 19,13.3M6.5,8.31C5.5,8.31 4.69,7.5 4.69,6.5A1.81,1.81 0 0,1 6.5,4.69C7.5,4.69 8.31,5.5 8.31,6.5A1.81,1.81 0 0,1 6.5,8.31M8,19H5V10H8M20,2H4C2.89,2 2,2.89 2,4V20A2,2 0 0,0 4,22H20A2,2 0 0,0 22,20V4C22,2.89 21.1,2 20,2Z"></path>
-            </g>
-            <g id="github">
-                <path d="M4,2H20A2,2 0 0,1 22,4V20A2,2 0 0,1 20,22H14.85C14.5,21.92 14.5,21.24 14.5,21V18.26C14.5,17.33 14.17,16.72 13.81,16.41C16.04,16.16 18.38,15.32 18.38,11.5C18.38,10.39 18,9.5 17.35,8.79C17.45,8.54 17.8,7.5 17.25,6.15C17.25,6.15 16.41,5.88 14.5,7.17C13.71,6.95 12.85,6.84 12,6.84C11.15,6.84 10.29,6.95 9.5,7.17C7.59,5.88 6.75,6.15 6.75,6.15C6.2,7.5 6.55,8.54 6.65,8.79C6,9.5 5.62,10.39 5.62,11.5C5.62,15.31 7.95,16.17 10.17,16.42C9.89,16.67 9.63,17.11 9.54,17.76C8.97,18 7.5,18.45 6.63,16.93C6.63,16.93 6.1,15.97 5.1,15.9C5.1,15.9 4.12,15.88 5,16.5C5,16.5 5.68,16.81 6.14,17.97C6.14,17.97 6.73,19.91 9.5,19.31V21C9.5,21.24 9.5,21.92 9.14,22H4A2,2 0 0,1 2,20V4A2,2 0 0,1 4,2Z"></path>
+            <path d="M19,19H16V13.7A1.5,1.5 0 0,0 14.5,12.2A1.5,1.5 0 0,0 13,13.7V19H10V10H13V11.2C13.5,10.36 14.59,9.8 15.5,9.8A3.5,3.5 0 0,1 19,13.3M6.5,8.31C5.5,8.31 4.69,7.5 4.69,6.5A1.81,1.81 0 0,1 6.5,4.69C7.5,4.69 8.31,5.5 8.31,6.5A1.81,1.81 0 0,1 6.5,8.31M8,19H5V10H8M20,2H4C2.89,2 2,2.89 2,4V20A2,2 0 0,0 4,22H20A2,2 0 0,0 22,20V4C22,2.89 21.1,2 20,2Z"></path>
             </g>
         </defs>
     </svg>
@@ -30837,8 +31366,8 @@ Polymer({
                 color: inherit;
             }
         </style>
-        <google-map class="fit" zoom="15" latitude="49.809841" longitude="23.982805" styles="[[options]]" disable-zoom="" disable-default-ui="">
-            <google-map-marker latitude="49.809841" longitude="23.972805"></google-map-marker>
+        <google-map class="fit" zoom="15" latitude="40.9603982" longitude="-5.6706833" styles="[[options]]" disable-zoom="" disable-default-ui="">
+            <google-map-marker latitude="40.9603982" longitude="-5.6706833"></google-map-marker>
         </google-map>
         <div class="container card-container relative layout horizontal center-center">
             <div class="flex-3 hidden-xs"></div>
@@ -30846,13 +31375,13 @@ Polymer({
                 <div class="paper-card-container location-card">
                     <div class="card-content">
                         <div class="title">
-                            <h4>Location</h4>
+                            <h4>¿Dónde?</h4>
                         </div>
-                        <p>Pivdennyi Expo Center<br>Shchyretska St, 36, L'viv, Ukraine</p>
+                        <p>Facultad de Ciencias de la Universidad de Salamanca<br>Plaza de los Caídos s/n, Salamanca, España</p>
                     </div>
                     <div class="card-actions">
-                        <a class="bottom-link" href="https://www.google.com/maps/dir//49.8097687,23.9727791/@49.8099885,23.9727469,18z" target="_blank">
-                            <paper-button on-tap="readMore">Get directions</paper-button>
+                        <a class="bottom-link" href="https://www.google.es/maps/place/Universidad+De+Salamanca+:+Facultad+de+Ciencias+y+Qu%C3%ADmicas/@40.9603982,-5.6706833,15z/data=!3m1!4b1!4m2!3m1!1s0xd3f26409c4d5287:0x2809ba7ed4a44c2e" target="_blank">
+                            <paper-button on-tap="readMore">¿Cómo llegar?</paper-button>
                         </a>
                     </div>
                 </div>
@@ -30950,16 +31479,16 @@ Polymer({
             }
         </style>
         <div class="container container-narrow flex relative layout vertical-horizontal center-center">
-            <h4 class="heading flex text self-center text-center">GDG DevFest 2014</h4>
-             <paper-button class="white border-button open-dialog-button" on-tap="playVideo">See how it was</paper-button>
+            <h4 class="heading flex text self-center text-center">Design&amp;Tech Salamanca 2014</h4>
+             <paper-button class="white border-button open-dialog-button" on-tap="playVideo">Mira cómo fue</paper-button>
         </div>
         <paper-dialog class="video-dialog fit" id="videoDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
             <paper-toolbar class="navbar-overlay fit">
                 <paper-icon-button icon="icons:arrow-back" on-tap="closeVideoCard"></paper-icon-button>
-                <div class="title text-left">GDG DevFest Ukraine 2014 - Highlights</div>
+                <div class="title text-left">Desing&amp;Tech Salamanca 2014</div>
             </paper-toolbar>
             <div class="fullvideo-container fit">
-                <google-youtube id="video" video-id="t95z_HLMTmM" fluid="true" autohide="1" chromeless="true"></google-youtube>
+                <google-youtube id="video" video-id="rHZ4mfDCY9E" fluid="true" autohide="1" chromeless="true"></google-youtube>
             </div>
         </paper-dialog>
     </template>
@@ -31013,10 +31542,10 @@ Polymer({
     </style>
     <template>
         <span class="post-meta">
-            <a href="[[canonicalUrl]]/[[author]]" target="_blank">
-                <span>[[sign]]</span><span>[[author]]</span>
+            <a href="{{canonicalUrl}}/{{author}}" target="_blank">
+                <span>{{sign}}</span><span>{{author}}</span>
             </a>
-            <time is="time-ago" datetime="[[when]]"></time>
+            <time is="time-ago" datetime="{{when}}"></time>
         </span>
         <span id="postContent" class="post-content"></span>
     </template>
@@ -31554,16 +32083,14 @@ Polymer({
         is: 'social-post',
         properties: {
             author: {
-                type: String,
-                value: 'GDGLviv'
+                type: String
             },
             url: {
                 type: String
             },
             text: {
                 type: String,
-                observer: '_textChanged',
-                value: 'Tweet us about your experience at GDG DevFest Ukraine 2015'
+                observer: '_textChanged'
             },
             when: {
                 type: Date
@@ -31601,26 +32128,26 @@ Polymer({
         <div class="container relative layout vertical-horizontal">
             <iron-ajax auto="" url="[[source]]" handle-as="json" on-response="feedLoaded"></iron-ajax>
             <div class="flex-5">
-                <h4 class="heading">What's up <a href="https://www.google.com/#q=%23dfua">#dfua</a></h4>
-                <social-post id="post" author="[[author]]" text="[[text]]" when="[[when]]" canonicalurl="https://twitter.com/" sign="@"></social-post>
+                <h4 class="heading">Comentando con <a href="https://www.google.com/#q=%23designtechSAL15">#designtechSAL15</a></h4>
+                <social-post id="post" author="{{author}}" text="{{text}}" when="{{when}}" canonicalurl="https://twitter.com/" sign="@"></social-post>
             </div>
             <span class="flex"></span>
             <div class="flex-5 second-block">
                 <h4 class="heading">Social</h4>
-                <span class="block">Add to circles, like, follow or connect with us on</span>
+                <span class="block">Añádenos a tus círculos, síguenos o danos un like</span>
                 <div class="align-pb-block">
-                    <a href="https://plus.google.com/102444623953913144164" target="_blank">
-                        <paper-icon-button icon="app-icons:gplus"></paper-icon-button>
+                    <a href="https://plus.google.com/GDGSalamanca" target="_blank">
+                        <paper-icon-button icon="app-icons:glus"></paper-icon-button>
                     </a>
-                    <a href="https://www.facebook.com/GDGLviv" target="_blank">
-                        <paper-icon-button icon="app-icons:facebook"></paper-icon-button>
-                    </a>
-                    <a href="https://twitter.com/gdglviv" target="_blank">
+                    <a href="https://twitter.com/gdgsalamanca" target="_blank">
                         <paper-icon-button icon="app-icons:twitter"></paper-icon-button>
                     </a>
-                    <a href="https://www.linkedin.com/company/google-developers-group-lviv" target="_blank">
-                        <paper-icon-button icon="app-icons:linkedin"></paper-icon-button>
+                    <a href="https://www.facebook.com/GDGSalamanca" target="_blank">
+                        <paper-icon-button icon="app-icons:facebook"></paper-icon-button>
                     </a>
+                    <!-- <a href="https://www.linkedin.com/company/google-developers-group-lviv" target="_blank">
+                        <paper-icon-button icon="app-icons:linkedin"></paper-icon-button>
+                    </a> -->
                 </div>
             </div>
         </div>
@@ -31875,7 +32402,7 @@ Polymer({
                 }
             }
         </style>
-        <!-- <iron-ajax auto url="[[source]]" handle-as="json" on-response="postsLoaded"></iron-ajax> -->
+        <iron-ajax auto="" url="[[source]]" handle-as="json" on-response="postsLoaded"></iron-ajax>
         <div id="posts" class="container flex layout horizontal center-justified wrap">
             <template is="dom-repeat" items="[[posts]]" as="post">
                 <div class="card-wrapper layout horizontal">
@@ -31911,10 +32438,6 @@ Polymer({
         ],
         properties: {
             source: String,
-            posts: {
-                type: Array,
-                observer: '_postsChanged'
-            },
             opened: {
                 type: Boolean,
                 observer: '_openedChanged'
@@ -31960,8 +32483,8 @@ Polymer({
         listeners: {
             'neon-animation-finish': '_onNeonAnimationFinish'
         },
-        _postsChanged: function() {
-            this.posts = this.posts.reverse();
+        postsLoaded: function(event, response) {
+            this.posts = response.response.reverse();
 
             this.async(function() {
                 var nodeList = this.$.posts.querySelectorAll('.card-wrapper');
@@ -32033,9 +32556,6 @@ Polymer({
                 z-index: 9;
                 height: 100%;
                 --paper-card: #fff;
-                --paper-icon-button: {
-                    color: var(--primary-text-color);
-                };
             }
 
             paper-scroll-header-panel {
@@ -32181,7 +32701,7 @@ Polymer({
                         <div class="align-pb-block">
                             <template is="dom-repeat" items="[[person.socials]]" as="social">
                                 <a href="[[social.link]]" target="_blank">
-                                    <paper-icon-button icon="[[social.icon]]"></paper-icon-button>
+                                    <paper-button class="colorful">[[social.name]]</paper-button>
                                 </a>
                             </template>
                         </div>
@@ -32229,7 +32749,7 @@ Polymer({
                     <div class="align-pb-block">
                         <template is="dom-repeat" items="[[person.socials]]" as="social">
                             <a href="[[social.link]]" target="_blank">
-                                <paper-icon-button icon="[[social.icon]]"></paper-icon-button>
+                                <paper-button class="colorful">[[social.name]]</paper-button>
                             </a>
                         </template>
                     </div>
@@ -32454,6 +32974,8 @@ Polymer({
                 }
             }
         </style>
+        <iron-ajax auto="" url="[[source]]" handle-as="json" last-response="{{peopleTemp}}"></iron-ajax>
+        <iron-ajax auto="" url="[[sessionsSource]]" handle-as="json" last-response="{{sessions}}"></iron-ajax>
         <div id="people" class="container flex layout vertical">
             <div class="layout vertical-horizontal">
                 <div class="flex">
@@ -32531,8 +33053,8 @@ Polymer({
             Polymer.NeonAnimationRunnerBehavior
         ],
         properties: {
-            sessions: Array,
-            speakers: Array,
+            source: String,
+            sessionsSource: String,
             tags: Array,
             badges: Array,
             filters: {
@@ -32591,21 +33113,21 @@ Polymer({
             }
         },
         observers: [
-            'generatePeople(speakers, sessions)'
+            'generatePeople(peopleTemp, sessions)'
         ],
         listeners: {
             'neon-animation-finish': '_onNeonAnimationFinish'
         },
-        generatePeople: function(speakers, sessions) {
-            for (var i = 0; i < speakers.length; i++) {
-                speakers[i].sessions = [];
+        generatePeople: function(peopleTemp, sessions) {
+            for (var i = 0; i < peopleTemp.length; i++) {
+                peopleTemp[i].sessions = [];
                 for (var j = 0; j < sessions.length; j++) {
-                    if (sessions[j].speakers.indexOf(speakers[i].id) > -1) {
-                        speakers[i].sessions.push(sessions[j]);
+                    if (sessions[j].speakers.indexOf(peopleTemp[i].id) > -1) {
+                        peopleTemp[i].sessions.push(sessions[j]);
                     }
                 }
             }
-            this.people = speakers;
+            this.people = peopleTemp;
 
             this._generateFilters();
 
@@ -32774,6 +33296,7 @@ Polymer({
                 font-size: 16px;
             }
         </style>
+        <iron-ajax auto="" url="[[source]]" handle-as="json" on-response="newsLoaded"></iron-ajax>
         <div class="container relative">
             <h4 class="heading text-center">Latest news</h4>
             <div class="layout vertical-horizontal">
@@ -32797,14 +33320,10 @@ Polymer({
     Polymer({
         is: 'latest-news',
         properties: {
-            source: String,
-            posts: {
-                type: Array,
-                observer: '_postsChanged'
-            },
+            source: String
         },
-        _postsChanged: function() {
-            var temp = this.posts.reverse().slice(0, 2);
+        newsLoaded: function(event, response) {
+            var temp = response.response.reverse().slice(0, 2);
             for (var i = 0; i < temp.length; i++) {
                 temp[i].url = '#!/blog/' + temp[i].titleUrl;
                 temp[i].dataRoute = 'blog/' + temp[i].titleUrl;
@@ -32818,8 +33337,10 @@ Polymer({
         <style>
             :host {
                 display: block;
-                background: var(--default-primary-color);
-                color: #fff;
+                //background: var(--default-primary-color);
+                background: #FFF;
+                //color: #fff;
+                color: var(--default-primary-color);
             }
 
             .container {
@@ -32837,15 +33358,6 @@ Polymer({
 
             .price-block {
                 margin-bottom: 15px;
-            }
-
-            .sold-out > *:not(.sold-out-text) {
-                opacity: .3;
-            }
-
-            .sold-out-text {
-                font-size: 28px;
-                text-transform: uppercase;
             }
 
             .currency {
@@ -32870,6 +33382,7 @@ Polymer({
 
             .open-dialog-button {
                 margin-top: 30px;
+                color: #00BCD4
             }
 
             paper-dialog {
@@ -32883,40 +33396,41 @@ Polymer({
             }
 
             paper-dialog .buttons {
-                color: initial;
+                //color: initial;
+                color: var(--default-primary-color);
             }
         </style>
         <div id="pricetable" class="container wrap relative layout vertical text-center">
-            <h4 class="heading">Tickets</h4>
+            <h4 class="heading">Entradas</h4>
             <div class="price-block-wrapper flex layout vertical-horizontal">
                 <div class="price-block flex text-center">
-                    <span class="ticket-name block">Student</span>
-                    <span class="price">400</span>
-                    <span class="currency">UAH</span>
-                    <span class="additional-info block">*Before October 23 or 100 tickets.
-                        <br>Requires valid student ID</span>
-                </div>
-                <div class="price-block flex text-center relative sold-out">
-                    <span class="ticket-name block">Early Bird</span>
-                    <span class="price">600</span>
-                    <span class="currency">UAH</span>
-                    <span class="additional-info block">*Before September 27 or 150 tickets</span>
-                    <div class="fit layout vertical center-center sold-out-text"><span>Sold Out</span></div>
+                    <span class="ticket-name block">Workshop Cinema4D</span>
+                    <span class="price">5</span>
+                    <span class="currency">Euros</span>
+                    <span class="additional-info block">*Hasta 15 tickets</span>
                 </div>
                 <div class="price-block flex text-center">
-                    <span class="ticket-name block">Lazy Bird</span>
-                    <span class="price">800</span>
-                    <span class="currency">UAH</span>
-                    <span class="additional-info block">*Before October 23</span>
-                </div>
+                    <span class="ticket-name block">Evento Design&amp;Tech 2015</span>
+                    <span class="price">0</span>
+                    <span class="currency">Euros</span>
+                    <span class="additional-info block">*Hasta 150 plazas
+                        <!-- <br/>Requires valid student ID</span> -->
+                </span></div>
+                <div class="price-block flex text-center">
+                    <span class="ticket-name block">Workshop Sketch</span>
+                    <span class="price">5</span>
+                    <span class="currency">Euros</span>
+                    <span class="additional-info block">*Hasta 15 tickets</span>
+                </div> 
             </div>
-            <span class="details">Tickets grant access to all conference sections, coffee breaks, lunch and party. Accommodation is NOT included in the ticket price.</span>
+            <span class="details">Las entradas solo incluyen la entrada al evento o workshop, no incluyen comidas o coffee breaks</span>
             <div class="flex">
-                <paper-button class="white border-button open-dialog-button" on-tap="openTicketsDialog">Buy a ticket</paper-button>
+            <br>
+                <paper-button class="colorful" on-tap="openTicketsDialog" raised="">Comprar entradas</paper-button>
             </div>
         </div>
         <paper-dialog id="ticketsDialog" entry-animation="scale-up-animation" exit-animation="fade-out-animation" modal="">
-            <div id="2event_tickets_widget" style="width: 640px; height: 300px; background:#fff;"></div>
+                <div id="2event_tickets_widget" style="width: 640px; height: 300px; background:#fff;"></div>
             <div class="buttons">
                 <a href="http://2event.com/events/312113" target="_blank">
                     <paper-button>Buy on the website</paper-button>

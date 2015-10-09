@@ -1,55 +1,45 @@
 [
     {
-        "title": "General sponsor",
+        "title": "Patrocinadores Principales",
+        "logos": [{
+        "name": "Dale Comunicación",
+            "url": "http://dalecomunicacion.es",
+            "logoUrl": "../images/partners/dalecomunicacion.png"
+        },{
+            "name": "The Big House",
+            "url": "http://thebighouse.io",
+            "logoUrl": "../images/partners/thebighouse.svg"
+            
+        },{
+            "name": "Grupo de Investigación GRIAL. Universidad de Salamanca",
+            "url": "http://grial.usal.es/",
+            "logoUrl": "../images/partners/grial.png"
+        }]
+    }, {
+        "title": "Patrocinador Oro",
         "logos": [{
             "name": "Google",
-            "url": "https://www.google.com.ua/intl/en/about/",
+            "url": "https://www.google.es/",
             "logoUrl": "../images/partners/google.svg"
         }]
     }, {
-        "title": "Platinum sponsor",
+        "title": "Patrocinadores Plata",
         "logos": [{
-            "name": "N-IX",
-            "url": "http://n-ix.com/",
-            "logoUrl": "../images/partners/n-ix.png"
-        }]
-    }, {
-        "title": "General partner",
-        "logos": [{
-            "name": "Lviv IT Cluster",
-            "url": "http://itcluster.lviv.ua/",
-            "logoUrl": "../images/partners/itcluster.png"
-        }]
-    }, {
-        "title": "Information partners",
-        "logos": [{
-            "name": "CoMMuna",
-            "url": "http://communa.net.ua/en/",
-            "logoUrl": "../images/partners/communa.png"
+            "name": "Universidad de Salamanca",
+            "url": "http://usal.es/",
+            "logoUrl": "../images/partners/usal.png"
         }, {
-            "name": "Symphony Solutions",
-            "url": "http://www.symphony-solutions.eu/",
-            "logoUrl": "../images/partners/symphony-solutions.png"
+            "name": "Charrosfera",
+            "url": "http://charrosfera.com/",
+            "logoUrl": "../images/partners/charrosfera.jpg"
         }, {
-            "name": "NETWORK",
-            "url": "http://network-ua.com/",
-            "logoUrl": "../images/partners/network.jpg"
+            "name": "Betabeers Salamanca",
+            "url": "http://betabeers.com",
+            "logoUrl": "../images/partners/betabeers-sal.png"
         }, {
-            "name": "career4it",
-            "url": "http://career4it.com/en/",
-            "logoUrl": "../images/partners/career4it.png"
-        }, {
-            "name": "LvivJs",
-            "url": "http://www.lvivjs.org.ua/",
-            "logoUrl": "../images/partners/lvivjs.png"
-        }, {
-            "name": "Hackraft",
-            "url": "http://hackraft.com/",
-            "logoUrl": "../images/partners/hackraft.svg"
-        }, {
-            "name": "Software Engineering 2015",
-            "url": "http://seconf.org.ua/",
-            "logoUrl": "../images/partners/se2015.png"
+            "name": "Tech&Ladies",
+            "url": "http://techandladies.com/",
+            "logoUrl": "../images/partners/techandladies.png"
         }]
     }
 ]
