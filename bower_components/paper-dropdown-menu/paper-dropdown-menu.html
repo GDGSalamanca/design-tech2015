@@ -19,12 +19,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-selector/iron-selectable.html">
-<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
-<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 
 <!--
-Material design: [Dropdown menus](https://www.google.com/design/spec/components/buttons.html#buttons-dropdown-buttons)
-
 `paper-dropdown-menu` is similar to a native browser select element.
 `paper-dropdown-menu` works with selectable content. The currently selected
 item is displayed in the control. If no item is selected, the `label` is
@@ -112,17 +108,16 @@ respectively.
     }
 
     paper-ripple {
-      top: 12px;
-      left: 0px;
-      bottom: 8px;
-      right: 0px;
+      top: 20px;
+      left: 8px;
+      bottom: 16px;
+      right: 8px;
 
       @apply(--paper-dropdown-menu-ripple);
     }
 
     paper-menu-button {
       display: block;
-      padding: 0;
       @apply(--paper-dropdown-menu-button);
     }
 
@@ -151,7 +146,6 @@ respectively.
       <div class="dropdown-trigger">
         <paper-ripple></paper-ripple>
         <paper-input
-          invalid="[[invalid]]"
           readonly
           disabled="[[disabled]]"
           value="[[selectedItemLabel]]"
@@ -187,9 +181,7 @@ respectively.
 
       behaviors: [
         Polymer.IronControlState,
-        Polymer.IronButtonState,
-        Polymer.IronFormElementBehavior,
-        Polymer.IronValidatableBehavior
+        Polymer.IronButtonState
       ],
 
       properties: {
@@ -201,7 +193,7 @@ respectively.
         selectedItemLabel: {
           type: String,
           notify: true,
-          readOnly: true
+          computed: '_computeSelectedItemLabel(selectedItem)'
         },
 
         /**
@@ -213,17 +205,6 @@ respectively.
          */
         selectedItem: {
           type: Object,
-          notify: true,
-          readOnly: true
-        },
-
-        /**
-         * The value for this element that will be used when submitting in
-         * a form. It is read only, and will always have the same value
-         * as `selectedItemLabel`.
-         */
-        value: {
-          type: String,
           notify: true,
           readOnly: true
         },
@@ -294,10 +275,6 @@ respectively.
         'aria-haspopup': 'true'
       },
 
-      observers: [
-        '_selectedItemChanged(selectedItem)'
-      ],
-
       attached: function() {
         // NOTE(cdata): Due to timing, a preselected value in a `IronSelectable`
         // child will cause an `iron-select` event to fire while the element is
@@ -365,16 +342,12 @@ respectively.
        * @param {Element} selectedItem A selected Element item, with an
        * optional `label` property.
        */
-      _selectedItemChanged: function(selectedItem) {
-        var value = '';
+      _computeSelectedItemLabel: function(selectedItem) {
         if (!selectedItem) {
-          value = '';
-        } else {
-          value = selectedItem.label || selectedItem.textContent.trim();
+          return '';
         }
 
-        this._setValue(value);
-        this._setSelectedItemLabel(value);
+        return selectedItem.label || selectedItem.textContent.trim();
       },
 
       /**
@@ -389,17 +362,7 @@ respectively.
         // derived from the metrics of elements internal to `paper-input`'s
         // template. The metrics will change depending on whether or not the
         // input has a floating label.
-        return noLabelFloat ? -4 : 8;
-      },
-
-      /**
-       * Returns false if the element is required and does not have a selection,
-       * and true otherwise.
-       * @return {Boolean} true if `required` is false, or if `required` is true
-       * and the element has a valid selection.
-       */
-      _getValidity: function() {
-        return this.disabled || !this.required || (this.required && this.value);
+        return noLabelFloat ? -4 : 16;
       }
     });
   })();

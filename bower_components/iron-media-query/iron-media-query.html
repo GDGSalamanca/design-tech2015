@@ -49,21 +49,11 @@ Example:
         type: String,
         observer: 'queryChanged'
       },
-      
-      /**
-       * @type {function(MediaQueryList)}
-       */ 
+
       _boundMQHandler: {
         value: function() {
           return this.queryHandler.bind(this);
         }
-      },
-      
-      /**
-       * @type {MediaQueryList}
-       */ 
-      _mq: {
-        value: null
       }
     },
 
