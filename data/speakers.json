@@ -44,21 +44,24 @@
 }, {
     "id": 3,
     "name": "Iratxe Lezameta",
-    "title": "Android Developer",
-    "company": "Kitxune Studio",
+    "title": "Diseñadora digital",
+    "company": "KITXUNE",
     "country": "Spain",
     "photoUrl": "../../images/people/iratxe.jpg",
-    "bio": "",
-    "tags": ["Ilustration", "Motion", "Design"],
+    "bio": "Diseñadora digital en KITXUNE, apasionada del diseño en todas sus formas, disfruta sobre todo creando Motion graphics, realizando desde el guión e ilustración... hasta terminar dando vida al personaje. Siempre dedica tiempo a seguir creciendo y a asimilar las nuevas tendencias",
+    "tags": ["Motion", "2D", "Illustration"],
     "socials": [{
-        "name": "Google+",
-        "link": "https://plus.google.com/+DmytroDanylyk"
+        "name": "Website",
+        "link": "http://www.kitxune.com"
     }, {
         "name": "Twitter",
-        "link": "https://twitter.com/dmytrodanylyk"
+        "link": "https://twitter.com/kitxune"
     }, {
-        "name": "Website",
-        "link": "http://www.dmytrodanylyk.com/#/about"
+        "name": "Twitter",
+        "link": "https://twitter.com/illure"
+    }, {
+        "name": "Instagram",
+        "link": "https://instagram.com/kitxune"
     }]
 }, {
     "id": 4,
