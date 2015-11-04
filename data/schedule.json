@@ -1,0 +1,72 @@
+[{
+    "date": "2015-11-13",
+    "dateReadable": "13 Noviembre",
+    "tracks": [{
+        "title": "Facultad de Bellas Artes"
+    }],
+    "timeslots": [{
+        "startTime": "16:00",
+        "endTime": "20:00",
+        "sessions": [
+            [104]
+        ]
+    }]
+},
+    {
+        "date": "2015-11-14",
+        "dateReadable": "14 Noviembre",
+        "tracks": [{
+            "title": "Facultad de Ciencias"
+        }, {
+            "title": "Serendipity Coworking"
+        }],
+        "timeslots": [{
+            "startTime": "10:00",
+            "endTime": "10:30",
+            "sessions": [
+                [1001]
+            ]
+        }, {
+            "startTime": "10:30",
+            "endTime": "10:40",
+            "sessions": [
+                [1002]
+            ]
+        }, {
+            "startTime": "11:20",
+            "endTime": "12:00",
+            "sessions": [
+                [101]
+            ]
+        }, {
+            "startTime": "12:00",
+            "endTime": "12:10",
+            "sessions": [
+                [1003]
+            ]
+        }, {
+            "startTime": "12:10",
+            "endTime": "12:50",
+            "sessions": [
+                [102]
+            ]
+        }, {
+            "startTime": "12:50",
+            "endTime": "13:30",
+            "sessions": [
+                [103]
+            ]
+        }, {
+            "startTime": "13:30",
+            "endTime": "14:00",
+            "sessions": [
+                [1004]
+            ]
+        }, {
+            "startTime": "16:30",
+            "endTime": "20:00",
+            "sessions": [
+                [105]
+            ]
+        }]
+    }]

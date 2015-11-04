@@ -1,5 +1,25 @@
 [
   {
+    "id": 1001,
+    "title": "Acreditaciones",
+    "description": ""
+  },
+  {
+    "id": 1002,
+    "title": "Bienvenida",
+    "description": ""
+  },
+  {
+    "id": 1003,
+    "title": "Coffee break",
+    "description": ""
+  },
+  {
+    "id": 1004,
+    "title": "Design, Tech & Beers",
+    "description": "Networking"
+  },
+  {
     "id": 101,
     "title": "",
     "description": "",
@@ -7,7 +27,10 @@
     "language": "es",
     "complexity": "Beginner",
     "presentation": "",
-    "video": ""
+    "video": "",
+    "tags": [
+      "Entrepreneurship"
+    ]
   },
   {
     "id": 102,
@@ -17,7 +40,12 @@
     "language": "es",
     "complexity": "Intermediate",
     "presentation": "",
-    "video": ""
+    "video": "",
+    "tags":[
+      "Motion",
+      "2D",
+      "Illustration"
+    ]
   },
   {
     "id": 103,
@@ -27,7 +55,11 @@
     "language": "es",
     "complexity": "Intermediate",
     "presentation": "",
-    "video": ""
+    "video": "",
+    "tags": [
+      "UX",
+      "Design"
+    ]
   },
   {
     "id": 104,
@@ -37,7 +69,10 @@
     "language": "es",
     "complexity": "Intermediate",
     "presentation": "",
-    "video": ""
+    "video": "",
+    "tags": [
+      "Cinema4D"
+    ]
   },
   {
     "id": 105,
@@ -47,6 +82,9 @@
     "language": "es",
     "complexity": "Intermediate",
     "presentation": "",
-    "video": ""
+    "video": "",
+    "tags": [
+      "Sketch"
+    ]
   }
 ]
