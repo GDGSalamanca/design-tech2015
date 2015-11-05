@@ -2,11 +2,11 @@
     "date": "2015-11-13",
     "dateReadable": "13 Noviembre",
     "tracks": [{
-        "title": "Facultad de Bellas Artes"
+        "title": "Aula 11, CRAI - Facultad de Bellas Artes de la Universidad de Salamanca"
     }],
     "timeslots": [{
-        "startTime": "16:00",
-        "endTime": "20:00",
+        "startTime": "16:30",
+        "endTime": "20:30",
         "sessions": [
             [104]
         ]
@@ -16,7 +16,7 @@
         "date": "2015-11-14",
         "dateReadable": "14 Noviembre",
         "tracks": [{
-            "title": "Facultad de Ciencias"
+            "title": "Facultad de Ciencias, Universidad de Salamanca"
         }, {
             "title": "Serendipity Coworking"
         }],
@@ -66,6 +66,7 @@
             "startTime": "16:30",
             "endTime": "20:00",
             "sessions": [
+                [],
                 [105]
             ]
         }]

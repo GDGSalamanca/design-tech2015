@@ -21,11 +21,11 @@
   },
   {
     "id": 101,
-    "title": "",
-    "description": "",
+    "title": "Abandonando mi zona de confort",
+    "description": "Cómo gestionar tu carrera como diseñador, cómo vivir en modo freelance",
     "speakers": [2],
     "language": "es",
-    "complexity": "Beginner",
+    "complexity": "Básico",
     "presentation": "",
     "video": "",
     "tags": [
@@ -38,7 +38,7 @@
     "description": "",
     "speakers": [3],
     "language": "es",
-    "complexity": "Intermediate",
+    "complexity": "Intermedio",
     "presentation": "",
     "video": "",
     "tags":[
@@ -53,7 +53,7 @@
     "description": "Compartir el amor por el diseño de experiencias de usuario, o cómo podemos (y debemos) romper las barreras entre diseñadores y desarrolladores si queremos crear mejores productos digitales.",
     "speakers": [4],
     "language": "es",
-    "complexity": "Intermediate",
+    "complexity": "Intermedio",
     "presentation": "",
     "video": "",
     "tags": [
@@ -63,11 +63,11 @@
   },
   {
     "id": 104,
-    "title": "Workshop Cinema4D",
-    "description": "",
+    "title": "Workshop - Cinema 4D, introducción al diseño en 3D.",
+    "description": "En este workshop veremos algunas nociones básicas para introducirte en el mundo del diseño en 3D. Aprenderás el flujo de trabajo, la interface, algunas herramientas de modelado, texturizado, iluminación y render. Como ejercicio diseñaremos el icono de una aplicación para dispositivos móviles",
     "speakers": [2],
     "language": "es",
-    "complexity": "Intermediate",
+    "complexity": "Básico",
     "presentation": "",
     "video": "",
     "tags": [
@@ -76,11 +76,11 @@
   },
   {
     "id": 105,
-    "title": "Workshop Sketch",
-    "description": "",
+    "title": "Workshop - Sketch básico",
+    "description": "Sketch, una de las herramientas más utilizadas para diseño en proyectos digitales (apps, webs, icons …) y que más comunidad está generando alrededor, haciendo crecer continuamente sus posibilidades para nuestro día a día. El objetivo del curso no es solo introducirte en la filosofía de flujo de trabajo de sketch, conocer y configura tu área de trabajo y conocer sus herramientas básicos, sino también conocer algunas características más avanzada (como plugins) para que coger confianza para futuros proyectos a los que te enfrentes. ¡Ah! y aunque no necesites ningún conocimiento previo sobre Sketch (http://sketchapp.com), es importante que lo traigas instalado ya en tu ordenador ;).",
     "speakers": [1],
     "language": "es",
-    "complexity": "Intermediate",
+    "complexity": "Básico",
     "presentation": "",
     "video": "",
     "tags": [
