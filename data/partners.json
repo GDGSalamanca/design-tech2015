@@ -2,11 +2,7 @@
     {
         "title": "Patrocinadores Principales",
         "logos": [{
-        "name": "Dale Comunicación",
-            "url": "http://dalecomunicacion.es",
-            "logoUrl": "../images/partners/dalecomunicacion.png"
-        },{
-            "name": "The Big House",
+        "name": "The Big House",
             "url": "http://thebighouse.io",
             "logoUrl": "../images/partners/thebighouse.svg"
 
@@ -24,6 +20,10 @@
             "name": "Grupo de Investigación GRIAL. Universidad de Salamanca",
             "url": "http://grial.usal.es/",
             "logoUrl": "../images/partners/grial.png"
+        },{
+            "name": "Serendipity Coworking Salamanca",
+            "url": "http://serendipitycoworking.es/",
+            "logoUrl": "../images/partners/serendipity.svg"
         }]
     }, {
         "title": "Patrocinador Oro",
