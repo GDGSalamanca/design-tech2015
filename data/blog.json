@@ -1,18 +1,18 @@
 [
   {
     "id": 1,
-    "title": "Entradas",
-    "titleUrl": "workshops-entradas",
+    "title": "Workshop Sketch básico",
+    "titleUrl": "http://entradium.com/es/entradas/sketch-basico-design-tech-salamanca-2015",
     "posted": "Nov 4, 2015",
     "file": "2015-11-04-workshops-entradas.markdown",
-    "brief": "Las entradas estarán disponibles en los próximos días"
+    "brief": "Sketch, una de las herramientas más utilizadas para diseño en proyectos digitales (apps, webs, icons …) y que más comunidad está generando alrededor, haciendo crecer continuamente sus posibilidades para nuestro día a día. El objetivo del curso no es solo introducirte en la filosofía de flujo de trabajo de sketch, conocer y configura tu área de trabajo y conocer sus herramientas básicos, sino también conocer algunas características más avanzada (como plugins) para que coger confianza para futuros proyectos a los que te enfrentes. ¡Ah! y aunque no necesites ningún conocimiento previo sobre Sketch. Solo es importante que lo traigas instalado ya en tu ordenador (puedes descargarte su versión de prueba aquí https://www.sketchapp.com/) ;)"
   },
   {
     "id": 2,
-    "title": "Más información",
-    "titleUrl": "more-info",
+    "title": "Cinema 4D, introducción al diseño en 3D",
+    "titleUrl": "http://entradium.com/es/entradas/cinema-4d-introduccion-al-diseno-en-3d",
     "posted": "Nov 4, 2015",
     "file": "2015-11-04-more-info.markdown",
-    "brief": "[..]"
+    "brief": "En este workshop veremos algunas nociones básicas para introducirte en el mundo del diseño en 3D. Aprenderás el flujo de trabajo, la interface, algunas herramientas de modelado, texturizado, iluminación y render. Como ejercicio diseñaremos el icono de una aplicación para dispositivos móviles. La versión para estudiantes es gratuita http://www.maxon.net/es/education/student-versions.html ¡Recuerda traerla instalada en tu ordenador!"
   }
 ]
