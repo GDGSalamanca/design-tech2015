@@ -22,7 +22,7 @@
   {
     "id": 101,
     "title": "Abandonando mi zona de confort",
-    "description": "Cómo gestionar tu carrera como diseñador, cómo vivir en modo freelance",
+    "description": "Cómo gestionar tu carrera como diseñador, viviendo en modo freelance",
     "speakers": [2],
     "language": "es",
     "complexity": "Básico",
@@ -71,7 +71,8 @@
     "presentation": "",
     "video": "",
     "tags": [
-      "Cinema4D"
+      "Cinema4D",
+      "3D"
     ]
   },
   {
@@ -84,19 +85,21 @@
     "presentation": "",
     "video": "",
     "tags": [
-      "Sketch"
+      "Sketch",
+      "Graphic Design"
     ]
   },
   {
     "id": 106,
-    "title": "Por confirmar",
-    "description": "",
+    "title": "Mesa redonda sobre UX",
+    "description": "Conversaciones de diseño y tecnología",
     "speakers": [],
     "language": "es",
     "complexity": "Básico",
     "presentation": "",
     "video": "",
     "tags": [
+      "UX",
       "Design"
     ]
   }
