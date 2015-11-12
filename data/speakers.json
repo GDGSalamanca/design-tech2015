@@ -85,5 +85,74 @@
         "name": "Behance",
         "link": "https://www.behance.net/3oheme"
     }]
+}, {
+    "id": 5,
+    "name": "JuanRamón Martín San Román",
+    "title": "Director del Master Universitario en Diseño Gráfico y de Interface para nuevos dispositivos",
+    "company": "Universidad Pontificia de Salamanca",
+    "country": "Spain",
+    "photoUrl": "../../images/people/juanramartin.jpeg",
+    "bio": "Juan Ramón Martín es director del Máster Universitario en Diseño Gráfico y de Interface para nuevos dispositivos (@designonscreens). Es profesor de la Facultad de Comunicación de la Universidad Pontificia de Salamanca desde 1994. Ha trabajado en múltiples proyectos como diseñador freelance en los ámbitos del diseño de identidad y editorial. Sueña con pantallas.",
+    "tags": ["UX", "Design"],
+    "socials": [{
+        "name": "Website",
+        "link": "http://designonscreens.com/"
+    }, {
+        "name": "Twitter",
+        "link": "https://twitter.com/juanRa_Martin"
+    }]
+}, {
+    "id": 6,
+    "name": "Felicidad García Sánchez",
+    "title": "Diseñadora gráfica",
+    "company": "Grupo de Investigación en InterAcción y eLearning. Universidad de Salamanca",
+    "country": "Spain",
+    "photoUrl": "../../images/people/felicidadgsanchez.jpg",
+    "bio": "Creativa y diseñadora de imágenes. Desde el dibujo hasta el video, pasando por los escenarios y la fotografía.",
+    "tags": ["Design"],
+    "badges": [{
+        "name": "GDG",
+        "description": "Google Developers Group Salamanca",
+        "link": "https://developers.google.com/groups/chapter/107931642576280918674/"
+        },{
+        "name": "Tech&Ladies",
+        "description": "Tech&Ladies",
+        "link": "https://techandladies.com"
+    }],
+    "socials": [{
+        "name": "Twitter",
+        "link": "http://twitter.com/felizgsanchez"
+    }, {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/felicidadgsanchez/"
+    }, {
+        "name": "Pinterest",
+        "link": "https://www.pinterest.com/felizgsanchez/"
+    }]
+}, {
+    "id": 7,
+    "name": "Alicia García Holgado",
+    "title": "Ingeniera Informática",
+    "company": "Grupo de Investigación en InterAcción y eLearning. Universidad de Salamanca",
+    "country": "Spain",
+    "photoUrl": "../../images/people/aliciagarciaholgado.jpg",
+    "bio": "Ing. Informática. Miembro de GDGSalamanca y Techandladies. Coleccionista de ArtToys. Aficionada a la fotografía.",
+    "tags": ["Engineering", "Web"],
+    "badges": [{
+        "name": "GDG",
+        "description": "Google Developers Group Salamanca",
+        "link": "https://developers.google.com/groups/chapter/107931642576280918674/"
+        },{
+        "name": "Tech&Ladies",
+        "description": "Tech&Ladies",
+        "link": "https://techandladies.com"
+    }],
+    "socials": [{
+        "name": "Website",
+        "link": "http://grial.usal.es/aliciagh"
+    }, {
+        "name": "Twitter",
+        "link": "https://twitter.com/mambanegra86"
+    }]
 }
 ]

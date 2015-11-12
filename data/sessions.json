@@ -91,9 +91,9 @@
   },
   {
     "id": 106,
-    "title": "Mesa redonda sobre UX",
+    "title": "Mesa redonda UX",
     "description": "Conversaciones de diseño y tecnología",
-    "speakers": [],
+    "speakers": [4,5,6,7],
     "language": "es",
     "complexity": "Básico",
     "presentation": "",
