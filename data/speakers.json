@@ -154,5 +154,21 @@
         "name": "Twitter",
         "link": "https://twitter.com/mambanegra86"
     }]
+}, {
+    "id": 8,
+    "name": "Roberto Therón",
+    "title": "Profesor, Investigador",
+    "company": "Universidad de Salamanca",
+    "country": "Spain",
+    "photoUrl": "../../images/people/robertotheron.jpg",
+    "bio": "Researcher focused on combining fields such as Computer Science, Artificial Intelligence, Statistics, Graphic Design, and Data Visualization as a means for understanding complex data. He is the Group manager of the Visual Analytics and Information Visualization Research Group (VisUsal) at the University of Salamanca. In addition to his academic work, he is the author of several short films (awarded at numerous flim festivals), among them 'Desilencio' (2001, screenwriter and director), 'Interruptus' (2003, co-writer), 'Guerreros del Témpano' (2005, co-writer) or 'Impávido' (2007, co-writer)",
+    "tags": ["Data Visualization", "InfoVis","UX"],
+    "socials": [{
+        "name": "Website",
+        "link": "http://vis.usal.es/~visusal/grupo/"
+    }, {
+        "name": "Twitter",
+        "link": "http://twitter.com/robertotheron"
+    }]
 }
 ]
