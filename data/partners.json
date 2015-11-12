@@ -36,8 +36,16 @@
         "title": "Patrocinadores Plata",
         "logos": [{
             "name": "Universidad de Salamanca",
-            "url": "http://usal.es/",
+            "url": "http://www.usal.es/",
             "logoUrl": "../images/partners/usal.png"
+        }, {
+            "name": "Universidad Pontificia de Salamanca",
+            "url": "https://upsa.es/",
+            "logoUrl": "../images/partners/upsa.jpg"
+        }, {
+            "name": "Master Universitario en Diseño Gráfico y de Interface - UPSA",
+            "url": "http://designonscreens.com/",
+            "logoUrl": "../images/partners/designonscreens.jpg"
         }, {
             "name": "Charrosfera",
             "url": "http://charrosfera.com/",
