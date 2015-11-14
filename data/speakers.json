@@ -170,5 +170,21 @@
         "name": "Twitter",
         "link": "http://twitter.com/robertotheron"
     }]
+}, {
+    "id": 9,
+    "name": "Bryan McEire",
+    "title": "CTO y co-fundador de Spotahome.com",
+    "company": "Spotahome.com",
+    "country": "Spain",
+    "photoUrl": "../../images/people/bryanmceire.jpg",
+    "bio": "Emprendedor e Ingeniero informático con expriencia en infraestructura de alta disponibilidad, bases de datos y desarrollo web. Énfasis en innovación y creación y evolución de productos que crean valor para la sociedad y la compañía.",
+    "tags": ["Engineering"],
+    "socials": [{
+        "name": "Website",
+        "link": "www.spotahome.com"
+    }, {
+        "name": "Twitter",
+        "link": "@mceire"
+    }]
 }
 ]
