@@ -31,11 +31,6 @@
                 </div>
             </template>
         </div>
-        <div class="container flex wrap relative layout horizontal">
-        <div style="display: block; margin: 0 auto;">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/uuYroDzR2_Q?rel=0" frameborder="0" allowfullscreen></iframe>
-        </div>
-        </div>
     </template>
 </dom-module>
 
@@ -49,17 +44,20 @@
         },
         attached: function() {
             this.statistics = [{
-                counter: 120,
-                caption: 'Asistentes'
+                counter: 150,
+                caption: 'Assistants'
             }, {
                 counter: 2,
-                caption: 'Días'
-            }, {
-                counter: 5,
-                caption: 'Charlas'
+                caption: 'Days'
             }, {
                 counter: 2,
+                caption: 'Keynotes'
+            }, {
+                counter: 7,
                 caption: 'Workshops'
+            }, {
+                counter: '10+',
+                caption: 'Experiences using LA'
             }];
         }
     });

@@ -1,106 +1,212 @@
 [
   {
     "id": 1001,
-    "title": "Acreditaciones",
+    "title": "Opening and welcome",
     "description": ""
   },
   {
     "id": 1002,
-    "title": "Bienvenida",
+    "title": "Discussion-break",
     "description": ""
   },
   {
     "id": 1003,
-    "title": "Coffee break",
+    "title": "Lunch",
     "description": ""
   },
   {
     "id": 1004,
-    "title": "Design, Tech & Beers",
-    "description": "Networking"
+    "title": "Spanish Network of Learning Analytics (SNOLA) meeting",
+    "description": ""
+  },
+  {
+    "id": 1005,
+    "title": "Bilboats 1 hour boat trip",
+    "description": ""
+  },
+  {
+    "id": 1006,
+    "title": "Discussion-break",
+    "description": ""
+  },
+  {
+    "id": 1007,
+    "title": "Lunch",
+    "description": ""
   },
   {
     "id": 101,
-    "title": "Abandonando mi zona de confort",
-    "description": "Cómo gestionar tu carrera como diseñador, viviendo en modo freelance",
+    "title": "Keynote “Educational Data Science”",
+    "description": "Currently, there is an increasing interest in applying the fashion term Data Science (DS) to different domains. In fact, the specific application of DS in the Education field is known as Educational Data Science (EDS), which works with data gathered from educational environments/settings for solving educational problems. There are several communities associated with EDS that can be viewed as related sub-communities: Learning Analytics (LA)/Educational Data Mining (EDM), Learner Analytics/Personalization and Educational Recommender Systems (ERS), Academic/Institutional Analytics (AA), and  Systemic/Instructional Improvement, also known as Data Driven Decision Making in Education (DDDME). This presentation introduces the new and widely used term Educational Data Science. It presents its basic definitions, the process and actors, the main goals and tasks, and the main publications and resources in order to introduce this topic to different type of stakeholders.",
     "speakers": [2],
-    "language": "es",
-    "complexity": "Básico",
+    "language": "en",
+    "complexity": "Medium",
     "presentation": "",
     "video": "",
     "tags": [
-      "Entrepreneurship"
+      "Educational Data Science",
+      "Keynote"
     ]
   },
   {
     "id": 102,
-    "title": "Diseño e inspiración",
-    "description": "Inspiración, Identidad corporativa e ilustración con algunas pinceladas de motion graphics.",
-    "speakers": [3],
-    "language": "es",
-    "complexity": "Intermedio",
+    "title": "Experiences I",
+    "description": "",
+    "speakers": [],
+    "language": "en",
+    "complexity": "Medium",
     "presentation": "",
     "video": "",
     "tags":[
-      "Motion",
-      "2D",
-      "Illustration"
+    "Experiences"
     ]
   },
   {
     "id": 103,
-    "title": "Sharing the UX love",
-    "description": "Compartir el amor por el diseño de experiencias de usuario, o cómo podemos (y debemos) romper las barreras entre diseñadores y desarrolladores si queremos crear mejores productos digitales.",
-    "speakers": [4],
+    "title": "Workshop I ”Educational data analysis using R”",
+    "description": "",
+    "speakers": [3],
     "language": "es",
-    "complexity": "Intermedio",
+    "complexity": "Medium",
     "presentation": "",
     "video": "",
     "tags": [
-      "UX",
-      "Design"
+      "Educational Data Analysis",
+      "R"
     ]
   },
   {
     "id": 104,
-    "title": "Workshop - Cinema 4D, introducción al diseño en 3D.",
-    "description": "En este workshop veremos algunas nociones básicas para introducirte en el mundo del diseño en 3D. Aprenderás el flujo de trabajo, la interface, algunas herramientas de modelado, texturizado, iluminación y render. Como ejercicio diseñaremos el icono de una aplicación para dispositivos móviles. Recuerda traer tu propio ordenador con el programa instalado, puedes descargar una versión gratuita para estudiantes en http://www.maxon.net/es/education/student-versions.html ¡Recuerda traerlo instalado en tu ordenador!",
+    "title": "Workshop II “Using Weka on Data from Moodle”",
+    "description": "",
     "speakers": [2],
-    "language": "es",
-    "complexity": "Básico",
+    "language": "en",
+    "complexity": "Medium",
     "presentation": "",
     "video": "",
     "tags": [
-      "Cinema4D",
-      "3D"
+      "Weka",
+      "EDM",
+      "Moodle"
     ]
   },
   {
     "id": 105,
-    "title": "Workshop - Sketch básico",
-    "description": "Sketch, una de las herramientas más utilizadas para diseño en proyectos digitales (apps, webs, icons …) y que más comunidad está generando alrededor, haciendo crecer continuamente sus posibilidades para nuestro día a día. El objetivo del curso no es solo introducirte en la filosofía de flujo de trabajo de sketch, conocer y configura tu área de trabajo y conocer sus herramientas básicos, sino también conocer algunas características más avanzada (como plugins) para que coger confianza para futuros proyectos a los que te enfrentes. ¡Ah! y aunque no necesites ningún conocimiento previo sobre Sketch. Solo es importante que lo traigas instalado ya en tu ordenador (puedes descargarte su versión de prueba aquí https://www.sketchapp.com/) ;)",
-    "speakers": [1],
-    "language": "es",
-    "complexity": "Básico",
+    "title": "Experiences II",
+    "description": "",
+    "speakers": [],
+    "language": "en",
+    "complexity": "Medium",
     "presentation": "",
     "video": "",
     "tags": [
-      "Sketch",
-      "Graphic Design"
+    "Experiences"
     ]
   },
   {
     "id": 106,
-    "title": "Mesa redonda UX",
-    "description": "Conversaciones sobre diseño y tecnología",
-    "speakers": [4,5,6,7,8,9],
-    "language": "es",
-    "complexity": "Básico",
+    "title": "Workshop III",
+    "description": "",
+    "speakers": [],
+    "language": "en",
+    "complexity": "Medium",
     "presentation": "",
     "video": "",
     "tags": [
-      "UX",
-      "Design"
+    "Workshop"
+    ]
+  },
+  {
+    "id": 107,
+    "title": "Experiences III",
+    "description": "",
+    "speakers": [],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences"
+    ]
+  },
+  {
+    "id": 108,
+    "title": "Workshop IV",
+    "description": "",
+    "speakers": [],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Workshop"
+    ]
+  },
+  {
+    "id": 109,
+    "title": "Keynote “Learning analytics: Visions of the Future”",
+    "description": "What does the future hold for learning analytics? In terms of Europe’s priorities for learning and training, they will need to support relevant and high-quality knowledge, skills and competences developed throughout lifelong learning. More specifically, they should improve the quality and efficiency of education and training, enhance creativity and innovation, and focus on learning outcomes in areas such as employability, active-citizenship and well-being. This is a tall order and, in order to achieve it, we need to consider how our work fits into the larger picture. Drawing on the outcomes of two recent European studies, Rebecca will discuss how we can avoid potential pitfalls and develop an action plan that will drive the development of analytics that enhance both learning and teaching.",
+    "speakers": [1],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+      "Learning Analytics",
+      "Keynote"
+    ]
+  },
+  {
+    "id": 110,
+    "title": "Workshop V “Ethics and Privacy issues in LA”",
+    "description": "",
+    "speakers": [1],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+      "Learning Analytics",
+      "Ethics and Privacy"
+    ]
+  },
+  {
+    "id": 111,
+    "title": "Workshop VI",
+    "description": "",
+    "speakers": [],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Workshop"
+    ]
+  },
+  {
+    "id": 112,
+    "title": "Industrial track",
+    "description": "",
+    "speakers": [],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Industrial presentations"
+    ]
+  },
+  {
+    "id": 113,
+    "title": "Workshop VII",
+    "description": "",
+    "speakers": [],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Workshop"
     ]
   }
 ]

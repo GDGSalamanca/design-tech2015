@@ -1,190 +1,41 @@
 [{
     "id": 1,
-    "name": "Lole Román",
-    "title": "Diseñador gráfico, tipografista",
-    "company": "The Big House",
-    "country": "Spain",
-    "photoUrl": "../../images/people/loleroman.jpeg",
-    "bio": "Diseñador gaditano, especializado en interfaz de usuario, tipografía y Iron Maiden. Domina las artes del código y el diseño de forma fluida, lo cual le da poder para afrontar proyectos de una forma muy fresca y original",
-    "tags": ["UX", "Design", "Sketch"],
-    "badges": [{
-        "name": "GDG",
-        "description": "Google Developers Group Cádiz",
-        "link": "https://developers.google.com/groups/chapter/112866714526515716260/"
-    }],
+    "name": "Rebecca Ferguson",
+    "title": "Lecturer",
+    "company": "The Open University",
+    "country": "United Kingdom",
+    "photoUrl": "../../images/people/rebeccaferguson.jpg",
+    "bio": "",
+    "tags": ["Keynote", "Workshop"],
     "socials": [{
-        "name": "Website",
-        "link": "http://www.thebighouse.io"
-    },{
-        "name": "Website",
-        "link": "http://www.bynewroman.com"
-    }, {
-        "name": "Twitter",
-        "link": "https://twitter.com/lolergb"
-    }, {
-        "name": "GitHub",
-        "link": "https://github.com/JoseRGB"
+        "name": "Google Scholar",
+        "link": "https://scholar.google.com/citations?user=lfxvlmwAAAAJ&hl=en"
     }]
 }, {
     "id": 2,
-    "name": "Alejandro López (Muokkaa)",
-    "title": "Diseñador gráfico",
-    "company": "Muokkaa Studio",
+    "name": "Cristobal Romero",
+    "title": "Associate Professor",
+    "company": "University of Cordoba",
     "country": "Spain",
-    "photoUrl": "../../images/people/alexmuokkaa.jpg",
-    "bio": "Diseñador gráfico afincado en Madrid y apasionado de la tipografía, el 3D y la ilustración. Siempre buscando inspiración y nuevos proyectos en los que involucrarse",
-    "tags": ["Cinema4D", "Entrepreneurship"],
+    "photoUrl": "../../images/people/cristobalromero.jpg",
+    "bio": "",
+    "tags": ["Keynote", "Workshop"],
     "socials": [{
-        "name": "Website",
-        "link": "http://www.muokkaa.com"
-    }, {
-        "name": "Twitter",
-        "link": "https://twitter.com/AlexMuokkaa"
+        "name": "Google Scholar",
+        "link": "https://scholar.google.com/citations?user=vLlwz_4AAAAJ&hl=en"
     }]
 }, {
     "id": 3,
-    "name": "Iratxe Lezameta",
-    "title": "Diseñadora digital",
-    "company": "KITXUNE",
+    "name": "Pedro J. Muñoz Merino",
+    "title": "Visiting Professor",
+    "company": "Universidad Carlos III de Madrid",
     "country": "Spain",
-    "photoUrl": "../../images/people/iratxe.jpg",
-    "bio": "Diseñadora digital en KITXUNE, apasionada del diseño en todas sus formas, disfruta sobre todo creando Motion graphics, realizando desde el guión e ilustración... hasta terminar dando vida al personaje. Siempre dedica tiempo a seguir creciendo y a asimilar las nuevas tendencias",
-    "tags": ["Motion", "2D", "Illustration"],
+    "photoUrl": "../../images/people/pedrojmunozmerino.jpg",
+    "bio": "",
+    "tags": ["Workshop", "Experience"],
     "socials": [{
-        "name": "Website",
-        "link": "http://www.kitxune.com"
-    }, {
-        "name": "Twitter",
-        "link": "https://twitter.com/kitxune"
-    }, {
-        "name": "Twitter",
-        "link": "https://twitter.com/lilura"
-    }, {
-        "name": "Instagram",
-        "link": "https://instagram.com/kitxune"
-    }]
-}, {
-    "id": 4,
-    "name": "Ignacio Palomo Duarte",
-    "title": "Senior User Experience Designer",
-    "company": "The Big House",
-    "country": "Spain",
-    "photoUrl": "../../images/people/ignaciopalomo.jpg",
-    "bio": "Ignacio Palomo es un ingeniero con alma de diseñador, enamorado del lean/agile y del desarrollo continuo. Todo muy user centric design y pivotando para generar sinergias disruptivas. Ex-thoughtworker",
-    "tags": ["UX", "Design"],
-    "socials": [{
-        "name": "Website",
-        "link": "http://palomoduarte.com"
-    }, {
-        "name": "Twitter",
-        "link": "https://twitter.com/boheme"
-    }, {
-        "name": "GitHub",
-        "link": "https://github.com/3oheme"
-    }, {
-        "name": "Behance",
-        "link": "https://www.behance.net/3oheme"
-    }]
-}, {
-    "id": 5,
-    "name": "JuanRamón Martín San Román",
-    "title": "Director del Master Universitario en Diseño Gráfico y de Interface para nuevos dispositivos",
-    "company": "Universidad Pontificia de Salamanca",
-    "country": "Spain",
-    "photoUrl": "../../images/people/juanramartin.jpeg",
-    "bio": "Juan Ramón Martín es director del Máster Universitario en Diseño Gráfico y de Interface para nuevos dispositivos (@designonscreens). Es profesor de la Facultad de Comunicación de la Universidad Pontificia de Salamanca desde 1994. Ha trabajado en múltiples proyectos como diseñador freelance en los ámbitos del diseño de identidad y editorial. Sueña con pantallas.",
-    "tags": ["UX", "Design"],
-    "socials": [{
-        "name": "Website",
-        "link": "http://designonscreens.com/"
-    }, {
-        "name": "Twitter",
-        "link": "https://twitter.com/juanRa_Martin"
-    }]
-}, {
-    "id": 6,
-    "name": "Felicidad García Sánchez",
-    "title": "Diseñadora gráfica",
-    "company": "Grupo de Investigación en InterAcción y eLearning. Universidad de Salamanca",
-    "country": "Spain",
-    "photoUrl": "../../images/people/felicidadgsanchez.jpg",
-    "bio": "Creativa y diseñadora de imágenes. Desde el dibujo hasta el video, pasando por los escenarios y la fotografía.",
-    "tags": ["Design"],
-    "badges": [{
-        "name": "GDG",
-        "description": "Google Developers Group Salamanca",
-        "link": "https://developers.google.com/groups/chapter/107931642576280918674/"
-        },{
-        "name": "Tech&Ladies",
-        "description": "Tech&Ladies",
-        "link": "https://techandladies.com"
-    }],
-    "socials": [{
-        "name": "Twitter",
-        "link": "http://twitter.com/felizgsanchez"
-    }, {
-        "name": "Instagram",
-        "link": "https://www.instagram.com/felicidadgsanchez/"
-    }, {
-        "name": "Pinterest",
-        "link": "https://www.pinterest.com/felizgsanchez/"
-    }]
-}, {
-    "id": 7,
-    "name": "Alicia García Holgado",
-    "title": "Ingeniera Informática",
-    "company": "Grupo de Investigación en InterAcción y eLearning. Universidad de Salamanca",
-    "country": "Spain",
-    "photoUrl": "../../images/people/aliciagarciaholgado.jpg",
-    "bio": "Ing. Informática. Miembro de GDGSalamanca y Techandladies. Coleccionista de ArtToys. Aficionada a la fotografía.",
-    "tags": ["Engineering", "Web"],
-    "badges": [{
-        "name": "GDG",
-        "description": "Google Developers Group Salamanca",
-        "link": "https://developers.google.com/groups/chapter/107931642576280918674/"
-        },{
-        "name": "Tech&Ladies",
-        "description": "Tech&Ladies",
-        "link": "https://techandladies.com"
-    }],
-    "socials": [{
-        "name": "Website",
-        "link": "http://grial.usal.es/aliciagh"
-    }, {
-        "name": "Twitter",
-        "link": "https://twitter.com/mambanegra86"
-    }]
-}, {
-    "id": 8,
-    "name": "Roberto Therón",
-    "title": "Profesor, Investigador",
-    "company": "Universidad de Salamanca",
-    "country": "Spain",
-    "photoUrl": "../../images/people/robertotheron.jpg",
-    "bio": "Researcher focused on combining fields such as Computer Science, Artificial Intelligence, Statistics, Graphic Design, and Data Visualization as a means for understanding complex data. He is the Group manager of the Visual Analytics and Information Visualization Research Group (VisUsal) at the University of Salamanca. In addition to his academic work, he is the author of several short films (awarded at numerous flim festivals), among them 'Desilencio' (2001, screenwriter and director), 'Interruptus' (2003, co-writer), 'Guerreros del Témpano' (2005, co-writer) or 'Impávido' (2007, co-writer)",
-    "tags": ["Data Visualization", "InfoVis","UX"],
-    "socials": [{
-        "name": "Website",
-        "link": "http://vis.usal.es/~visusal/grupo/"
-    }, {
-        "name": "Twitter",
-        "link": "http://twitter.com/robertotheron"
-    }]
-}, {
-    "id": 9,
-    "name": "Bryan McEire",
-    "title": "CTO y co-fundador de Spotahome.com",
-    "company": "Spotahome.com",
-    "country": "Spain",
-    "photoUrl": "../../images/people/bryanmceire.jpg",
-    "bio": "Emprendedor e Ingeniero informático con expriencia en infraestructura de alta disponibilidad, bases de datos y desarrollo web. Énfasis en innovación y creación y evolución de productos que crean valor para la sociedad y la compañía.",
-    "tags": ["Engineering"],
-    "socials": [{
-        "name": "Website",
-        "link": "www.spotahome.com"
-    }, {
-        "name": "Twitter",
-        "link": "@mceire"
+        "name": "Google Scholar",
+        "link": "https://scholar.google.es/citations?user=c-VhX_EAAAAJ&hl=en"
     }]
 }
 ]

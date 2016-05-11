@@ -1,79 +1,123 @@
 [{
-    "date": "2015-11-13",
-    "dateReadable": "13 Noviembre",
+    "date": "2016-06-27",
+    "dateReadable": "Monday, 27 June",
     "tracks": [{
-        "title": "Aula 11, CRAI - Facultad de Bellas Artes de la Universidad de Salamanca"
+        "title": "LASI - main track"
+        }, {
+        "title": "Summer School"
     }],
     "timeslots": [{
-        "startTime": "16:00",
-        "endTime": "16:00-20:00",
+        "startTime": "08:30",
+        "endTime": "08:30-09:00",
         "sessions": [
-            [104]
+            [1001]
         ]
-    }]
-},
-    {
-        "date": "2015-11-14",
-        "dateReadable": "14 Noviembre",
-        "tracks": [{
-            "title": "Facultad de Ciencias, Universidad de Salamanca"
-        }, {
-            "title": "Serendipity Coworking"
-        }],
-        "timeslots": [{
-            "startTime": "10:00",
-            "endTime": "10:00-10:30",
-            "sessions": [
-                [1001]
-            ]
-        }, {
-            "startTime": "10:30",
-            "endTime": "10:30-10:40",
-            "sessions": [
-                [1002]
-            ]
-        }, {
-            "startTime": "10:40",
-            "endTime": "10:40-11:20",
-            "sessions": [
-                [103]
-            ]
-        }, {
-            "startTime": "11:20",
-            "endTime": "11:20-12:00",
+    }, {
+            "startTime": "09:00",
+            "endTime": "09:00-10:00",
             "sessions": [
                 [101]
             ]
         }, {
+            "startTime": "10:00",
+            "endTime": "10:00-11:30",
+            "sessions": [
+                [102],
+                [103]
+            ]
+        }, {
+            "startTime": "11:30",
+            "endTime": "11:30-12:00",
+            "sessions": [
+                [1002]
+            ]
+        }, {
             "startTime": "12:00",
-            "endTime": "12:00-12:10",
+            "endTime": "12:00-14:00",
+            "sessions": [
+                [],
+                [104]
+            ]
+        }, {
+            "startTime": "14:00",
+            "endTime": "14:00-15:00",
             "sessions": [
                 [1003]
             ]
         }, {
-            "startTime": "12:10",
-            "endTime": "12:10-12:50",
+            "startTime": "15:00",
+            "endTime": "15:00-16:30",
             "sessions": [
-                [102]
-            ]
-        }, {
-            "startTime": "12:50",
-            "endTime": "12:50-13:30",
-            "sessions": [
+                [105],
                 [106]
             ]
         }, {
-            "startTime": "13:30",
-            "endTime": "13:30-14:00",
+            "startTime": "16:30",
+            "endTime": "16:30-18:30",
             "sessions": [
                 [1004]
             ]
         }, {
-            "startTime": "16:30",
-            "endTime": "16:30-20:30",
+            "startTime": "19:00",
+            "endTime": "19:00-20:00",
             "sessions": [
-                [],
-                [105]
+                [1005]
             ]
-        }]
+        }
+        ]
+},
+    {
+        "date": "2016-06-28",
+        "dateReadable": "Tuesday, 28 June",
+        "tracks": [{
+            "title": "LASI - main track"
+        }, {
+            "title": "Summer School"
+        }],
+        "timeslots": [{
+            "startTime": "09:00",
+            "endTime": "09:00-10:30",
+            "sessions": [
+                [107],
+                [108]
+            ]
+        }, {
+            "startTime": "10:30",
+            "endTime": "10:30-11:30",
+            "sessions": [
+                [109]
+            ]
+        }, {
+            "startTime": "11:30",
+            "endTime": "11:30-12:00",
+            "sessions": [
+                [1006]
+            ]
+        }, {
+            "startTime": "12:00",
+            "endTime": "12:00-13:00",
+            "sessions": [
+                [110]
+            ]
+        }, {
+            "startTime": "13:00",
+            "endTime": "13:00-14:00",
+            "sessions": [
+                [1007]
+            ]
+        }, {
+            "startTime": "14:00",
+            "endTime": "14:00-15:30",
+            "sessions": [
+                [112],
+                [111]
+            ]
+        }, {
+            "startTime": "15:30",
+            "endTime": "15:30-17:00",
+            "sessions": [
+                [113]
+            ]
+        }
+        ]
     }]

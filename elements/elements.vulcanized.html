@@ -31008,12 +31008,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         </paper-tab>-->
                         <paper-tab class="text-u-c" link="">
                             <a data-route="schedule" href="#!/schedule" class="nav-link horizontal center-center layout">
-                                Programa
+                                Schedule
                             </a>
                         </paper-tab>
                         <paper-tab class="text-u-c" link="">
                             <a data-route="speakers" href="#!/speakers" class="nav-link horizontal center-center layout">
-                                Ponentes
+                                Speakers
+                            </a>
+                        </paper-tab>
+                        <paper-tab class="text-u-c" link="">
+                            <a data-route="speakers" href="#pricetable" class="nav-link horizontal center-center layout">
+                                Registration
                             </a>
                         </paper-tab>
                         <!-- <paper-tab class="text-u-c">
@@ -31053,10 +31058,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="container card-container flex relative layout vertical">
       <div class="card">
         <div class="card-content">
-          <span>El mayor evento abierto sobre diseño y tecnología en Salamanca. Más de 5 horas de charlas, 2 workshops, ponentes de gran nivel... ¡Únete!</span>
+          <span>The “LASI Spain 2016” International workshop is organized by the University of Deusto (UD) with the collaboration of SNOLA (Spanish Network of Learning Analytics) on June 27th to 28th at the campus of Bilbao.</span>
         </div>
         <div class="card-content">
-          <a class="bottom-link" data-route="about" href="/about">Design&amp;Tech 2014</a>
+          <a class="bottom-link" data-route="about" href="/about">LASI Spain 2016</a>
         </div>
       </div>
     </div>
@@ -31182,34 +31187,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="photo-wrapper layout horizontal">
             <div class="flex relative big">
                 <iron-image src="{{photos.big}}" class="placeholder-color fit" sizing="cover" preload="" fade=""></iron-image>
+                <!--
                 <div class="open-photos layout vertical center-center fit pointer" on-tap="openGallery">
-                    <span>Haz clic aquí para ver más fotos</span>
+                    <span>Check out more photos here</span>
                 </div>
+                -->
             </div>
             <div class="flex layout vertical">
                 <div class="flex relative">
                     <iron-image src="{{photos.small.0}}" class="placeholder-color fit" sizing="cover" preload="" fade=""></iron-image>
+                    <!--
                     <div class="open-photos layout vertical center-center fit pointer" on-tap="openGallery">
-                        <span>Haz clic aquí para ver más fotos</span>
+                        <span>Check out more photos here</span>
                     </div>
+                    -->
                 </div>
                 <div class="flex relative hidden-xs">
                     <iron-image src="{{photos.small.1}}" class="placeholder-color fit" sizing="cover" preload="" fade=""></iron-image>
+                    <!--
                     <div class="open-photos layout vertical center-center fit pointer" on-tap="openGallery">
-                        <span>Haz clic aquí para ver más fotos</span>
+                        <span>Check out more photos here</span>
                     </div>
+                    -->
                 </div>
             </div>
         </div>
+        <!--
         <paper-dialog id="photosDialog" class="gallery-dialog fit" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
             <paper-toolbar class="navbar-overlay fit">
                 <paper-icon-button icon="icons:arrow-back" on-tap="closeGallery"></paper-icon-button>
-                <div class="title text-left">Design&amp;Tech Salamanca 2014 - Fotos</div>
+                <div class="title text-left">LASI 2015 Bilbao - More photos</div>
             </paper-toolbar>
             <div class="gallery-container fit">
                 <photo-gallery user-id="107931642576280918674" album-id="6160921090596359265"></photo-gallery>
             </div>
         </paper-dialog>
+        -->
     </template>
 </dom-module>
 <script>
@@ -31265,11 +31278,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 </div>
             </template>
         </div>
-        <div class="container flex wrap relative layout horizontal">
-        <div style="display: block; margin: 0 auto;">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/uuYroDzR2_Q?rel=0" frameborder="0" allowfullscreen=""></iframe>
-        </div>
-        </div>
     </template>
 </dom-module>
 
@@ -31283,17 +31291,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         attached: function() {
             this.statistics = [{
-                counter: 120,
-                caption: 'Asistentes'
+                counter: 150,
+                caption: 'Assistants'
             }, {
                 counter: 2,
-                caption: 'Días'
-            }, {
-                counter: 5,
-                caption: 'Charlas'
+                caption: 'Days'
             }, {
                 counter: 2,
+                caption: 'Keynotes'
+            }, {
+                counter: 7,
                 caption: 'Workshops'
+            }, {
+                counter: '10+',
+                caption: 'Experiences using LA'
             }];
         }
     });
@@ -31371,7 +31382,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
             <div>
                 <a data-route="speakers" href="#!/speakers" class="block-link">
-                    <paper-button>Ver todos los ponentes</paper-button>
+                    <paper-button>More speakers</paper-button>
                 </a>
             </div>
         </div>
@@ -31453,8 +31464,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </div>
                 </div>
             </template>
-            <a href="mailto:info@gdgsalamanca?subject=Patrocinio%20Evento%20Design%20Tech%20Salamanca%202015" class="block-link" target="_blank" onclick="ga('send', 'become-a-partner', 'button', 'click');">
-                <paper-button class="colorful" raised="">¿Quieres ser patrocinador?</paper-button>
+            <a href="mailto:info@gdgsalamanca?subject=Sponsorship%20LASI%202016%20Spain" class="block-link" target="_blank" onclick="ga('send', 'become-a-partner', 'button', 'click');">
+                <paper-button class="colorful" raised="">Become a sponsor</paper-button>
             </a>
         </div>
     </template>
@@ -31501,11 +31512,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             text-align: center;
         }
     </style>
+    <!--
     <template>
         <div id="mc_embed_signup" class="mc_embed_signup layout vertical center-center">
-            <form action="{{ url }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="mc-embedded-subscribe-form validate" target="_blank" novalidate="">
+            <form action="{{ url }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="mc-embedded-subscribe-form validate" target="_blank" novalidate>
                 <div class="mc-field-group layout vertical">
-                    <paper-input-container no-label-float="" class="text-left">
+                    <paper-input-container no-label-float class="text-left">
                         <label>Tu correo electrónico</label>
                         <input is="iron-input" type="email" name="EMAIL" id="mce-EMAIL" autocomplete="off">
                         <paper-input-error>Introduce una dirección válida de correo electrónico</paper-input-error>
@@ -31519,9 +31531,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <div class="mc-submit-group">
                     <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" style="display:none">
                 </div>
-            </form>
-        </div>
-    </template>
+            
+        
+    
+    --&gt;
     <script>
         (function() {
             Polymer({
@@ -31664,63 +31677,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <g:plusone size="medium" width="200" annotation="inline" href="/"></g:plusone>
                 </div>
                 <paper-button class="footer-backtotop" on-tap="backToTop" noink="">
-                    ¡Ir arriba!
+                    Up!
                     <iron-icon icon="icons:expand-less"></iron-icon>
                 </paper-button>
             </div>
             <div class="footer-content footer-links-container">
                 <nav class="layout vertical-horizontal flex">
                     <div class="flex link-block-wrapper">
-                        <span class="link-block-title block">Para saber más de nosotros...</span>
+                        <span class="link-block-title block">More about us</span>
                         <ul class="link-block">
-                            <li><a href="https://gdgsalamanca.com/" target="_blank">Google Developers Group Salamanca</a></li>
-                            <li><a href="http://design2014.gdgsalamanca.com/" target="_blank">Design&amp;Tech Salamanca 2014</a></li>
-                            <li><a href="http:///android2015.gdgsalamanca.com//" target="_blank">Android Day Salamanca 2015</a></li>
-                            <!-- <li><a href="/code-of-conduct">Code of Conduct</a></li> -->
+                            <li><a href="https://snola.es/" target="_blank">Spanish Network of Learning Analytics (SNOLA)</a></li>
+                            <li><a href="https://blogs.deusto.es/lasi2015Bilbao//" target="_blank">LASI 2015 Spain</a></li>
                         </ul>
                     </div>
                     <div class="flex link-block-wrapper">
-                        <span class="link-block-title block">Para patrocinadores</span>
+                        <span class="link-block-title block">Become a sponsor</span>
                         <ul class="link-block">
                             <!-- <li><a href="/assets/GDG_DevFest_Ukraine_2015_Partnership_Proposition.pdf" target="_blank">Partnership Proposition</a></li> -->
-                            <li><a href="mailto:info@gdgsalamanca?subject=Patrocinio%20Evento%20Design%20Salamanca%202015" target="_blank">¿Quieres ser patrocinador?</a></li>
+                            <li><a href="mailto:snolaresearch@gmail.com?subject=Partnership%20LASI'16%20Spain" target="_blank">Become a sponsor</a></li>
                         </ul>
                     </div>
                     <div class="flex link-block-wrapper">
-                        <span class="link-block-title block">Contacto</span>
+                        <span class="link-block-title block">Contact</span>
                         <ul class="link-block">
-                            <li><a href="mailto:info@gdgsalamanca.com">info@gdgsalamanca.com</a></li>
+                            <li><a href="mailto:snolaresearch@gmail.com">snolaresearch@gmail.com</a></li>
                         </ul>
                         <div class="icons-wrapper align-pb-block">
-                            <a href="https://plus.google.com/+GDGSalamanca" target="_blank">
-                                <paper-icon-button icon="app-icons:gplus"></paper-icon-button>
-                            </a>
-                            <a href="https://twitter.com/GDGSalamanca" target="_blank">
+                            <a href="https://twitter.com/snolaresearch" target="_blank">
                                 <paper-icon-button icon="app-icons:twitter"></paper-icon-button>
                             </a>
-                            <a href="https://www.facebook.com/GDGSalamanca" target="_blank">
-                                <paper-icon-button icon="app-icons:facebook"></paper-icon-button>
-                            </a>
-                            <a href="https://github.com/gdgsalamanca" target="_blank">
+                            <a href="https://github.com/snola" target="_blank">
                                 <paper-icon-button icon="app-icons:github"></paper-icon-button>
                             </a>
                         </div>
-                    </div>
-                    <div class="flex">
-                        <span class="link-block-title block">Subscríbete a nuestras novedades</span>
-                        <span>Nada de SPAM, tranquilo</span>
-                        <mailchimp-subscribe url="{{url}}" name="{{name}}"></mailchimp-subscribe>
                     </div>
                 </nav>
             </div>
             <!-- <div class="line full-width"></div> -->
             <div class="footer-content footer-bottom layout vertical-horizontal justified">
                 <span class="flex self-center">
-                    © Design&amp;Tech Salamanca 2015. Web basada en el <a href="https://github.com/gdg-x/hoverboard" target="_blank">Project Hoverboard</a> de <a href="http://o.zasadnyy.com/" target="_blank">Oleh Zasadnyy</a> ·
-                    <a href="http://gdgsalamanca.com" target="_blank">GDG Salamanca</a>
+                    © LASI 2016 Spain. Web based on the <a href="https://github.com/gdg-x/hoverboard" target="_blank">Project Hoverboard</a> by <a href="http://o.zasadnyy.com/" target="_blank">Oleh Zasadnyy</a> ·
+                    <a href="http://snola.es" target="_blank">Spanish Network of Learning Analytics (SNOLA)</a>
                 </span>
                 <div class="self-end">
-                    <img class="gdg-logo" src="../images/gdg-logo.png" alt="GDG Salamanca">
+                    <img class="gdg-logo" src="../images/logo.png" alt="SNOLA">
                 </div>
             </div>
         </div>
@@ -31849,7 +31849,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 color: inherit;
             }
         </style>
-        <google-map class="fit" zoom="15" latitude="40.9603982" longitude="-5.6706833" styles="[[options]]" disable-zoom="" disable-default-ui="">
+        <google-map class="fit" zoom="15" latitude="43.272124" longitude="-2.9351029" styles="[[options]]" disable-zoom="" disable-default-ui="">
             <google-map-marker latitude="40.9603982" longitude="-5.6706833"></google-map-marker>
         </google-map>
         <div class="container card-container relative layout horizontal center-center">
@@ -31858,13 +31858,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <div class="paper-card-container location-card">
                     <div class="card-content">
                         <div class="title">
-                            <h4>¿Dónde?</h4>
+                            <h4>Where?</h4>
                         </div>
-                        <p>Facultad de Ciencias de la Universidad de Salamanca<br>Plaza de los Caídos s/n, Salamanca, España</p>
+                        <p>Faculty of Engineering at the University of Deusto<br>Avda. Universidades 24, 48007 Bilbao, Spain</p>
                     </div>
                     <div class="card-actions">
-                        <a class="bottom-link" href="https://www.google.es/maps/place/Universidad+De+Salamanca+:+Facultad+de+Ciencias+y+Qu%C3%ADmicas/@40.9603982,-5.6706833,15z/data=!3m1!4b1!4m2!3m1!1s0xd3f26409c4d5287:0x2809ba7ed4a44c2e" target="_blank">
-                            <paper-button on-tap="readMore">¿Cómo llegar?</paper-button>
+                        <a class="bottom-link" href="https://www.google.es/maps/place/Universidad+de+Deusto/@43.2712491,-2.9407463,17z/data=!3m1!4b1!4m5!3m4!1s0xd4e50207f52c445:0x6ea1bd3e8bae3141!8m2!3d43.2712452!4d-2.9385576" target="_blank">
+                            <paper-button on-tap="readMore">More info</paper-button>
                         </a>
                     </div>
                 </div>
@@ -31957,13 +31957,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         </style>
         <div class="container container-narrow flex relative layout vertical-horizontal center-center">
-            <h4 class="heading flex text self-center text-center">Design&amp;Tech Salamanca 2014</h4>
-            <paper-button class="white border-button open-dialog-button" on-tap="playVideo">Mira cómo fue</paper-button>
+            <h4 class="heading flex text self-center text-center">LASI Spain 2015</h4>
+            <!-- <paper-button class="white border-button open-dialog-button" on-tap="playVideo">Check out</paper-button> -->
         </div>
         <paper-dialog class="video-dialog fit" id="videoDialog" modal="" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
             <paper-toolbar class="navbar-overlay fit">
                 <paper-icon-button icon="icons:arrow-back" on-tap="closeVideoCard"></paper-icon-button>
-                <div class="title text-left">Desing&amp;Tech Salamanca 2014</div>
+                <div class="title text-left">LASI Spain 2015</div>
             </paper-toolbar>
             <div class="fullvideo-container fit">
                 <google-youtube id="video" video-id="rHZ4mfDCY9E" fluid="true" autohide="1" chromeless="true"></google-youtube>
@@ -32574,7 +32574,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             text: {
                 type: String,
                 observer: '_textChanged',
-                value: 'Twittea acerca de tu experiencia en Design&Tech Salamanca 2015'
+                value: 'Tweet about your experience in the LASI Spain 2016'
             },
             when: {
                 type: Date
@@ -32615,24 +32615,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="container relative layout vertical-horizontal">
             <iron-ajax auto="" url="[[source]]" handle-as="json" on-response="feedLoaded"></iron-ajax>
             <div class="flex-5">
-                <h4 class="heading">Comentando con <a href="https://www.google.com/#q=%23designtechSAL15">#designtechSAL15</a></h4>
+                <h4 class="heading">Tweets using <a href="https://www.google.com/#q=%23LASI16Spain">#LASI16Spain</a></h4>
                 <social-post id="post" author="{{author}}" text="{{text}}" when="{{when}}" canonicalurl="https://twitter.com/" sign="@"></social-post>
             </div>
             <span class="flex"></span>
             <div class="flex-5 second-block">
                 <h4 class="heading">Social</h4>
-                <span class="block">Añádenos a tus círculos, síguenos o danos un like</span>
+                <span class="block">Follow us</span>
                 <div class="align-pb-block">
-                    <a href="https://plus.google.com/+GDGSalamanca" target="_blank">
-                        <paper-icon-button icon="app-icons:gplus"></paper-icon-button>
-                    </a>
-                    <a href="https://twitter.com/gdgsalamanca" target="_blank">
+                    <a href="https://twitter.com/snolaresearch" target="_blank">
                         <paper-icon-button icon="app-icons:twitter"></paper-icon-button>
-                    </a>
-                    <a href="https://www.facebook.com/GDGSalamanca" target="_blank">
-                        <paper-icon-button icon="app-icons:facebook"></paper-icon-button>
-                    </a>
-                    <a href="https://github.com/gdgsalamanca" target="_blank">
+                    </a><a href="https://github.com/snola" target="_blank">
                         <paper-icon-button icon="app-icons:github"></paper-icon-button>
                     </a>
                 </div>
@@ -33188,9 +33181,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                 <span class="session-meta">Language:
                                     <span>[[session.language]]</span>
                                 </span>
-                                <span class="session-meta">Complexity:
-                                    <span>[[session.complexity]]</span>
-                                </span>
                                 <marked-element markdown="[[session.description]]"></marked-element>
                             </div>
                         </template>
@@ -33235,9 +33225,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             <h3 class="session-title">[[session.title]]</h3>
                             <span class="session-meta">Language:
                                 <span>[[session.language]]</span>
-                            </span>
-                            <span class="session-meta">Complexity:
-                                <span>[[session.complexity]]</span>
                             </span>
                             <marked-element markdown="[[session.description]]"></marked-element>
                         </div>
@@ -33510,7 +33497,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <div id="sideMenu" class="side-menu layout vertical">
                     <paper-card class="filters">
                         <div class="card-content header">
-                            <div class="title-text">Filtros</div>
+                            <div class="title-text">Filters</div>
                         </div>
                         <div class="card-content">
                             <div id="tagFilter" class="selector-group layout horizontal-vertical wrap">
@@ -33792,7 +33779,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         </style>
         <div class="container relative">
-            <h4 class="heading text-center">Workshops</h4>
+            <h4 class="heading text-center">Blog</h4>
             <div class="layout vertical-horizontal">
                 <div class="flex-5">
                     <span class="title block">[[news.0.title]]</span>
@@ -33899,44 +33886,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         </style>
         <div id="pricetable" class="container wrap relative layout vertical text-center">
-            <h4 class="heading">Entradas</h4>
+            <h4 class="heading">Registration</h4>
             <div class="price-block-wrapper flex layout vertical-horizontal">
                 <div class="price-block flex text-center">
-                    <span class="ticket-name block">Workshop Cinema4D</span>
-                    <span class="price">10</span>
-                    <span class="currency">Euros</span>
-                    <span class="additional-info block">*Hasta 15 plazas</span>
-                    <a href="http://entradium.com/es/entradas/cinema-4d-introduccion-al-diseno-en-3d" target="_blank">
-                        <paper-button class="colorful" raised="">
-                            ¡Comprar entrada!
-                        </paper-button>
-                    </a>
-                </div>
-                <div class="price-block flex text-center">
-                    <span class="ticket-name block">Evento Design&amp;Tech 2015</span>
+                    <span class="ticket-name block">LASI 2016 Spain</span>
                     <span class="price">0</span>
                     <span class="currency">Euros</span>
-                    <span class="additional-info block">*Hasta 150 plazas</span>
+                    <span class="additional-info block">* 150 tickets available</span>
                     <a href="http://goo.gl/forms/tDu8whKPm9" target="_blank">
                         <paper-button class="colorful" raised="">
-                            Regístrate gratuitamente
+                            Free registration
                         </paper-button>
                     </a>
                         <!-- <br/>Requires valid student ID</span> -->
                 </div>
-                <div class="price-block flex text-center">
-                    <span class="ticket-name block">Workshop Sketch</span>
-                    <span class="price">10</span>
-                    <span class="currency">Euros</span>
-                    <span class="additional-info block">*Hasta 12 plazas</span>
-                    <a href="http://entradium.com/es/entradas/sketch-basico-design-tech-salamanca-2015" target="_blank">
-                        <paper-button class="colorful" raised="">
-                            ¡Comprar entrada!
-                        </paper-button>
-                    </a>
-                </div>
             </div>
-            <span class="details">Las entradas solo incluyen la entrada al evento o workshop, no incluyen comidas o coffee breaks</span>
+            <span class="details">Your registration includes only the assistance to the events, workshops and keynotes. Lunches and other social activities are not included in the fee</span>
           <!--  <div class="flex">
             <br>
                 <paper-button class="colorful" on-tap="openTicketsDialog" raised>Comprar entradas</paper-button>
@@ -34458,8 +34423,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <div class="session-detail flex layout vertical center-center">
                             <span class="name self-start">[[session.title]]</span>
                             <div class="title self-start">
-                                <span>[[session.time]]</span>,
-                                <span>[[session.complexity]]</span>
+                                <span>[[session.time]]</span>
                             </div>
                         </div>
                         <div class="flex"></div>
@@ -34498,8 +34462,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </paper-toolbar>
             <div class="content">
                 <div class="subtitle">
-                    <span>[[session.time]]</span>,
-                    <span>[[session.complexity]]</span>
+                    <span>[[session.time]]</span>
                 </div>
                 <div class="card-content session-tags">
                     <span class="tags-label">Tags:</span>
