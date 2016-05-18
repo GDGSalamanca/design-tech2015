@@ -105,7 +105,7 @@
   },
   {
     "id": 106,
-    "title": "Workshop III",
+    "title": "Workshop III ”Creating interactive visualizations with R, ggplot2 and Shiny (R initial knowledge required)”",
     "description": "",
     "speakers": [],
     "language": "en",
@@ -131,15 +131,16 @@
   },
   {
     "id": 108,
-    "title": "Workshop IV",
-    "description": "",
-    "speakers": [],
+    "title": "Workshop IV: “Orchestrating Learning Analytics: A framework for researchers, teachers and developers“",
+    "description": "The goal of the workshop is to gather members of the three target stakeholder groups (teachers, researchers, developers), and use the OrLA framework to establish common ground among them, and to spark and sustain productive discussions about the needs and benefits of learning analytics interventions in authentic educational settings. The workshop will feature hands-on collaborative activities, structured in three main phases: 1. Introduction to OrLA and example of its application to a real setting 2.Stakeholder needs: individual activities and breakout groups (per kind of stakeholder) about the major concerns and needs when facing a learning analytics intervention/innovation 3.Concrete intervention cases: breakout groups formed by different stakeholders, in which the benefits of concrete LA tools are matched against the constraints of the educational setting and the needs of the specific stakeholders in that setting. Please register in the LASI's registration form and in http://go.epfl.ch/LASI-ORLA2016",
+    "speakers": [5,7,8,9],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://lprisan.wix.com/orla2016",
     "video": "",
     "tags": [
-    "Workshop"
+    "Workshop",
+    "Orchestrating Learning Analytics"
     ]
   },
   {
@@ -172,7 +173,7 @@
   },
   {
     "id": 111,
-    "title": "Workshop VI",
+    "title": "Workshop VI “Social network analysis (SNA) in educational data“",
     "description": "",
     "speakers": [],
     "language": "en",
@@ -198,15 +199,19 @@
   },
   {
     "id": 113,
-    "title": "Workshop VII",
-    "description": "",
-    "speakers": [],
+    "title": "Workshop VII “Contextual Learning analytics Enforcing data Ownership (CLEO). Building Learning Dashboards with Logstash, Elasticsearch and Kibana“",
+    "description": "Educational data continues to grow in volume, velocity and variety. Making sense of the educational data in such conditions requires deployment and usage of appropriate scalable, real-time processing tools supporting a flexible data schema. Elasticsearch is one of the popular open-source tools meeting the enlisted requirements. Initially envisioned as a search engine capable of operating at scale and in real time, Elasticsearch is used by organisations such as Wikimedia and Github, which deal with big data on daily basis. In addition, Elasticsearch is used increasingly often as analytics platform thanks to its scalable architecture and expressive query language. Until recently, the exploitation of Elasticsearch for (learning) analytical purposes by practitioners was hindered by a high entrance barrier due to the complexity of the query language and the query specificities. This is currently changing with the ongoing development of Kibana, an open-source tool that allows to conduct analysis and build visualisations of Elasticsearch data through a graphical user interface. Kibana does not require the user to dive into technical details of the queries (although it is still possible) and hence makes big educational data visualisations accessible to regular users. The additional value of Kibana comes in play whenever several visualisations are combined on a single dashboard, enabling to use multiple coordinated views for an interactive explorative analysis. Both Elasticsearch and Kibana, together with Logstash are part of an analytics stack often referred to as ELK. Logstash supports data acquisition from multiple sources (including twitter, RSS, event logs) thanks to its rich set of available connectors. Custom connectors can be developed for case-specific sources. In addition to the mentioned values, ELK enables building analytics infrastructures decoupled from the learning platform, i.e., it allows to host separately the learning environment (with the analytics functionalities) and the data storage without affecting the end-user experience. Schedule: An introduction to ELK technologies (30 minutes). A hands-on session (40 minutes). Discussion and Feedback (20 minutes)",
+    "speakers": [4,5,6],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://graasp.eu/ils/572cb573c3ddb608c844b933/?lang=en",
     "video": "",
     "tags": [
-    "Workshop"
+    "Workshop",
+    "Contextual Learning Analytics",
+    "Logstash",
+    "Elasticsearch",
+    "Kibana"
     ]
   }
 ]

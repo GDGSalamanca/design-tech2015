@@ -37,5 +37,83 @@
         "name": "Google Scholar",
         "link": "https://scholar.google.es/citations?user=c-VhX_EAAAAJ&hl=en"
     }]
+}, {
+    "id": 4,
+    "name": "Andrii Vozniuk",
+    "title": "PhD student in Computer Science",
+    "company": "Coordination and Interaction Systems group (REACT). Swiss Federal Institute of Technology in Lausanne (EPFL)",
+    "country": "Switzerland",
+    "photoUrl": "../../images/people/AndriiVozniuk.jpg",
+    "bio": "Andrii Vozniuk is a PhD student in Computer Science in the Coordination and Interaction Systems group (REACT) at the Swiss Federal Institute of Technology in Lausanne (EPFL). His research and software engineering activities focus on interaction systems and visual analytics in the domains of education and knowledge management. In the course his PhD studies he has developed a number of tools for analysis and visualization of students' activities in order to support awareness and reflection in blended inquiry learning sessions.",
+    "tags": ["Workshop"],
+    "socials": [{
+        "name": "Website",
+        "link": "https://people.epfl.ch/andrii.vozniuk?lang=es"
+    }]
+}, {
+    "id": 5,
+    "name": "María Jesús Rodríguez-Triana",
+    "title": "Post-doctoral researcher",
+    "company": "Coordination and Interaction Systems group (REACT). Swiss Federal Institute of Technology in Lausanne (EPFL)",
+    "country": "Switzerland",
+    "photoUrl": "../../images/people/MariaJesusRodriguez-Triana.jpg",
+    "bio": "María Jesús Rodríguez-Triana finished her Ph.D in Information and Communication Technologies at the University of Valladolid (Spain) in 2014. Currently, she is a post-doctoral researcher in the REACT Group at EPFL, Switzerland. Her research lines address classroom orchestration, learning design, and learning analytics with a special emphasis on teachers. Currently, she is investigating the obstacles that hinder adoption of learning analytics in authentic scenarios. She has organized workshops for teacher professional development and for scientists, on inquiry-based learning, learning analytics and ethical issues in TEL.",
+    "tags": ["Workshop"],
+    "socials": [{
+        "name": "Website",
+        "link": "https://people.epfl.ch/maria.rodrigueztriana?lang=en"
+    }]
+}, {
+    "id": 6,
+    "name": "Denis Gillet",
+    "title": "Head",
+    "company": "Coordination and Interaction Systems group (REACT). Swiss Federal Institute of Technology in Lausanne (EPFL)",
+    "country": "Switzerland",
+    "photoUrl": "../../images/people/DenisGillet.png",
+    "bio": "Denis Gillet received his Ph.D. degree in Information Systems from the Swiss Federal Institute of Technology in Lausanne (EPFL) in 1995. He is currently Associate Professor at the EPFL School of Engineering, where he leads the REACT multi-disciplinary research group. Dr. Gillet is Associate Editor of the IEEE Transactions on Learning Technologies (TLT) and of the International Journal of Technology Enhanced Learning. His current research interests include Technologies Enhanced Learning (TEL), Human Computer Interaction (HCI), Human Devices Interaction (HDI) and Optimal Coordination of Complex and Distributed Systems.",
+    "tags": ["Workshop"],
+    "socials": [{
+        "name": "Website",
+        "link": "https://people.epfl.ch/Denis.Gillet"
+    }]
+}, {
+    "id": 7,
+    "name": "Luis P. Prieto",
+    "title": "Marie Curie postdoctoral fellow",
+    "company": "(CHILI) Lab. Swiss Federal Institute of Technology in Lausanne (EPFL)",
+    "country": "Switzerland",
+    "photoUrl": "../../images/people/LuisPPrieto.jpg",
+    "bio": "Luis P. Prieto is a Marie Curie postdoctoral fellow at the (CHILI) Lab in EPFL (Switzerland). He has done research on open architectures to communicate heterogeneous learning technologies, and currently he is modelling teacher orchestration load during collaborative work in technology-enhanced classrooms. He has organized multiple collaborative workshops for professional development of teachers, as well as for scientists in the context of research projects.",
+    "tags": ["Workshop"],
+    "socials": [{
+        "name": "Google Scholar",
+        "link": "https://scholar.google.es/citations?user=ySpnj0MAAAAJ&hl=en"
+    }]
+}, {
+    "id": 8,
+    "name": "Roberto Martinez-Maldonado",
+    "title": "Postdoctoral research associate",
+    "company": "Connected Intelligence Centre (CIC). University of Technology, Sydney (UTS)",
+    "country": "Australia",
+    "photoUrl": "../../images/people/RobertoMartinezMaldonado.jpg",
+    "bio": "Roberto Martinez-Maldonado is a postdoctoral research associate in the Connected Intelligence Centre (CIC) at the University of Technology, Sydney (UTS), Australia. He obtained his doctorate degree in 2014 from the University of Sydney, Australia. His areas of expertise include Human Computer Interaction, Learning Analytics, Artificial Intelligence and Education.",
+    "tags": ["Workshop"],
+    "socials": [{
+        "name": "Google Scholar",
+        "link": "https://scholar.google.ch/citations?user=sWXrhB0AAAAJ&hl=en"
+    }]
+}, {
+    "id": 9,
+    "name": "Yannis Dimitriadis",
+    "title": "Full Professor",
+    "company": "GSIC/EMIC research group. University of Valladolid",
+    "country": "Spain",
+    "photoUrl": "../../images/people/YannisDimitriadis.jpg",
+    "bio": "Yannis Dimitriadis is a Full Professor at the University of Valladolid, Spain, where he leads the GSIC/EMIC research group. His research interests include the technological support for orchestration of learning, from learning design to enactment and evaluation. He is an experienced workshop organizer, including several workshops in past editions of the CSCL and ICLS conferences, professional development workshops for teachers, and workshops in the context of research projects.",
+    "tags": ["Workshop"],
+    "socials": [{
+        "name": "Google Scholar",
+        "link": "https://scholar.google.ch/citations?user=xrzS-v4AAAAJ&hl=en"
+    }]
 }
 ]
