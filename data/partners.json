@@ -10,6 +10,11 @@
     }, {
         "title": "Sponsors",
         "logos": [{
+        "name": "Ministry of Economy and Competitiveness (Spain)",
+            "url": "http://www.mineco.gob.es/portal/site/mineco",
+            "logoUrl": "../images/partners/mineco.jpg"
+
+        },{
         "name": "Spanish Network of Learning Analytics (SNOLA)",
             "url": "http://snola.es",
             "logoUrl": "../images/SNOLA_.png"
