@@ -51,7 +51,7 @@
   {
     "id": 102,
     "title": "Experiences I",
-    "description": "1.Introducción al modelo de estudiantes  2.Lo que saben nuestras plataformas de aprendizaje sobre lo que hacen (o no) nuestros alumnos 3.Learning Analytics in action: privacy issues in the classroom 4.Uso de herramientas de Learning Analytics en la enseñanza de ingenierías. Implicaciones institucionales, docentes y tecnológicas",
+    "description": "<ol><li>Introducción al modelo de estudiantes</li> <li>Lo que saben nuestras plataformas de aprendizaje sobre lo que hacen (o no) nuestros alumnos</li> <li>Learning Analytics in action: privacy issues in the classroom</li> <li>Uso de herramientas de Learning Analytics en la enseñanza de ingenierías. Implicaciones institucionales, docentes y tecnológicas</li></ol>",
     "speakers": [],
     "language": "en",
     "complexity": "Medium",
@@ -93,7 +93,7 @@
   {
     "id": 105,
     "title": "Experiences II",
-    "description": "1.Utilización de Learning Analytics en Cursos 0  2.Usando Learning Analytics para analizar los resultados de aprendizaje en un serious game 3.Retroalimentación visual de la evaluación mediante rúbricas 4.Learning Analytics en entornos de trabajo",
+    "description": "<ol><li>Utilización de Learning Analytics en Cursos 0</li> <li>Usando Learning Analytics para analizar los resultados de aprendizaje en un serious game</li> <li>Retroalimentación visual de la evaluación mediante rúbricas</li> <li>4.Learning Analytics en entornos de trabajo</li></ol>",
     "speakers": [],
     "language": "en",
     "complexity": "Medium",
@@ -119,7 +119,7 @@
   {
     "id": 107,
     "title": "Experiences III",
-    "description": "1.Análisis de Redes Sociales como instrumento de identificación de alumnos en riesgo dentro de un programa de posgrado. 2.Analyzing non-linear video usage in an introductory x-MOOC about basic linear algebra 3.Analítica de la actividad práctica en la asignatura Gestión de Proyectos 4.Design-aware analytics supporting teachers’ monitoring of blended learning scenarios: Two experiences in higher education 5.Using Learning Analytics at School: a Go-Lab Study",
+    "description": "<ol><li>Análisis de Redes Sociales como instrumento de identificación de alumnos en riesgo dentro de un programa de posgrado</li> <li>Analyzing non-linear video usage in an introductory x-MOOC about basic linear algebra</li> <li>Analítica de la actividad práctica en la asignatura Gestión de Proyectos</li> <li>Design-aware analytics supporting teachers’ monitoring of blended learning scenarios: Two experiences in higher education</li> <li>Using Learning Analytics at School: a Go-Lab Study</li></ol>",
     "speakers": [],
     "language": "en",
     "complexity": "Medium",
