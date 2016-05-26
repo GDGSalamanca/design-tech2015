@@ -7,6 +7,14 @@
             "logoUrl": "../images/partners/deusto.png"
 
         }]
+    },{
+        "title": "Co-organizer",
+        "logos": [{
+        "name": "University of the Basque Country",
+            "url": "http://www.ehu.eus/",
+            "logoUrl": "../images/partners/upv-ehu.png"
+
+        }]
     }, {
         "title": "Sponsors",
         "logos": [{
