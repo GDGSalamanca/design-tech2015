@@ -32,6 +32,11 @@
             "url": "http://solaresearch.org/",
             "logoUrl": "../images/partners/solar-logo.png"
 
+        },{
+            "name": "Capítulo Español de la Sociedad de Educación del IEEE",
+            "url": "http://www.ieec.uned.es/es/",
+            "logoUrl": "../images/partners/cesei.png"
+
         }]
     }, {
         "title": "Partners",
