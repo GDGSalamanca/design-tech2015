@@ -173,15 +173,16 @@
   },
   {
     "id": 111,
-    "title": "Workshop VI “Social network analysis (SNA) in educational data“",
-    "description": "",
-    "speakers": [],
+    "title": "Workshop VI “Social Network Analysis (SNA) of educational data“",
+    "description": "Social learning analytics (SLA) refers to a distinctive subset of learning analytics, strongly tied to social learning. Buckingham-Shum and Ferguson define five levels of SLA, differentiating between inherent and socialized social learning analytics. Within the first group, two kinds of analytics stand out: discourse analytics, focused on educational contents and language-based construction of knowledge, and social network analytics (SNA), oriented toward the analysis of interpersonal relations. In online learning, interactions, participation, social exchanges and construction of knowledge take place primarily in the message boards of the course. Message boards become then a source of valuable information to describe, explain and understand social dynamics of online courses. The application of SNA techniques to educational data allows users to identify relevant actors in a course: influencers, at-risk students, knowledge brokers, hubs and authorities, communities, etc. The main objective of this workshop is to give attendants an introductory overview and global vision of SNA techniques, and how to apply them to in educational contexts. The structure of the workshop comprises four main blocks: <ol><li>Introduction to Social Network Analysis: This section will present basic concepts of SNA, in both directed and undirected networks.</li><li>Centrality measures in SNA: This part will cover the main centrality measures and network parameters: degree centrality, betweenness, average degree, average path length, network diameter, etc.</li><li>Building social networks from educational data: This block will help attendees to learn and understand how to build different social networks with data originated in a LMS.</li><li>Using tools for SNA of educational data: The final section puts the different concepts in practice, presents two tools for extraction (GraphFES) and data analysis using SNA techniques (Gephi), showcases real-life examples of use of the application of SNA to educational data.</li></ol>Prior knowledge requirements for the Workshop: <b>None.</b><br>Tools used for the examples: <ul><li>Moodle 2.9</li><li>Node.js</li><li>GraphFES 1.0</li><li>Web browser</li><li>Gephi 0.9.1</li></ul>",
+    "speakers": [10],
     "language": "en",
     "complexity": "Medium",
     "presentation": "",
     "video": "",
     "tags": [
-    "Workshop"
+    "Workshop",
+    "Social Network Analysis"
     ]
   },
   {

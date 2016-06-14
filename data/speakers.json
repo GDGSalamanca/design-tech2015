@@ -115,5 +115,21 @@
         "name": "Google Scholar",
         "link": "https://scholar.google.ch/citations?user=xrzS-v4AAAAJ&hl=en"
     }]
+}, {
+    "id": 10,
+    "name": "Angel Hernández-García",
+    "title": "Professor",
+    "company": "Technical University of Madrid",
+    "country": "Spain",
+    "photoUrl": "../../images/people/AngelHernandezGarcia.png",
+    "bio": "Angel Hernández-García is M.Sc. in Telecommunication Engineering, Master SAP in Integrated Information Systems, and Ph.D. in Information Systems by the Universidad Politécnica de Madrid. Ángel is Assistant Professor at the UPM's School of Telecommunication Engineering. Currently, his research lines cover information systems’ acceptance and educational technologies, with special focus on learning analytics and educational data mining methods and applications. Ángel has been guest editor of, and published research papers in international journals. He is also chair of international conferences and is reviewer and member of the editorial board for leading journals in the fields of technology enhanced learning, information systems and business.",
+    "tags": ["Workshop"],
+    "socials": [{
+        "name": "Google Scholar",
+        "link": "https://scholar.google.com/citations?user=UMJmq0cAAAAJ"
+    },{
+        "name": "ResearchGate",
+        "link": "https://www.researchgate.net/profile/Angel_Hernandez-Garcia"
+    }]
 }
 ]
