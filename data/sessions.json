@@ -78,7 +78,7 @@
   {
     "id": 104,
     "title": "Workshop II “Using Weka on Data from Moodle”",
-    "description": "",
+    "description": "The workshop will be located in a room equipped with PCs. If you want to attend with your own laptop, the version of Weka you will need is 3.6 (Stable book 3rd ed. version)",
     "speakers": [2],
     "language": "en",
     "complexity": "Medium",
