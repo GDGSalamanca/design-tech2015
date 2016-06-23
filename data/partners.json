@@ -68,6 +68,10 @@
             "name": "Gradient – Universidad Carlos III de Madrid",
             "url": "http://gradient.it.uc3m.es/",
             "logoUrl": "../images/partners/Gradient_UC3M.png"
+        }, {
+            "name": "GIST – Universidad de Vigo",
+            "url": "http://www-gist.det.uvigo.es/",
+            "logoUrl": "../images/partners/gist-vigo.png"
         }]
     }
 ]
