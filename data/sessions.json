@@ -110,8 +110,8 @@
   {
     "id": 106,
     "title": "Workshop III ”Creating interactive visualizations with R, ggplot2 and Shiny (R initial knowledge required)”",
-    "description": "",
-    "speakers": [19, 18, 29],
+    "description": "This workshop is an introduction to creating rich graphical visualizations in R. We will explain how to develop meaningful visualizations with the ggplot2 package, the most widely used implementation of the principles of The Grammar of Graphics. You will learn the basics of ggplot2 in a practical way and we will discuss about the most usual visualization problems and the common alternatives to these problems, creating good visual representations for the questions you want to explore. In the workshop, we will also show how to develop an interactive web application using Shiny, a framework for creating these elements in R.<br>Goals: <ul><li>Introduce the realization of graphics in R using the ggplot2 package.</li><li>Discuss criteria and alternatives for creating meaningful visualizations.</li><li>Develop interactive graphics in R using Shiny.</li></ul><br>Index<ol><li>Why visualization?</li><li>Grammar of graphics & ggplot2</li><li>Recommended plots</li><li>Why using interactive graphs?</li><li>Interactive graphics with shiny</li></ol><br>Essential requirements: initial knowledge of R<br>Tools to be used: R (https://www.r-project.org/) & RStudio (https://www.rstudio.com/products/rstudio/download/)",
+    "speakers": [29, 19, 18],
     "language": "en",
     "complexity": "Medium",
     "presentation": "",

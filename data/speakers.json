@@ -258,6 +258,19 @@
         "link": "http://www.iqs.edu/es/dr-lucinio-gonz%C3%A1lez-sabat%C3%A9"
     }]
 }, {
+    "id": 29,
+    "name": "Vanessa Serrano-Molinero",
+    "title": "Assistant Professor",
+    "company": "Univ. Ramon Llull",
+    "country": "Spain",
+    "photoUrl": "../../images/people/vanessa_serranomolinero.jpg",
+    "bio": "Vanessa Serrano received her B.Sc. degrees in Mathematics and Statistics from the Autonomous University of Barcelona (UAB), Barcelona, Spain, in 2005. She also received from Autonomous University of Barcelona (UAB) a Diploma of Advanced Studies in 2009 and a PhD in Business Administration from IQS Univ. Ramon Llull (URL) in 2015. Currently, she is an Assistant Professor at the Quantitative Methods Department at IQS Univ. Ramon Llull (URL). She belongs to the ASISTEMBE research group and her research focus on analyzing the use of simulations for teaching and learning Statistics at the university level by applying learning analytics. Prof. Serrano is a Member of the Catalan Society of Statistics and the Spanish Network on Learning Analytics.",
+    "tags": ["Workshop"],
+    "socials": [{
+        "name": "Website",
+        "link": "http://www.iqs.edu/es/dra-vanessa-serrano-molinero"
+    }]
+}, {
     "id": 21,
     "name": "Adolfo Ruiz Calleja",
     "title": "",
@@ -337,14 +350,5 @@
     "photoUrl": "",
     "bio": "",
     "tags": ["Experiences"]
-}, {
-    "id": 29,
-    "name": "Vanessa Serrano",
-    "title": "",
-    "company": "Univ. Ramon Llull",
-    "country": "Spain",
-    "photoUrl": "",
-    "bio": "",
-    "tags": ["Workshop"]
 }
 ]
