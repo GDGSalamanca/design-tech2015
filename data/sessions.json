@@ -21,7 +21,7 @@
   },
   {
     "id": 1005,
-    "title": "Bilboats 1 hour boat trip. See the details for registration in http://lasi16.snola.es/#!/#pricetable",
+    "title": "Bilboats 1 hour boat trip. Canceled",
     "description": "See the details for registration in http://lasi16.snola.es/#!/#pricetable"
   },
   {
@@ -45,7 +45,7 @@
     "speakers": [2],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://www.uco.es/users/in1romoc/EducationalDataScience.pdf",
     "video": "",
     "tags": [
       "Educational Data Science",
@@ -55,7 +55,7 @@
   {
     "id": 102,
     "title": "Experiences I",
-    "description": "<ol><li>Introducción al modelo de estudiantes</li> <li>Lo que saben nuestras plataformas de aprendizaje sobre lo que hacen (o no) nuestros alumnos</li> <li>Learning Analytics in action: privacy issues in the classroom</li> <li>Uso de herramientas de Learning Analytics en la enseñanza de ingenierías. Implicaciones institucionales, docentes y tecnológicas</li></ol>",
+    "description": "<ol><li>Introduction to student modeling and Bayesian Knowledge Tracing</li> <li>What our learning platforms know about the activity of our students</li> <li>Learning Analytics in action: privacy issues in the classroom</li> <li>Using Learning Analytics tools in Engineering Education</li></ol>",
     "speakers": [],
     "language": "en",
     "complexity": "Medium",
@@ -68,7 +68,7 @@
   {
     "id": 103,
     "title": "Workshop I ”Educational data analysis using R”",
-    "description": "",
+    "description": "This hands-on tutorial is focused on the practical use of the R free software statistical tool in order to analyze educational data sets. We will provide examples on the use of R for hypotheses testing, prediction and clustering in educational scenarios. <br>Schedule: <ul><li>Introduction to basic useful commands in R</li><li>Hypothesis testing: Example of comparisson of two groups</li><li>Brief example of clutering</li><li>Brief example of prediction</li><li>Brief example of use of bayesian networks in education.</li></ul>",
     "speakers": [3],
     "language": "es",
     "complexity": "Medium",
@@ -86,7 +86,7 @@
     "speakers": [2],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://www.uco.es/users/in1romoc/UsingWekaonDatafromMoodle.rar",
     "video": "",
     "tags": [
       "Weka",
@@ -97,7 +97,7 @@
   {
     "id": 105,
     "title": "Experiences II",
-    "description": "<ol><li>Utilización de Learning Analytics en Cursos 0</li> <li>Usando Learning Analytics para analizar los resultados de aprendizaje en un serious game</li> <li>Retroalimentación visual de la evaluación mediante rúbricas</li> <li>4.Learning Analytics en entornos de trabajo</li></ol>",
+    "description": "<ol><li>Remedial Courses: From the Khan Academy Platform to Open edX</li> <li>Using learning analytics to analyze learning outcomes in a serious game</li> <li>Visual feedback in rubric based evaluation</li> <li>4.Learning Analytics in the workplace</li></ol>",
     "speakers": [],
     "language": "en",
     "complexity": "Medium",
@@ -123,7 +123,7 @@
   {
     "id": 107,
     "title": "Experiences III",
-    "description": "<ol><li>Análisis de Redes Sociales como instrumento de identificación de alumnos en riesgo dentro de un programa de posgrado</li> <li>Analyzing non-linear video usage in an introductory x-MOOC about basic linear algebra</li> <li>Analítica de la actividad práctica en la asignatura Gestión de Proyectos</li> <li>Design-aware analytics supporting teachers’ monitoring of blended learning scenarios: Two experiences in higher education</li> <li>Using Learning Analytics at School: a Go-Lab Study</li></ol>",
+    "description": "<ol><li>Análisis de Redes Sociales como instrumento de identificación de alumnos en riesgo dentro de un programa de posgrado</li> <li>Analyzing non-linear video usage in an introductory x-MOOC about basic linear algebra</li><li>Learning Analytics in Project Management teaching</li><li>Design-aware analytics supporting teachers’ monitoring of blended learning scenarios: Two experiences in higher education</li> <li>Using Learning Analytics at School: a Go-Lab Study</li></ol>",
     "speakers": [],
     "language": "en",
     "complexity": "Medium",
@@ -217,6 +217,194 @@
     "Logstash",
     "Elasticsearch",
     "Kibana"
+    ]
+  },
+  {
+    "id": 114,
+    "title": "Experiences I: Using Learning Analytics tools in Engineering Education",
+    "description": "This presentation describes an experience to assess the application of different sets of learning analytics tools to six only courses in Moodle virtual campuses of two Spanish Universities. The application of learning analytics covered four stages: identification of data and relevant techniques, tool selection, pilot testing and assessment of results. The main findings from the experience is that learning analytics tools are still too data-format and LMS version-dependent, and that teachers find the use of this kind of tools useful, but still difficult to use and interpret",
+    "speakers": [11],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Engineering Education"
+    ]
+  },
+  {
+    "id": 116,
+    "title": "Experiences II: Using learning analytics to analyze learning outcomes in a serious game",
+    "description": "Although serious games are proven educational tools in many educational domains, they lack reliable, automated and repeatable methodologies to measure their effectiveness: what do players know after playing a serious game? Did they learn with it? Literature research shows that the vast majority of serious games are formally assessed through questionnaires, which strikes a stark contrast with current trends in the video game industry. Commercial videogames have been learning from their players through Game Analytics for years, using non-disruptive game tracking. We propose a methodology to assess serious games effectiveness using non-disruptive in-game tracking. The methodology proposes a design pattern that structures the delivery of educational goals within the game. This structure also allows inferring learning outcomes for each individual player, which, when aggregated, would determine the effectiveness of the serious game. We have tested this methodology with a serious game that was played by 320 students. The proposed methodology allowed us to infer players’ learning outcomes and assess game effectiveness and to spot issues in the game design.",
+    "speakers": [12],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Serious game"
+    ]
+  },
+  {
+    "id": 117,
+    "title": "Experiences II: Use of Learning Analytics in Remedial Courses",
+    "description": "Incoming freshmen at universities have a lack of knowledge in STEM subjects such as Physics, Math, and Chemistry. To overcome these issues, Universidad Carlos III of Madrid (UC3M) introduced remedial courses in these subjects several years ago before 1st year at university. At the beginning, these courses were just face to face sessions. In 2012, we moved to a flipped classroom methodology where students first take on-line lessons and then they take face to face lessons. We incorporated the Khan Academy platform as a support for these remedial courses. In 2015, we replaced the Khan Academy platform by Open edX. The learning analytics support has been key in these experiences. We developed two visual analytics tools: ALAS-KA for the Khan Academy platform and ANALYSE for Open edX. We present these learning analytics tools and how they can be used for remedial courses for the improvement of courses materials, the provision of personalized feedback or the improvement of the learning process. In addition, different indicators of the learning process have been designed and analyzed in these remedial courses including video use, exercise interactions, gamification habits, effectiveness, efficiency, behaviors or emotions.",
+    "speakers": [3],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Khan Academy",
+    "Open edX",
+    "Freshmen"
+    ]
+  },
+  {
+    "id": 118,
+    "title": "Experiences III: Learning Analytics in Project Management teaching: tracking practical activities",
+    "description": "During the last years it has been a growing interest in the phenomenon of Learning Analytics. In a parallel way, the number of educational sources that can be deployed is constantly increasing. The current work focuses on those information sources that link with practical activities in a Higher Education context. The concept of edumarker, which is analogous to biomarkers in health science, is proposed to organize this huge amount of analytical data. There are multiple examples of edumarkers that enable the tracking of practical activities and a specific educational context has been selected to show their application. Some preliminary results about the use of edumarkers in a Project Management course reveal their potential to manage different types of educational data.",
+    "speakers": [13, 14],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Project management"
+    ]
+  },
+  {
+    "id": 119,
+    "title": "Experiences I: What our learning platforms know about the activity of our students",
+    "description": "In addition to the typical learning management systems commonly introduced in the universities, specific tools and services have been made available to instructors, in order to facilitate their teaching tasks. In this work, the students’ usage of some educational resources posted in a course site has been investigated. To this end, the Statistics tool offered by our institutional platform Poliformat, has been used. This preliminary work showed how specific reports could be created to analyse what resources were accessed, when and by whom. Therefore, these analyses may provide instructors with information about which educational resources are actually useful in the students’ learning process.",
+    "speakers": [13, 14],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Learning platforms"
+    ]
+  },
+  {
+    "id": 120,
+    "title": "Experiences III: Analyzing non-linear video usage in an introductory x-MOOC about basic linear algebra",
+    "description": "Massive data collection in MOOCs provides insight about real course participation. The main aim of this work is to explore how MOOC students consume videos, and whether they follow a specific viewing pattern according with the characteristics of each scene in the storyboard. Using heatmaps as a visual analytics tool, results suggest that most participants do not alter the linearity of time, but in a few hot spots. This knowledge can provide course teachers with insightful information on how to detect possible bottlenecks and to improve video internal structure.",
+    "speakers": [15, 16, 17],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "x-MOOC",
+    "Non-linear video usage"
+    ]
+  },
+  {
+    "id": 121,
+    "title": "Experiences I: Introduction to student modeling and Bayesian Knowledge Tracing",
+    "description": "The use of integrated intelligent or cognitive tutoring systems that support the learning process of our students requires tools that allow these tutors to make decisions based on the students’ state of knowledge. Therefore it is very important to have tools to model the students’ learning process as student modeling is one of the key factors that affect automated tutoring systems in making instructional decisions. This communication is an introduction to the techniques and methods for student modeling, being Bayesian Knowledge Tracing (BKT) the most well-known among them",
+    "speakers": [18, 19, 20],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Student modeling",
+    "Bayesian Knowledge Tracing"
+    ]
+  },
+  {
+    "id": 122,
+    "title": "Experiences II: Learning Analytics in the workplace",
+    "description": "Workplace learning is a rather informal way of gaining knowledge and expertise by self-directed exploration and social exchange that is tightly connected to the processes and the places of work. This workshop deals with Learning Analytics for workplace learning situations. The analysis of data from these situations is specially challenging since, due to its informal nature, learners typically use several tools in a spontaneous and difficult-to-foresee way. Hence, it is key for workplace Learning Analytic applications to count on learning theories that guide the process of collecting, managing and representing the data to extract meaningful information out of it. This workshop will describe this relationship between learning theory and applications for workplace Learning Analytics and will exemplify it with the applications developed and the field studies realized in the Learning Layers project. The workshop will first propose a theoretical reflection regarding workplace learning and the different metaphors that we can take to understand what learning is. Then we will describe some typical learning practices at the workplace taken from the Learning Layers field studies. The students will then be asked to work in groups in order to design an application for Workplace Learning Analytics according to a learning metaphor of their choice. The groups will finally share their designs and reflections about how to relate learning theory, learning practice and application design for Learning Analytics at the workplace.",
+    "speakers": [21],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Workplace"
+    ]
+  },
+  {
+    "id": 123,
+    "title": "Experiences II: Visual feedback in rubric based evaluation",
+    "description": "Rubrics help assessing students’ work in an easy and efficient way, but they can also be used as a teaching tool. To get the most benefit from a rubric, the way of showing the rubric’s results has to be taken into account. If the right visualization is provided both students and teachers can benefit from it and improve the learning and teaching processes. In this paper a way for providing visual feedback for rubric-based evaluation is proposed.",
+    "speakers": [22, 23, 24, 25],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Visual feedback",
+    "Rubric based evaluation"
+    ]
+  },
+  {
+    "id": 124,
+    "title": "Experiences I: Learning Analytics in action: privacy issues in the classroom",
+    "description": "As a further step to maturity, the field of learning analytics (LA) is working on the definition of frameworks that structure the legal and ethical issues that scholars and practitioners have to take into account when planning and applying learning analytics solutions to their learning contexts. Along three studies, involving two higher education and one primary school context, we have reflected on the ethical and privacy issues that teachers need to face when applying our LA approach in their classrooms. Our learning analytics approach aims at providing monitoring information to be used for regulation, formative assessment, or self-reflection about the learning design and the learning process. More concretely, we propose to provide teachers with feedback about the accomplishment of pedagogical decisions made at design-time. Our solution consists of three components: (1) a monitoring-aware design process of the learning scenario that takes into account the teacher's information needs; (2) a monitoring process guided by the decisions made at design-time; and (3) an architecture that addresses the need of data gathering and integration in Distributed Learning Environments (DLEs) made up by an institutional Virtual Learning Environment (VLE) and Web 2.0 tools. To support teachers in the analysis, we implemented GLIMPSE a tool that automatizes data gathering, integration and analysis, offering the teacher a comparison between the current and the desired state of the learning scenario. The educational settings where the approach has been tested cover blended Computer-Supported Collaborative Learning (CSCL). In addition, in terms of technological support, the proposal was used with DLEs made up by VLEs (e.g., Moodle, Mediawiki or even Blogger), web 2.0 tools (e.g., Google applications), and GLUE! – an architecture devoted to integrate third-party tools in VLEs. The outcomes from the studies showed that the concerns in smaller-scale teacher-led LA approaches require at least considering, in an explicit way, the role of teachers as main actors in the application of LA processes. Aspects such as action and impact have a particular dimension, and are closer to general ethical issues related to classroom orchestration, where teachers play a crucial role. In this kind of educational contexts, it is necessary to analyze from the ethical point of view what kind of actions should trigger the LA information, how to proceed and what the impact is in terms of classroom management, intervention, regulation and assessment. Our solution to LA, involving teachers from the very beginning in the design and enactment of the monitoring process helped to overcome issues that can appear also in these smaller contexts, such as control on the analytics, awareness, etc. The teacher participation in the design of the monitoring process contributes to introduce “ethics by design” (parallel to the idea of “privacy by design”) in the application of LA solutions. According to this schema, the teacher is the one who defines the educational purposes of the analysis, reflects on the available data sources, contributes to improve the validity of the results (adding new evidence coming directly from teachers and students), and is aware of the limitations of the results obtained. Finally, the application of the approach in primary and higher education shows that the reflection on LA has to take into account the specific ways of working on the different contexts, and even legal aspects that apply to the particular case of schools, where work with minors poses specific challenges, and make us include families as new actors in the framework. The cloud-based tools that are becoming widespread at these educational levels, do not cover information needs required by LA, and may pose legal and ethical problems related to data ownership and virtual identity, difficult to solve when working with minors. Not only LA, but also the wider technology-enhanced learning community have a big challenge in providing appropriate tools to these educational levels. ",
+    "speakers": [5, 26, 27],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Privacy issues"
+    ]
+  },
+  {
+    "id": 125,
+    "title": "Experiences III: Design-aware analytics supporting teachers’ monitoring of blended learning scenarios: Two experiences in higher education",
+    "description": "Education is gearing towards blended learning models, especially in Higher Education (The New Media Consortium, 2013). Blended learning comprises the use of different locations, interaction types and technologies. In these settings, teachers invest considerable effort to design the learning scenario and to be aware of what happens during the enactment. Using learning analytics methods to monitor the learning activities can help teachers keep track of the accomplishment of the designed learning activities and take corrective actions if needed (Griffiths, 2012). However, blended learning environments pose challenges to monitoring, due to the diversity of technologies and types of interactions involved, many of them occurring face to face, out of reach of the technological environment. We proposed a design-aware monitoring process supported by an data-gathering system named GLUE-CAS that takes into account the needs of blended learning scenarios supported by distributed learning environments (DLE). This monitoring process takes into account teachers’ design decisions to inform them about the progress of the learning activities, supported by a monitoring tool named GLIMPSE (Rodríguez-Triana et al., 2015). In this paper we present how the process was put in practice and evaluated in two different higher education real scenarios, focusing on the perspective of the participant teachers, and showing how the process helped them keep track of their collaborative learning activities. These two studies were part of the Design-Based Research approach on which we based the design and evaluation of the proposals. The issue presented in this paper is whether the script-aware monitoring process provided the participant teachers with relevant information for the management of the CSCL scenarios. The paper will describe how the teachers applied the aforementioned proposals to their courses, and whether the results of the monitoring reports were accurate and helped them identify problematic issues or confirm that the activities were developing as expected. Although the studies follow an interpretive research perspective and do not aim to generalize, some of their findings can be of general interest to the Learning Analytics community. These are, for example: the need to provide teachers with LA results they are able to understand and integrate into their practice; approaches to handle the difficulties to keep track of the activities in blended learning scenarios; and whether simple and un-intelligent analytics can be useful to the teachers or not.",
+    "speakers": [5, 26, 28],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Privacy issues"
+    ]
+  },
+  {
+    "id": 126,
+    "title": "Experiences III: Using Learning Analytics at School: a Go-Lab Study",
+    "description": "The combination of blended inquiry learning and online labs is considered as a promising approach to increase the skills and the interest of students in science, technology, engineering, and mathematics (STEM). In such a framework where students combine face-to- face interaction with peers or teachers and online interaction with labs, adequate guidance should be provided to foster effective interactions. In the Go-Lab European project, we have designed and built a set of Learning Analytics (LA) apps to address the main orchestration needs identified by expert teachers in inquiry learning and STEM. This document reports on two LA apps -Online Users Visualisation and Student Time Spent - which provide visualisations of the student activity to support teacher awareness. Two case studies using the apps were carried out in Geneva between January and March 2015: one at the École de Commerce Nicolas-Bouvier involving 1 teacher (T1) and 11 students, and another at the College Sismondi with 1 teacher (T2) and 17 students. The purpose of these studies was to evaluate the usability and usefulness of the apps to improve teacher&#39;s awareness. To achieve that aim we used three data sources: a first interview to the teachers before the experiments, observations during the lessons, and a second interview to the teachers once they had used the apps. In the first interview, the teachers were asked about the extent to which they find each of the awareness apps useful for teachers and students. T1 and T2 agreed on the usefulness of the Online Users Visualisation app for awareness of the learning progress for teachers and students. Regarding the Student Time Spent app, while it was not seen as significantly useful for awareness, it was considered potentially relevant for better understanding the students&#39; progress. Concerning the potential convenience for students, both teachers came up to the conclusion that the app could help learners to be aware of their peers&#39; progress. In both studies, the teachers designed a 90-minute activity using Go-Lab resources and Graasp, the latter being the collaborative learning platform enabling access to the online inquiry learning spaces (ILSs) in which the inquiry learning phases are supported and the learning analytics apps are embedded. In the first study, the students were allowed to work individually or in groups, and the teacher was walking around, answering the questions that emerged during the activity. Since the teacher was not nearby her computer, she decided to display the apps using the beamer, so the teacher and the students could see the visualisations. After answering the questions of the students, the teacher had a look at the apps and, based on the student distribution across the inquiry phases, she chose the next group to visit. In parallel, the students periodically observed the apps to compare their own progress with that of their peers. In the second study, the students worked in groups of 2 to 3 people sharing one computer, while the teacher controlling the situation from his desk, going to the students just when they had doubts. T2 used mainly the Online Users Visualisation app to monitor whether the students were using the ILS or not, and to be aware of the current phase they were working on. Since, in this case, the information was not shown to the students, at the end of the lesson they were asked about whether they would like to have access to the apps or not. The responses were heterogeneous: 7 students did not have a clear preference, 4 were highly interested in the apps, while another 6 students were reluctant. For those who were interested in the apps, the main benefit was to have a reference about the progress. The main disadvantages identified by the students were: the distraction the apps may cause and the stress caused by being compared among themselves. Nevertheless, they did not had any concern with the teacher accessing the information. According to the feedback provided by the teachers, despite some recommendations to improve the user interface, it was straightforward to understand the visualisations and helped them monitor the student work. Regarding the Student Time Spent app, both teachers agreed that it can be more useful for post-session reflection, especially since during the session normally they do not have enough time for these details.",
+    "speakers": [5, 4, 6],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Go-Lab",
+    "School"
+    ]
+  },
+  {
+    "id": 127,
+    "title": "Experiences III: Análisis de Redes Sociales como instrumento de identificación de alumnos en riesgo dentro de un programa de posgrado.",
+    "description": "Estudiantes de programas de estudio de maestría profesionalizante requieren de recursos tecnológicos para llevar una formación completa y buscar que los participantes en un programa de estudio mantengan una constante actividad académica, por lo que un profesor toma la iniciativa de usar grupos de Facebook para sus cursos, dada las condiciones de la red social, para usar grupos de Facebook se consideran aspectos como la privacidad de miembro del curso, estructurales por la forma en que se opera un curso de posgrado y tecnológicos por las facilidades de acceso que tenga cada participante. Por lo tanto como apoyo a los estudiantes se crea un grupo de Facebook, el cual es habilitado de forma privada donde sólo los invitados son los que podrán tener acceso al grupo y sólo los miembros podrán comentar. Esto brinda un grado de confianza tal que estimula la interacción entre profesor y estudiantes. Dentro de Facebook existen herramientas que permiten la extracción de datos. Los datos extraidos hacen referencia a las acciones realizadas y no a los contenidos puestos. Para esta investigación a las interacciones les llamaremos actividades. Dentro de cada actividad el alumno tiene la libertad de comentar y de igual forma el alumno tiene la libertad de generar sus propios comentarios sobre temas afines al curso. Para el caso de estudio los cursos de posgrado son de cuatro sesiones de fin de semana, donde el participante asiste a 16 horas presenciales de clase, organizadas en viernes y sábados; para este caso se trabajó con un grupo de 13 estudiantes de posgrado quienes en su mayoría son estudiantes de forma parcial y se dedican a sólo una asignatura a la vez. Esa forma de cursar las asignaturas permite una dedicación a un sólo grupo de Facebook para trabajar bajo un modelo Blended-learning a lo largo de sus cuatro semanas de clases. Dado que en Facebook todo queda registrado, como es el caso de las interacciones, accesos y likes; estos datos pueden ser extraídos mediante herramientas para su análisis y diagnóstico del grupo a fin de conocer posibles casos de futuro mal desempeño de forma oportuna. El grupo específico puesto al análisis será la asignatura “Métricas y KPI” en la que tuvieron acceso a un grupo de Facebook. El grupo de alumnos se encuentra conformada por 14 participantes (13 alumnos y un profesor). Para tener un conocimiento sus experiencias anteriores, se le aplicó al final del curso una encuesta al grupo preguntando si tenían experiencia usando grupos de Facebook, más del 90% dijo tenerla, posteriormente se les preguntó si habían usado Facebook con fines académicos, donde la respuesta afirmativa fue del 65% de los alumnos; lo que demuestra que la mayoría ya tiene experiencias al respecto; por último respecto a la encuesta es destacado que más del 20% aceptó distraerse en Facebook y dejar el grupo por visitar el perfil de un compañero de clase. Al usar Social Learning Analytics dentro de una herramienta de socialización de un curso puede ayudar a construir sociogramas de interacciones para descubrir alumnos en riesgo de deserción o causar baja académica y este tipo de hallazgos en tiempo puede ayudar a las instituciones educativas a mejorar sus resultados de egreso. Para este ejercicio de investigación se identificaron alumnos de baja actividad académica que demostraron, ya habían sido reportadas bajo esquemas empíricos. Por lo cual el resultado alcanzado llevó a que un alumno fuera analizado con profundidad y en su trabajo de tesis de titulación había presentado el mismo caso de bajo desempeño identificado en el foro de Facebook el cual se aplicó Social Learning Analytics.",
+    "speakers": [29, 30],
+    "language": "en",
+    "complexity": "Medium",
+    "presentation": "",
+    "video": "",
+    "tags": [
+    "Experiences",
+    "Social Networks"
     ]
   }
 ]
