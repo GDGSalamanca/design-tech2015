@@ -111,7 +111,7 @@
     "id": 106,
     "title": "Workshop III ”Creating interactive visualizations with R, ggplot2 and Shiny (R initial knowledge required)”",
     "description": "",
-    "speakers": [],
+    "speakers": [19, 18, 29],
     "language": "en",
     "complexity": "Medium",
     "presentation": "",

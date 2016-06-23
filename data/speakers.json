@@ -337,5 +337,14 @@
     "photoUrl": "",
     "bio": "",
     "tags": ["Experiences"]
+}, {
+    "id": 29,
+    "name": "Vanessa Serrano",
+    "title": "",
+    "company": "Univ. Ramon Llull",
+    "country": "Spain",
+    "photoUrl": "",
+    "bio": "",
+    "tags": ["Workshop"]
 }
 ]
