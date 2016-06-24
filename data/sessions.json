@@ -2,41 +2,57 @@
   {
     "id": 1001,
     "title": "Opening and welcome",
-    "description": ""
+    "description": "",
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "8:30-9:00"
   },
   {
     "id": 1002,
     "title": "Discussion-break",
-    "description": ""
+    "description": "",
+    "location": "ESIDE dining hall. First floor @ Engineering Building",
+    "time": "11:30-12:00"
   },
   {
     "id": 1003,
     "title": "Lunch",
-    "description": ""
+    "description": "",
+    "location": "Hall",
+    "time": "14:00-15:00"
   },
   {
     "id": 1004,
     "title": "Spanish Network of Learning Analytics (SNOLA) meeting",
-    "description": ""
+    "description": "",
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "16:30-19:00"
   },
   {
     "id": 1005,
     "title": "Bilboats 1 hour boat trip. Canceled",
-    "description": "See the details for registration in http://lasi16.snola.es/#!/#pricetable"
+    "description": "See the details for registration in http://lasi16.snola.es/#!/#pricetable",
+    "location": "-",
+    "time": "19:00-20:00"
   },
   {
     "id": 1006,
     "title": "Discussion-break",
-    "description": ""
+    "description": "",
+    "location": "ESIDE dining hall. First floor @ Engineering Building",
+    "time": "11:30-12:00"
   },
   {
     "id": 1007,
     "title": "Lunch",
-    "description": ""
+    "description": "",
+    "location": "Hall",
+    "time": "13:00-14:00"
   },{
     "id": 1008,
     "title": "Closure",
-    "description": ""
+    "description": "",
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "17:00-17:15"
   },
   {
     "id": 101,
@@ -50,7 +66,9 @@
     "tags": [
       "Educational Data Science",
       "Keynote"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "9:00-10:00"
   },
   {
     "id": 102,
@@ -63,7 +81,9 @@
     "video": "",
     "tags":[
     "Experiences"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "10:00-11:30"
   },
   {
     "id": 103,
@@ -77,7 +97,9 @@
     "tags": [
       "Educational Data Analysis",
       "R"
-    ]
+    ],
+    "location": "Room 103b. First floor @ Engineering Building",
+    "time": "10:00-11:30"
   },
   {
     "id": 104,
@@ -92,7 +114,9 @@
       "Weka",
       "EDM",
       "Moodle"
-    ]
+    ],
+    "location": "Room 103b. First floor @ Engineering Building",
+    "time": "12:00-14:00"
   },
   {
     "id": 105,
@@ -105,7 +129,9 @@
     "video": "",
     "tags": [
     "Experiences"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "9:00-10:30"
   },
   {
     "id": 106,
@@ -118,7 +144,9 @@
     "video": "",
     "tags": [
     "Workshop"
-    ]
+    ],
+    "location": "Room 103b. First floor @ Engineering Building",
+    "time": "15:00-16:30"
   },
   {
     "id": 107,
@@ -131,7 +159,9 @@
     "video": "",
     "tags": [
     "Experiences"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "15:00-16:30"
   },
   {
     "id": 108,
@@ -145,7 +175,9 @@
     "tags": [
     "Workshop",
     "Orchestrating Learning Analytics"
-    ]
+    ],
+    "location": "Room 103b. First floor @ Engineering Building",
+    "time": "9:00-10:30"
   },
   {
     "id": 109,
@@ -159,7 +191,9 @@
     "tags": [
       "Learning Analytics",
       "Keynote"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "10:30-11:30"
   },
   {
     "id": 110,
@@ -173,7 +207,9 @@
     "tags": [
       "Learning Analytics",
       "Ethics and Privacy"
-    ]
+    ],
+    "location": "Room 103b. First floor @ Engineering Building",
+    "time": "12:00-13:00"
   },
   {
     "id": 111,
@@ -187,7 +223,9 @@
     "tags": [
     "Workshop",
     "Social Network Analysis"
-    ]
+    ],
+    "location": "Room 103b. First floor @ Engineering Building",
+    "time": "14:00-15:30"
   },
   {
     "id": 112,
@@ -200,7 +238,9 @@
     "video": "",
     "tags": [
     "Industrial presentations"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "14:00-15:30"
   },
   {
     "id": 113,
@@ -217,7 +257,9 @@
     "Logstash",
     "Elasticsearch",
     "Kibana"
-    ]
+    ],
+    "location": "Room 103b. First floor @ Engineering Building",
+    "time": "15:30-17:00"
   },
   {
     "id": 114,
@@ -231,7 +273,9 @@
     "tags": [
     "Experiences",
     "Engineering Education"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "11:00-11:20"
   },
   {
     "id": 116,
@@ -245,7 +289,9 @@
     "tags": [
     "Experiences",
     "Serious game"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "9:20-9:40"
   },
   {
     "id": 117,
@@ -261,7 +307,9 @@
     "Khan Academy",
     "Open edX",
     "Freshmen"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "9:00-9:20"
   },
   {
     "id": 118,
@@ -275,7 +323,9 @@
     "tags": [
     "Experiences",
     "Project management"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "15:20-15:40"
   },
   {
     "id": 119,
@@ -289,7 +339,9 @@
     "tags": [
     "Experiences",
     "Learning platforms"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "10:20-10:40"
   },
   {
     "id": 120,
@@ -304,7 +356,9 @@
     "Experiences",
     "x-MOOC",
     "Non-linear video usage"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "15:00-15:20"
   },
   {
     "id": 121,
@@ -319,7 +373,9 @@
     "Experiences",
     "Student modeling",
     "Bayesian Knowledge Tracing"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "10:00-10:20"
   },
   {
     "id": 122,
@@ -333,7 +389,9 @@
     "tags": [
     "Experiences",
     "Workplace"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "10:00-10:20"
   },
   {
     "id": 123,
@@ -348,7 +406,9 @@
     "Experiences",
     "Visual feedback",
     "Rubric based evaluation"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "9:40-10:00"
   },
   {
     "id": 124,
@@ -362,7 +422,9 @@
     "tags": [
     "Experiences",
     "Privacy issues"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "10:40-11:00"
   },
   {
     "id": 125,
@@ -376,7 +438,9 @@
     "tags": [
     "Experiences",
     "Privacy issues"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "15:40-16:00"
   },
   {
     "id": 126,
@@ -391,6 +455,8 @@
     "Experiences",
     "Go-Lab",
     "School"
-    ]
+    ],
+    "location": "Turing Room. Second floor @ Engineering Building",
+    "time": "16:00-16:20"
   }
 ]
