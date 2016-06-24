@@ -273,11 +273,11 @@
 }, {
     "id": 21,
     "name": "Adolfo Ruiz Calleja",
-    "title": "",
+    "title": Researcher"",
     "company": "University of Tallin",
     "country": "Estonia",
     "photoUrl": "../../images/people/AdolfoRuiz.jpg",
-    "bio": "",
+    "bio": "Adolfo Ruiz Calleja (PhD) is a researcher currently working at Center of Educational Technology (CET) of the Tallinn University (TLU). He obtained his PhD in telecommunication engineering in 2013 from the University of Valladolid (Spain). His research has always been related to the management and integration of educational data. Specifically, he is interested on the use of social and semantic technologies to support learning, both in formal and informal contexts. His work experience includes his participation is several Spanish national and regional projects (e.g. Sofocles, EEE-Web), and other European-funded projects (e.g. Incoming, Learning Layers, Sheila). Recently he moved his attention to workplace Learning Analytics.",
     "tags": ["Experiences"],
     "socials": [{
         "name": "Website",
