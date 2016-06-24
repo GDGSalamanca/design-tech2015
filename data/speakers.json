@@ -276,7 +276,7 @@
     "title": "",
     "company": "University of Tallin",
     "country": "Estonia",
-    "photoUrl": "",
+    "photoUrl": "../../images/people/AdolfoRuiz.jpg",
     "bio": "",
     "tags": ["Experiences"],
     "socials": [{
@@ -326,29 +326,29 @@
 }, {
     "id": 26,
     "name": "Alejandra Martínez-Monés",
-    "title": "",
+    "title": "Associate Professor",
     "company": "University of Valladolid",
     "country": "Spain",
-    "photoUrl": "",
-    "bio": "",
+    "photoUrl": "../../images/people/AlejandraMartinezMones.png",
+    "bio": "Alejandra Martínez-Monés, PhD, is associate professor of computer science at the University of Valladolid. Her research interests in the field of Technology-Enhanced Learning relate to how to use computers to support teachers and students in the application and evaluation of innovative teaching and learning strategies, especially CSCL situations. Her research contributions include the use of Social Network Analysis to support the evaluation of CSCL environments; the integration of scripting and monitoring strategies to enhance classroom orchestration, the use of augmented reality to support seamless integration of learning spaces; and the application of mixed methods to evaluate CSCL and other complex learning situations",
     "tags": ["Experiences"]
 }, {
     "id": 27,
     "name": "Sara Villagrá-Sobrino",
-    "title": "",
+    "title": "Assistant Professor",
     "company": "University of Valladolid",
     "country": "Spain",
-    "photoUrl": "",
-    "bio": "",
+    "photoUrl": "../../images/people/SaraVillagraSobrino.png",
+    "bio": "Sara Villagrá Sobrino received the Ph.D in Technology-Enhanced Learning from the University of Oviedo (Spain) in 2012. She is an Assistant Professor at the University of Valladolid since 2012. She is a member of the interdisciplinary group GSIC-EMIC. Her current research efforts are devoted to the study of the educational implications of Technology Enhanced Learning (TEL) scenarios with special emphasis on fostering teacher’s skills during the design and the enactment of flexible CSCL activities in Primary Education with special attention to new ways of evaluating these particular settings. ",
     "tags": ["Experiences"]
 }, {
     "id": 28,
     "name": "Juan I. Asensio-Pérez",
-    "title": "",
+    "title": "Associate Professor",
     "company": "University of Valladolid",
     "country": "Spain",
-    "photoUrl": "",
-    "bio": "",
+    "photoUrl": "../../images/people/JuanIAsensioPerez.png",
+    "bio": "Juan I. Asensio-Pérez received the M.Sc. and Ph.D. degrees in telecommunications engineering from the University of Valladolid, Spain, in 1995 and 2000, respectively. He is currently an associate professor of telematics engineering at the University of Valladolid. His research interests within the field of Technology-Enhanced Learning include: Computer-Supported Collaborative Learning (CSCL) scripting, the integration of external tools in Virtual Learning Environments, the technological support for the orchestration of CSCL situations, the semantic annotation of learning tools in the Web of Data, and the application of Augmented Reality technologies for the support of CSCL situations across multiple virtual and physical spaces",
     "tags": ["Experiences"]
 }
 ]
