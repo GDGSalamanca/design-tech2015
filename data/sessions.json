@@ -17,14 +17,14 @@
     "id": 1003,
     "title": "Lunch",
     "description": "",
-    "location": "Hall",
+    "location": "CRAI",
     "time": "14:00-15:00"
   },
   {
     "id": 1004,
     "title": "Spanish Network of Learning Analytics (SNOLA) meeting",
     "description": "",
-    "location": "Turing Room. Second floor @ Engineering Building",
+    "location": "M005 classroom @ Engineering Building",
     "time": "16:30-19:00"
   },
   {
@@ -45,7 +45,7 @@
     "id": 1007,
     "title": "Lunch",
     "description": "",
-    "location": "Hall",
+    "location": "CRAI",
     "time": "13:00-14:00"
   },{
     "id": 1008,
@@ -98,7 +98,7 @@
       "Educational Data Analysis",
       "R"
     ],
-    "location": "Room 103b. First floor @ Engineering Building",
+    "location": "103b classroom. First floor @ Engineering Building",
     "time": "10:00-11:30"
   },
   {
@@ -115,7 +115,7 @@
       "EDM",
       "Moodle"
     ],
-    "location": "Room 103b. First floor @ Engineering Building",
+    "location": "103b classroom. First floor @ Engineering Building",
     "time": "12:00-14:00"
   },
   {
@@ -145,7 +145,7 @@
     "tags": [
     "Workshop"
     ],
-    "location": "Room 103b. First floor @ Engineering Building",
+    "location": "103b classroom. First floor @ Engineering Building",
     "time": "15:00-16:30"
   },
   {
@@ -176,7 +176,7 @@
     "Workshop",
     "Orchestrating Learning Analytics"
     ],
-    "location": "Room 103b. First floor @ Engineering Building",
+    "location": "103b classroom. First floor @ Engineering Building",
     "time": "9:00-10:30"
   },
   {
@@ -208,7 +208,7 @@
       "Learning Analytics",
       "Ethics and Privacy"
     ],
-    "location": "Room 103b. First floor @ Engineering Building",
+    "location": "103b classroom. First floor @ Engineering Building",
     "time": "12:00-13:00"
   },
   {
@@ -224,7 +224,7 @@
     "Workshop",
     "Social Network Analysis"
     ],
-    "location": "Room 103b. First floor @ Engineering Building",
+    "location": "103b classroom. First floor @ Engineering Building",
     "time": "14:00-15:30"
   },
   {
@@ -258,7 +258,7 @@
     "Elasticsearch",
     "Kibana"
     ],
-    "location": "Room 103b. First floor @ Engineering Building",
+    "location": "103b classroom. First floor @ Engineering Building",
     "time": "15:30-17:00"
   },
   {
@@ -324,7 +324,7 @@
     "Experiences",
     "Project management"
     ],
-    "location": "Turing Room. Second floor @ Engineering Building",
+    "location": "M005 classroom @ Engineering Building",
     "time": "15:20-15:40"
   },
   {
@@ -357,7 +357,7 @@
     "x-MOOC",
     "Non-linear video usage"
     ],
-    "location": "Turing Room. Second floor @ Engineering Building",
+    "location": "M005 classroom @ Engineering Building",
     "time": "15:00-15:20"
   },
   {
@@ -439,7 +439,7 @@
     "Experiences",
     "Privacy issues"
     ],
-    "location": "Turing Room. Second floor @ Engineering Building",
+    "location": "M005 classroom @ Engineering Building",
     "time": "15:40-16:00"
   },
   {
@@ -456,7 +456,7 @@
     "Go-Lab",
     "School"
     ],
-    "location": "Turing Room. Second floor @ Engineering Building",
+    "location": "M005 classroom @ Engineering Building",
     "time": "16:00-16:20"
   }
 ]
