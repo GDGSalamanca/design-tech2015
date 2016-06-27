@@ -34247,7 +34247,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                                             <template is="dom-if" if="[[subSession.presentation]]">
                                                                 <div class="meta-block">
                                                                     <iron-icon class="session-meta-icon" icon="app-icons:presentation"></iron-icon>
-                                                                    <span>Presentation available</span>
+                                                                    <span>Presentation available</span> at <a href="[[subSession.presentation]]" target="_blank"><span>[[subSession.presentation]]</span></a>
                                                                 </div>
                                                             </template>
                                                             <template is="dom-if" if="[[subSession.video]]">
@@ -34489,6 +34489,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="content">
                 <div class="subtitle">
                     <span>[[session.time]]</span>
+                    <br>
+                    <br>
+                    <span>[[session.presentation]]</span>
                 </div>
                 <div class="card-content session-tags">
                     <span class="tags-label">Tags:</span>
