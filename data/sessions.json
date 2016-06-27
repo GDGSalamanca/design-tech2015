@@ -29,7 +29,7 @@
   },
   {
     "id": 1005,
-    "title": "Bilboats 1 hour boat trip. Canceled",
+    "title": "Bilboats 1 hour boat trip. Cancelled",
     "description": "See the details for registration in http://lasi16.snola.es/#!/#pricetable",
     "location": "-",
     "time": "19:00-20:00"
@@ -265,7 +265,7 @@
     "id": 114,
     "title": "Experiences I: Using Learning Analytics tools in Engineering Education",
     "description": "This presentation describes an experience to assess the application of different sets of learning analytics tools to six only courses in Moodle virtual campuses of two Spanish Universities. The application of learning analytics covered four stages: identification of data and relevant techniques, tool selection, pilot testing and assessment of results. The main findings from the experience is that learning analytics tools are still too data-format and LMS version-dependent, and that teachers find the use of this kind of tools useful, but still difficult to use and interpret",
-    "speakers": [11],
+    "speakers": [11,10],
     "language": "en",
     "complexity": "Medium",
     "presentation": "",
