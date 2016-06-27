@@ -34543,9 +34543,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         _sessionChanged: function() {
             this.$.scrollHeaderPanel.$.headerBg.style.background = 'linear-gradient(to top, rgba(0, 0, 0, 0.4) -10%, rgba(0, 0, 0, 0.1) 50%), url(' + this.session.photoUrl + ') 0 / cover no-repeat';
-            // var panelClass = 'visible-xs fit ' + app.generateClass(this.session.tags[0]);
-            // this.set('session.panelClass', panelClass);
-            // this.toggleClass(app.generateClass(this.session.tags[0]), true, this.$.scrollHeaderPanel);
+            var panelClass = 'visible-xs fit ' + app.generateClass(this.session.tags[0]);
+            this.set('session.panelClass', panelClass);
+            this.toggleClass(app.generateClass(this.session.tags[0]), true, this.$.scrollHeaderPanel);
             this.async(function() {
                 this.$.scrollHeaderPanel.measureHeaderHeight();
                 this.$.scrollHeaderPanel.scroller.scrollTop = 0;
