@@ -225,11 +225,17 @@
                                                                 <!--<span>[[subSession.track.title]]</span>-->
                                                             </div>
                                                         </div>
-                                                        <div class="session-meta session-additional-meta layout horizontal">
+                                                        <div class="session-meta session-additional-meta layout vertical">
                                                             <template is="dom-if" if="[[subSession.presentation]]">
                                                                 <div class="meta-block">
                                                                     <iron-icon class="session-meta-icon" icon="app-icons:presentation"></iron-icon>
                                                                     <span>Presentation available</span> at <a href="[[subSession.presentation]]" target="_blank"><span>[[subSession.presentation]]</span></a>
+                                                                </div>
+                                                            </template>
+                                                            <template is="dom-if" if="[[subSession.abstract]]">
+                                                                <div class="meta-block">
+                                                                    <iron-icon class="session-meta-icon" icon="bookmark"></iron-icon>
+                                                                    <span>Abstract available</span> at <a href="[[subSession.abstract]]" target="_blank"><span>[[subSession.abstract]]</span></a>
                                                                 </div>
                                                             </template>
                                                             <template is="dom-if" if="[[subSession.video]]">

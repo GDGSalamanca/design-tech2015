@@ -171,6 +171,7 @@
     "language": "en",
     "complexity": "Medium",
     "presentation": "http://lprisan.wix.com/orla2016",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/632/1/WS%20IV_Orchestrating%20Learning%20Analytics_A%20framework%20for%20researchers%20teachers%20and%20developers.pdf",
     "video": "",
     "tags": [
     "Workshop",
@@ -186,7 +187,7 @@
     "speakers": [1],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://www.slideshare.net/R3beccaF",
     "video": "",
     "tags": [
       "Learning Analytics",
@@ -269,6 +270,7 @@
     "language": "en",
     "complexity": "Medium",
     "presentation": "",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/626/1/ExperienciaLASI-MAConde.pdf",
     "video": "",
     "tags": [
     "Experiences",
@@ -284,7 +286,8 @@
     "speakers": [12],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://repositorio.grial.eu/bitstream/grial/623/2/Applying_learning_analytics_to_a_serious_game.pdf",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/623/1/Abstract-AngelSerrano.pdf",
     "video": "",
     "tags": [
     "Experiences",
@@ -301,6 +304,7 @@
     "language": "en",
     "complexity": "Medium",
     "presentation": "",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/627/1/pedro_LASI_Bilbao_2016.pdf",
     "video": "",
     "tags": [
     "Experiences",
@@ -318,7 +322,8 @@
     "speakers": [13, 14],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://repositorio.grial.eu/bitstream/grial/628/2/Learning_Analytics_in_Project_Management.pdf",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/628/1/PropuestaLASI16Envio_GPR.pdf",
     "video": "",
     "tags": [
     "Experiences",
@@ -334,7 +339,8 @@
     "speakers": [13, 14],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://repositorio.grial.eu/bitstream/grial/625/2/Benlloch_Buendia_LASI16.pdf",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/625/1/BenllochBuendia_ENG_UPValencia.pdf",
     "video": "",
     "tags": [
     "Experiences",
@@ -350,7 +356,8 @@
     "speakers": [15, 16, 17],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://repositorio.grial.eu/bitstream/grial/624/2/Presentation_LASI2016_JTriay.pdf",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/624/1/Analyzing%20non-linear%20video%20usage%20in%20an%20introductory%20x-MOOC%20about%20basic%20linear%20algebra.pdf",
     "video": "",
     "tags": [
     "Experiences",
@@ -367,7 +374,8 @@
     "speakers": [18, 19, 20],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://repositorio.grial.eu/bitstream/grial/622/2/Student_Modeling_Martori_Cuadros_Gonzalez_public.pdf",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/622/1/Abstract_Student_Modeling_LASI_2016.pdf",
     "video": "",
     "tags": [
     "Experiences",
@@ -384,7 +392,7 @@
     "speakers": [21],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "/slides/20160628_WLA.pptx",
     "video": "",
     "tags": [
     "Experiences",
@@ -400,7 +408,8 @@
     "speakers": [22, 23, 24, 25],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://repositorio.grial.eu/bitstream/grial/629/1/PresentacionLASI_v2_Villamane.pdf",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/629/2/Villamane_LASI2016.pdf",
     "video": "",
     "tags": [
     "Experiences",
@@ -417,7 +426,8 @@
     "speakers": [5, 26, 27],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "https://docs.google.com/presentation/d/1Em-zxbPlu1p0gRCIr27gzLHEvuPgLMk3vuokX4QNXNE/",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/620/1/2016_LASI_Learning_Analytics_in_action_ethics_and_privacy_issues_in_the_classroom.pdf",
     "video": "",
     "tags": [
     "Experiences",
@@ -433,7 +443,8 @@
     "speakers": [5, 26, 28],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://repositorio.grial.eu/bitstream/grial/619/2/amartine%40LASI2016.pdf",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/619/1/2016_LASI_Design_aware_analytics_supporting_teachers_monitoring_of_blended_learning_scenarios_Two_experiences_in_higher_education.pdf",
     "video": "",
     "tags": [
     "Experiences",
@@ -449,7 +460,8 @@
     "speakers": [5, 4, 6],
     "language": "en",
     "complexity": "Medium",
-    "presentation": "",
+    "presentation": "http://repositorio.grial.eu/bitstream/grial/621/2/LASI_2016_%20Exp%20III_Using%20Learning%20Analytics%20at%20School_A%20Go-Lab%20Study.pdf",
+    "abstract": "http://repositorio.grial.eu/bitstream/grial/621/1/2016_LASI_Using_Learning_Analytics_at_School_a_Go_Lab_Study.pdf",
     "video": "",
     "tags": [
     "Experiences",

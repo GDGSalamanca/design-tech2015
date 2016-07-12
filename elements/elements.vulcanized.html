@@ -31958,7 +31958,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </style>
         <div class="container container-narrow flex relative layout vertical-horizontal center-center">
             <h4 class="heading flex text self-center text-center">LASI 2015 Bilbao</h4>
-            <!-- <paper-button class="white border-button open-dialog-button" on-tap="playVideo">Check out</paper-button> -->
+            <paper-button class="white border-button open-dialog-button" on-tap="playVideo">See presentation video LASI-locals 2016</paper-button>
         </div>
         <paper-dialog class="video-dialog fit" id="videoDialog" modal="" entry-animation="scale-up-animation" exit-animation="fade-out-animation">
             <paper-toolbar class="navbar-overlay fit">
@@ -31966,7 +31966,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <div class="title text-left">LASI Spain 2015</div>
             </paper-toolbar>
             <div class="fullvideo-container fit">
-                <google-youtube id="video" video-id="rHZ4mfDCY9E" fluid="true" autohide="1" chromeless="true"></google-youtube>
+                <google-youtube id="video" video-id="SOcdnLl5nds" fluid="true" autohide="1" chromeless="true"></google-youtube>
             </div>
         </paper-dialog>
     </template>
@@ -34243,11 +34243,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                                                 <!--<span>[[subSession.track.title]]</span>-->
                                                             </div>
                                                         </div>
-                                                        <div class="session-meta session-additional-meta layout horizontal">
+                                                        <div class="session-meta session-additional-meta layout vertical">
                                                             <template is="dom-if" if="[[subSession.presentation]]">
                                                                 <div class="meta-block">
                                                                     <iron-icon class="session-meta-icon" icon="app-icons:presentation"></iron-icon>
                                                                     <span>Presentation available</span> at <a href="[[subSession.presentation]]" target="_blank"><span>[[subSession.presentation]]</span></a>
+                                                                </div>
+                                                            </template>
+                                                            <template is="dom-if" if="[[subSession.abstract]]">
+                                                                <div class="meta-block">
+                                                                    <iron-icon class="session-meta-icon" icon="bookmark"></iron-icon>
+                                                                    <span>Abstract available</span> at <a href="[[subSession.abstract]]" target="_blank"><span>[[subSession.abstract]]</span></a>
                                                                 </div>
                                                             </template>
                                                             <template is="dom-if" if="[[subSession.video]]">
