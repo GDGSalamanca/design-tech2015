@@ -216,26 +216,18 @@
                                                         <div class="session-meta layout horizontal">
                                                             <div class="meta-block">
                                                                 <iron-icon class="session-meta-icon" icon="restore"></iron-icon>
-                                                                <span>[[subSession.time]]</span>
-                                                                <!--<span>[[subSession.endTime]]</span>-->
+                                                                <span>[[subSession.endTime]]</span>
                                                             </div>
                                                             <div class="meta-block">
                                                                 <iron-icon class="session-meta-icon" icon="room"></iron-icon>
-                                                                <span>[[subSession.location]]</span>
-                                                                <!--<span>[[subSession.track.title]]</span>-->
+                                                                <span>[[subSession.track.title]]</span>
                                                             </div>
                                                         </div>
-                                                        <div class="session-meta session-additional-meta layout vertical">
+                                                        <div class="session-meta session-additional-meta layout horizontal">
                                                             <template is="dom-if" if="[[subSession.presentation]]">
                                                                 <div class="meta-block">
                                                                     <iron-icon class="session-meta-icon" icon="app-icons:presentation"></iron-icon>
-                                                                    <span>Presentation available</span> at <a href="[[subSession.presentation]]" target="_blank"><span>[[subSession.presentation]]</span></a>
-                                                                </div>
-                                                            </template>
-                                                            <template is="dom-if" if="[[subSession.abstract]]">
-                                                                <div class="meta-block">
-                                                                    <iron-icon class="session-meta-icon" icon="bookmark"></iron-icon>
-                                                                    <span>Abstract available</span> at <a href="[[subSession.abstract]]" target="_blank"><span>[[subSession.abstract]]</span></a>
+                                                                    <span>Presentation available</span>
                                                                 </div>
                                                             </template>
                                                             <template is="dom-if" if="[[subSession.video]]">

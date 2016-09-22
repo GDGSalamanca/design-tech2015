@@ -1,475 +1,106 @@
 [
   {
     "id": 1001,
-    "title": "Opening and welcome",
-    "description": "",
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "8:30-9:00"
+    "title": "Acreditaciones",
+    "description": ""
   },
   {
     "id": 1002,
-    "title": "Discussion-break",
-    "description": "",
-    "location": "ESIDE dining hall. First floor @ Engineering Building",
-    "time": "11:30-12:00"
+    "title": "Bienvenida",
+    "description": ""
   },
   {
     "id": 1003,
-    "title": "Lunch",
-    "description": "",
-    "location": "CRAI",
-    "time": "14:00-15:00"
+    "title": "Coffee break",
+    "description": ""
   },
   {
     "id": 1004,
-    "title": "Spanish Network of Learning Analytics (SNOLA) meeting",
-    "description": "",
-    "location": "M005 classroom @ Engineering Building",
-    "time": "16:30-19:00"
-  },
-  {
-    "id": 1005,
-    "title": "Bilboats 1 hour boat trip. Cancelled",
-    "description": "See the details for registration in http://lasi16.snola.es/#!/#pricetable",
-    "location": "-",
-    "time": "19:00-20:00"
-  },
-  {
-    "id": 1006,
-    "title": "Discussion-break",
-    "description": "",
-    "location": "ESIDE dining hall. First floor @ Engineering Building",
-    "time": "11:30-12:00"
-  },
-  {
-    "id": 1007,
-    "title": "Lunch",
-    "description": "",
-    "location": "CRAI",
-    "time": "13:00-14:00"
-  },{
-    "id": 1008,
-    "title": "Closure",
-    "description": "",
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "17:00-17:15"
+    "title": "Design, Tech & Beers",
+    "description": "Networking"
   },
   {
     "id": 101,
-    "title": "Keynote “Educational Data Science”",
-    "description": "Currently, there is an increasing interest in applying the fashion term Data Science (DS) to different domains. In fact, the specific application of DS in the Education field is known as Educational Data Science (EDS), which works with data gathered from educational environments/settings for solving educational problems. There are several communities associated with EDS that can be viewed as related sub-communities: Learning Analytics (LA)/Educational Data Mining (EDM), Learner Analytics/Personalization and Educational Recommender Systems (ERS), Academic/Institutional Analytics (AA), and  Systemic/Instructional Improvement, also known as Data Driven Decision Making in Education (DDDME). This presentation introduces the new and widely used term Educational Data Science. It presents its basic definitions, the process and actors, the main goals and tasks, and the main publications and resources in order to introduce this topic to different type of stakeholders.",
+    "title": "Abandonando mi zona de confort",
+    "description": "Cómo gestionar tu carrera como diseñador, viviendo en modo freelance",
     "speakers": [2],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://www.uco.es/users/in1romoc/EducationalDataScience.pdf",
+    "language": "es",
+    "complexity": "Básico",
+    "presentation": "",
     "video": "",
     "tags": [
-      "Educational Data Science",
-      "Keynote"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "9:00-10:00"
+      "Entrepreneurship"
+    ]
   },
   {
     "id": 102,
-    "title": "Experiences I",
-    "description": "<ol><li>Introduction to student modeling and Bayesian Knowledge Tracing</li> <li>What our learning platforms know about the activity of our students</li> <li>Learning Analytics in action: privacy issues in the classroom</li> <li>Using Learning Analytics tools in Engineering Education</li></ol>",
-    "speakers": [],
-    "language": "en",
-    "complexity": "Medium",
+    "title": "Diseño e inspiración",
+    "description": "Inspiración, Identidad corporativa e ilustración con algunas pinceladas de motion graphics.",
+    "speakers": [3],
+    "language": "es",
+    "complexity": "Intermedio",
     "presentation": "",
     "video": "",
     "tags":[
-    "Experiences"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "10:00-11:30"
+      "Motion",
+      "2D",
+      "Illustration"
+    ]
   },
   {
     "id": 103,
-    "title": "Workshop I ”Educational data analysis using R”",
-    "description": "This hands-on tutorial is focused on the practical use of the R free software statistical tool in order to analyze educational data sets. We will provide examples on the use of R for hypotheses testing, prediction and clustering in educational scenarios. <br>Schedule: <ul><li>Introduction to basic useful commands in R</li><li>Hypothesis testing: Example of comparisson of two groups</li><li>Brief example of clutering</li><li>Brief example of prediction</li><li>Brief example of use of bayesian networks in education.</li></ul>",
-    "speakers": [3],
+    "title": "Sharing the UX love",
+    "description": "Compartir el amor por el diseño de experiencias de usuario, o cómo podemos (y debemos) romper las barreras entre diseñadores y desarrolladores si queremos crear mejores productos digitales.",
+    "speakers": [4],
     "language": "es",
-    "complexity": "Medium",
-    "presentation": "http://www.it.uc3m.es/pedmume/SNOLA/",
+    "complexity": "Intermedio",
+    "presentation": "",
     "video": "",
     "tags": [
-      "Educational Data Analysis",
-      "R"
-    ],
-    "location": "103b classroom. First floor @ Engineering Building",
-    "time": "10:00-11:30"
+      "UX",
+      "Design"
+    ]
   },
   {
     "id": 104,
-    "title": "Workshop II “Using Weka on Data from Moodle”",
-    "description": "The workshop will be located in a room equipped with PCs. If you want to attend with your own laptop, the version of Weka you will need is 3.6 (Stable book 3rd ed. version)",
+    "title": "Workshop - Cinema 4D, introducción al diseño en 3D.",
+    "description": "En este workshop veremos algunas nociones básicas para introducirte en el mundo del diseño en 3D. Aprenderás el flujo de trabajo, la interface, algunas herramientas de modelado, texturizado, iluminación y render. Como ejercicio diseñaremos el icono de una aplicación para dispositivos móviles. Recuerda traer tu propio ordenador con el programa instalado, puedes descargar una versión gratuita para estudiantes en http://www.maxon.net/es/education/student-versions.html ¡Recuerda traerlo instalado en tu ordenador!",
     "speakers": [2],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://www.uco.es/users/in1romoc/UsingWekaonDatafromMoodle.rar",
+    "language": "es",
+    "complexity": "Básico",
+    "presentation": "",
     "video": "",
     "tags": [
-      "Weka",
-      "EDM",
-      "Moodle"
-    ],
-    "location": "103b classroom. First floor @ Engineering Building",
-    "time": "12:00-14:00"
+      "Cinema4D",
+      "3D"
+    ]
   },
   {
     "id": 105,
-    "title": "Experiences II",
-    "description": "<ol><li>Remedial Courses: From the Khan Academy Platform to Open edX</li> <li>Using learning analytics to analyze learning outcomes in a serious game</li> <li>Visual feedback in rubric based evaluation</li> <li>4.Learning Analytics in the workplace</li></ol>",
-    "speakers": [],
-    "language": "en",
-    "complexity": "Medium",
+    "title": "Workshop - Sketch básico",
+    "description": "Sketch, una de las herramientas más utilizadas para diseño en proyectos digitales (apps, webs, icons …) y que más comunidad está generando alrededor, haciendo crecer continuamente sus posibilidades para nuestro día a día. El objetivo del curso no es solo introducirte en la filosofía de flujo de trabajo de sketch, conocer y configura tu área de trabajo y conocer sus herramientas básicos, sino también conocer algunas características más avanzada (como plugins) para que coger confianza para futuros proyectos a los que te enfrentes. ¡Ah! y aunque no necesites ningún conocimiento previo sobre Sketch. Solo es importante que lo traigas instalado ya en tu ordenador (puedes descargarte su versión de prueba aquí https://www.sketchapp.com/) ;)",
+    "speakers": [1],
+    "language": "es",
+    "complexity": "Básico",
     "presentation": "",
     "video": "",
     "tags": [
-    "Experiences"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "9:00-10:30"
+      "Sketch",
+      "Graphic Design"
+    ]
   },
   {
     "id": 106,
-    "title": "Workshop III ”Creating interactive visualizations with R, ggplot2 and Shiny (R initial knowledge required)”",
-    "description": "This workshop is an introduction to creating rich graphical visualizations in R. We will explain how to develop meaningful visualizations with the ggplot2 package, the most widely used implementation of the principles of The Grammar of Graphics. You will learn the basics of ggplot2 in a practical way and we will discuss about the most usual visualization problems and the common alternatives to these problems, creating good visual representations for the questions you want to explore. In the workshop, we will also show how to develop an interactive web application using Shiny, a framework for creating these elements in R.<br>Goals: <ul><li>Introduce the realization of graphics in R using the ggplot2 package.</li><li>Discuss criteria and alternatives for creating meaningful visualizations.</li><li>Develop interactive graphics in R using Shiny.</li></ul><br>Index<ol><li>Why visualization?</li><li>Grammar of graphics & ggplot2</li><li>Recommended plots</li><li>Why using interactive graphs?</li><li>Interactive graphics with shiny</li></ol><br>Essential requirements: initial knowledge of R<br>Tools to be used: R (https://www.r-project.org/) & RStudio (https://www.rstudio.com/products/rstudio/download/)",
-    "speakers": [29, 19, 18],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "https://goo.gl/wDBMXT",
-    "video": "",
-    "tags": [
-    "Workshop"
-    ],
-    "location": "103b classroom. First floor @ Engineering Building",
-    "time": "15:00-16:30"
-  },
-  {
-    "id": 107,
-    "title": "Experiences III",
-    "description": "<ol><li>Análisis de Redes Sociales como instrumento de identificación de alumnos en riesgo dentro de un programa de posgrado</li> <li>Analyzing non-linear video usage in an introductory x-MOOC about basic linear algebra</li><li>Learning Analytics in Project Management teaching</li><li>Design-aware analytics supporting teachers’ monitoring of blended learning scenarios: Two experiences in higher education</li> <li>Using Learning Analytics at School: a Go-Lab Study</li></ol>",
-    "speakers": [],
-    "language": "en",
-    "complexity": "Medium",
+    "title": "Mesa redonda UX",
+    "description": "Conversaciones sobre diseño y tecnología",
+    "speakers": [4,5,6,7,8,9],
+    "language": "es",
+    "complexity": "Básico",
     "presentation": "",
     "video": "",
     "tags": [
-    "Experiences"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "15:00-16:30"
-  },
-  {
-    "id": 108,
-    "title": "Workshop IV: “Orchestrating Learning Analytics: A framework for researchers, teachers and developers“",
-    "description": "The goal of the workshop is to gather members of the three target stakeholder groups (teachers, researchers, developers), and use the OrLA framework to establish common ground among them, and to spark and sustain productive discussions about the needs and benefits of learning analytics interventions in authentic educational settings. The workshop will feature hands-on collaborative activities, structured in three main phases: 1. Introduction to OrLA and example of its application to a real setting 2.Stakeholder needs: individual activities and breakout groups (per kind of stakeholder) about the major concerns and needs when facing a learning analytics intervention/innovation 3.Concrete intervention cases: breakout groups formed by different stakeholders, in which the benefits of concrete LA tools are matched against the constraints of the educational setting and the needs of the specific stakeholders in that setting. Please register in the LASI's registration form and in http://go.epfl.ch/LASI-ORLA2016",
-    "speakers": [5,7,8,9],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://lprisan.wix.com/orla2016",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/632/1/WS%20IV_Orchestrating%20Learning%20Analytics_A%20framework%20for%20researchers%20teachers%20and%20developers.pdf",
-    "video": "",
-    "tags": [
-    "Workshop",
-    "Orchestrating Learning Analytics"
-    ],
-    "location": "103b classroom. First floor @ Engineering Building",
-    "time": "9:00-10:30"
-  },
-  {
-    "id": 109,
-    "title": "Keynote “Learning analytics: Visions of the Future”",
-    "description": "What does the future hold for learning analytics? In terms of Europe’s priorities for learning and training, they will need to support relevant and high-quality knowledge, skills and competences developed throughout lifelong learning. More specifically, they should improve the quality and efficiency of education and training, enhance creativity and innovation, and focus on learning outcomes in areas such as employability, active-citizenship and well-being. This is a tall order and, in order to achieve it, we need to consider how our work fits into the larger picture. Drawing on the outcomes of two recent European studies, Rebecca will discuss how we can avoid potential pitfalls and develop an action plan that will drive the development of analytics that enhance both learning and teaching.",
-    "speakers": [1],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://www.slideshare.net/R3beccaF",
-    "video": "",
-    "tags": [
-      "Learning Analytics",
-      "Keynote"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "10:30-11:30"
-  },
-  {
-    "id": 110,
-    "title": "Workshop V “Ethics and Privacy issues in LA”",
-    "description": "",
-    "speakers": [1],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "",
-    "video": "",
-    "tags": [
-      "Learning Analytics",
-      "Ethics and Privacy"
-    ],
-    "location": "103b classroom. First floor @ Engineering Building",
-    "time": "12:00-13:00"
-  },
-  {
-    "id": 111,
-    "title": "Workshop VI “Social Network Analysis (SNA) of educational data“",
-    "description": "Social learning analytics (SLA) refers to a distinctive subset of learning analytics, strongly tied to social learning. Buckingham-Shum and Ferguson define five levels of SLA, differentiating between inherent and socialized social learning analytics. Within the first group, two kinds of analytics stand out: discourse analytics, focused on educational contents and language-based construction of knowledge, and social network analytics (SNA), oriented toward the analysis of interpersonal relations. In online learning, interactions, participation, social exchanges and construction of knowledge take place primarily in the message boards of the course. Message boards become then a source of valuable information to describe, explain and understand social dynamics of online courses. The application of SNA techniques to educational data allows users to identify relevant actors in a course: influencers, at-risk students, knowledge brokers, hubs and authorities, communities, etc. The main objective of this workshop is to give attendants an introductory overview and global vision of SNA techniques, and how to apply them to in educational contexts. The structure of the workshop comprises four main blocks: <ol><li>Introduction to Social Network Analysis: This section will present basic concepts of SNA, in both directed and undirected networks.</li><li>Centrality measures in SNA: This part will cover the main centrality measures and network parameters: degree centrality, betweenness, average degree, average path length, network diameter, etc.</li><li>Building social networks from educational data: This block will help attendees to learn and understand how to build different social networks with data originated in a LMS.</li><li>Using tools for SNA of educational data: The final section puts the different concepts in practice, presents two tools for extraction (GraphFES) and data analysis using SNA techniques (Gephi), showcases real-life examples of use of the application of SNA to educational data.</li></ol>Prior knowledge requirements for the Workshop: <b>None.</b><br>Tools used for the examples: <ul><li>Moodle 2.9</li><li>Node.js</li><li>GraphFES 1.0</li><li>Web browser</li><li>Gephi 0.9.1</li></ul>",
-    "speakers": [10],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "https://nube.cesvima.upm.es/index.php/s/z3yhYGO7jqTSqqp",
-    "video": "",
-    "tags": [
-    "Workshop",
-    "Social Network Analysis"
-    ],
-    "location": "103b classroom. First floor @ Engineering Building",
-    "time": "14:00-15:30"
-  },
-  {
-    "id": 112,
-    "title": "Industrial track",
-    "description": "",
-    "speakers": [],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "",
-    "video": "",
-    "tags": [
-    "Industrial presentations"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "14:00-15:30"
-  },
-  {
-    "id": 113,
-    "title": "Workshop VII “Contextual Learning analytics Enforcing data Ownership (CLEO). Building Learning Dashboards with Logstash, Elasticsearch and Kibana“",
-    "description": "Educational data continues to grow in volume, velocity and variety. Making sense of the educational data in such conditions requires deployment and usage of appropriate scalable, real-time processing tools supporting a flexible data schema. Elasticsearch is one of the popular open-source tools meeting the enlisted requirements. Initially envisioned as a search engine capable of operating at scale and in real time, Elasticsearch is used by organisations such as Wikimedia and Github, which deal with big data on daily basis. In addition, Elasticsearch is used increasingly often as analytics platform thanks to its scalable architecture and expressive query language. Until recently, the exploitation of Elasticsearch for (learning) analytical purposes by practitioners was hindered by a high entrance barrier due to the complexity of the query language and the query specificities. This is currently changing with the ongoing development of Kibana, an open-source tool that allows to conduct analysis and build visualisations of Elasticsearch data through a graphical user interface. Kibana does not require the user to dive into technical details of the queries (although it is still possible) and hence makes big educational data visualisations accessible to regular users. The additional value of Kibana comes in play whenever several visualisations are combined on a single dashboard, enabling to use multiple coordinated views for an interactive explorative analysis. Both Elasticsearch and Kibana, together with Logstash are part of an analytics stack often referred to as ELK. Logstash supports data acquisition from multiple sources (including twitter, RSS, event logs) thanks to its rich set of available connectors. Custom connectors can be developed for case-specific sources. In addition to the mentioned values, ELK enables building analytics infrastructures decoupled from the learning platform, i.e., it allows to host separately the learning environment (with the analytics functionalities) and the data storage without affecting the end-user experience. Schedule: An introduction to ELK technologies (30 minutes). A hands-on session (40 minutes). Discussion and Feedback (20 minutes)",
-    "speakers": [4,5,6],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://www.slideshare.net/vozniuk/interactive-learning-analytics-dashboards-with-elk-elasticsearch-logstash-kibana-lasi-2016-andrii-vozniuk-maria-rodrigueztriana-denis-gillet",
-    "video": "",
-    "tags": [
-    "Workshop",
-    "Contextual Learning Analytics",
-    "Logstash",
-    "Elasticsearch",
-    "Kibana"
-    ],
-    "location": "103b classroom. First floor @ Engineering Building",
-    "time": "15:30-17:00"
-  },
-  {
-    "id": 114,
-    "title": "Experiences I: Using Learning Analytics tools in Engineering Education",
-    "description": "This presentation describes an experience to assess the application of different sets of learning analytics tools to six only courses in Moodle virtual campuses of two Spanish Universities. The application of learning analytics covered four stages: identification of data and relevant techniques, tool selection, pilot testing and assessment of results. The main findings from the experience is that learning analytics tools are still too data-format and LMS version-dependent, and that teachers find the use of this kind of tools useful, but still difficult to use and interpret",
-    "speakers": [11,10],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/626/1/ExperienciaLASI-MAConde.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Engineering Education"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "11:00-11:20"
-  },
-  {
-    "id": 116,
-    "title": "Experiences II: Using learning analytics to analyze learning outcomes in a serious game",
-    "description": "Although serious games are proven educational tools in many educational domains, they lack reliable, automated and repeatable methodologies to measure their effectiveness: what do players know after playing a serious game? Did they learn with it? Literature research shows that the vast majority of serious games are formally assessed through questionnaires, which strikes a stark contrast with current trends in the video game industry. Commercial videogames have been learning from their players through Game Analytics for years, using non-disruptive game tracking. We propose a methodology to assess serious games effectiveness using non-disruptive in-game tracking. The methodology proposes a design pattern that structures the delivery of educational goals within the game. This structure also allows inferring learning outcomes for each individual player, which, when aggregated, would determine the effectiveness of the serious game. We have tested this methodology with a serious game that was played by 320 students. The proposed methodology allowed us to infer players’ learning outcomes and assess game effectiveness and to spot issues in the game design.",
-    "speakers": [12],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://repositorio.grial.eu/bitstream/grial/623/2/Applying_learning_analytics_to_a_serious_game.pdf",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/623/1/Abstract-AngelSerrano.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Serious game"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "9:20-9:40"
-  },
-  {
-    "id": 117,
-    "title": "Experiences II: Use of Learning Analytics in Remedial Courses",
-    "description": "Incoming freshmen at universities have a lack of knowledge in STEM subjects such as Physics, Math, and Chemistry. To overcome these issues, Universidad Carlos III of Madrid (UC3M) introduced remedial courses in these subjects several years ago before 1st year at university. At the beginning, these courses were just face to face sessions. In 2012, we moved to a flipped classroom methodology where students first take on-line lessons and then they take face to face lessons. We incorporated the Khan Academy platform as a support for these remedial courses. In 2015, we replaced the Khan Academy platform by Open edX. The learning analytics support has been key in these experiences. We developed two visual analytics tools: ALAS-KA for the Khan Academy platform and ANALYSE for Open edX. We present these learning analytics tools and how they can be used for remedial courses for the improvement of courses materials, the provision of personalized feedback or the improvement of the learning process. In addition, different indicators of the learning process have been designed and analyzed in these remedial courses including video use, exercise interactions, gamification habits, effectiveness, efficiency, behaviors or emotions.",
-    "speakers": [3],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/627/1/pedro_LASI_Bilbao_2016.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Khan Academy",
-    "Open edX",
-    "Freshmen"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "9:00-9:20"
-  },
-  {
-    "id": 118,
-    "title": "Experiences III: Learning Analytics in Project Management teaching: tracking practical activities",
-    "description": "During the last years it has been a growing interest in the phenomenon of Learning Analytics. In a parallel way, the number of educational sources that can be deployed is constantly increasing. The current work focuses on those information sources that link with practical activities in a Higher Education context. The concept of edumarker, which is analogous to biomarkers in health science, is proposed to organize this huge amount of analytical data. There are multiple examples of edumarkers that enable the tracking of practical activities and a specific educational context has been selected to show their application. Some preliminary results about the use of edumarkers in a Project Management course reveal their potential to manage different types of educational data.",
-    "speakers": [13, 14],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://repositorio.grial.eu/bitstream/grial/628/2/Learning_Analytics_in_Project_Management.pdf",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/628/1/PropuestaLASI16Envio_GPR.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Project management"
-    ],
-    "location": "M005 classroom @ Engineering Building",
-    "time": "15:20-15:40"
-  },
-  {
-    "id": 119,
-    "title": "Experiences I: What our learning platforms know about the activity of our students",
-    "description": "In addition to the typical learning management systems commonly introduced in the universities, specific tools and services have been made available to instructors, in order to facilitate their teaching tasks. In this work, the students’ usage of some educational resources posted in a course site has been investigated. To this end, the Statistics tool offered by our institutional platform Poliformat, has been used. This preliminary work showed how specific reports could be created to analyse what resources were accessed, when and by whom. Therefore, these analyses may provide instructors with information about which educational resources are actually useful in the students’ learning process.",
-    "speakers": [13, 14],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://repositorio.grial.eu/bitstream/grial/625/2/Benlloch_Buendia_LASI16.pdf",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/625/1/BenllochBuendia_ENG_UPValencia.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Learning platforms"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "10:20-10:40"
-  },
-  {
-    "id": 120,
-    "title": "Experiences III: Analyzing non-linear video usage in an introductory x-MOOC about basic linear algebra",
-    "description": "Massive data collection in MOOCs provides insight about real course participation. The main aim of this work is to explore how MOOC students consume videos, and whether they follow a specific viewing pattern according with the characteristics of each scene in the storyboard. Using heatmaps as a visual analytics tool, results suggest that most participants do not alter the linearity of time, but in a few hot spots. This knowledge can provide course teachers with insightful information on how to detect possible bottlenecks and to improve video internal structure.",
-    "speakers": [15, 16, 17],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://repositorio.grial.eu/bitstream/grial/624/2/Presentation_LASI2016_JTriay.pdf",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/624/1/Analyzing%20non-linear%20video%20usage%20in%20an%20introductory%20x-MOOC%20about%20basic%20linear%20algebra.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "x-MOOC",
-    "Non-linear video usage"
-    ],
-    "location": "M005 classroom @ Engineering Building",
-    "time": "15:00-15:20"
-  },
-  {
-    "id": 121,
-    "title": "Experiences I: Introduction to student modeling and Bayesian Knowledge Tracing",
-    "description": "The use of integrated intelligent or cognitive tutoring systems that support the learning process of our students requires tools that allow these tutors to make decisions based on the students’ state of knowledge. Therefore it is very important to have tools to model the students’ learning process as student modeling is one of the key factors that affect automated tutoring systems in making instructional decisions. This communication is an introduction to the techniques and methods for student modeling, being Bayesian Knowledge Tracing (BKT) the most well-known among them",
-    "speakers": [18, 19, 20],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://repositorio.grial.eu/bitstream/grial/622/2/Student_Modeling_Martori_Cuadros_Gonzalez_public.pdf",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/622/1/Abstract_Student_Modeling_LASI_2016.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Student modeling",
-    "Bayesian Knowledge Tracing"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "10:00-10:20"
-  },
-  {
-    "id": 122,
-    "title": "Experiences II: Learning Analytics in the workplace",
-    "description": "Workplace learning is a rather informal way of gaining knowledge and expertise by self-directed exploration and social exchange that is tightly connected to the processes and the places of work. This workshop deals with Learning Analytics for workplace learning situations. The analysis of data from these situations is specially challenging since, due to its informal nature, learners typically use several tools in a spontaneous and difficult-to-foresee way. Hence, it is key for workplace Learning Analytic applications to count on learning theories that guide the process of collecting, managing and representing the data to extract meaningful information out of it. This workshop will describe this relationship between learning theory and applications for workplace Learning Analytics and will exemplify it with the applications developed and the field studies realized in the Learning Layers project. The workshop will first propose a theoretical reflection regarding workplace learning and the different metaphors that we can take to understand what learning is. Then we will describe some typical learning practices at the workplace taken from the Learning Layers field studies. The students will then be asked to work in groups in order to design an application for Workplace Learning Analytics according to a learning metaphor of their choice. The groups will finally share their designs and reflections about how to relate learning theory, learning practice and application design for Learning Analytics at the workplace.",
-    "speakers": [21],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://repositorio.grial.eu/bitstream/grial/636/1/20160628_WLA.pptx",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/636/4/LASI%202016.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Workplace"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "10:00-10:20"
-  },
-  {
-    "id": 123,
-    "title": "Experiences II: Visual feedback in rubric based evaluation",
-    "description": "Rubrics help assessing students’ work in an easy and efficient way, but they can also be used as a teaching tool. To get the most benefit from a rubric, the way of showing the rubric’s results has to be taken into account. If the right visualization is provided both students and teachers can benefit from it and improve the learning and teaching processes. In this paper a way for providing visual feedback for rubric-based evaluation is proposed.",
-    "speakers": [22, 23, 24, 25],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://repositorio.grial.eu/bitstream/grial/629/1/PresentacionLASI_v2_Villamane.pdf",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/629/2/Villamane_LASI2016.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Visual feedback",
-    "Rubric based evaluation"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "9:40-10:00"
-  },
-  {
-    "id": 124,
-    "title": "Experiences I: Learning Analytics in action: privacy issues in the classroom",
-    "description": "As a further step to maturity, the field of learning analytics (LA) is working on the definition of frameworks that structure the legal and ethical issues that scholars and practitioners have to take into account when planning and applying learning analytics solutions to their learning contexts. Along three studies, involving two higher education and one primary school context, we have reflected on the ethical and privacy issues that teachers need to face when applying our LA approach in their classrooms. Our learning analytics approach aims at providing monitoring information to be used for regulation, formative assessment, or self-reflection about the learning design and the learning process. More concretely, we propose to provide teachers with feedback about the accomplishment of pedagogical decisions made at design-time. Our solution consists of three components: (1) a monitoring-aware design process of the learning scenario that takes into account the teacher's information needs; (2) a monitoring process guided by the decisions made at design-time; and (3) an architecture that addresses the need of data gathering and integration in Distributed Learning Environments (DLEs) made up by an institutional Virtual Learning Environment (VLE) and Web 2.0 tools. To support teachers in the analysis, we implemented GLIMPSE a tool that automatizes data gathering, integration and analysis, offering the teacher a comparison between the current and the desired state of the learning scenario. The educational settings where the approach has been tested cover blended Computer-Supported Collaborative Learning (CSCL). In addition, in terms of technological support, the proposal was used with DLEs made up by VLEs (e.g., Moodle, Mediawiki or even Blogger), web 2.0 tools (e.g., Google applications), and GLUE! – an architecture devoted to integrate third-party tools in VLEs. The outcomes from the studies showed that the concerns in smaller-scale teacher-led LA approaches require at least considering, in an explicit way, the role of teachers as main actors in the application of LA processes. Aspects such as action and impact have a particular dimension, and are closer to general ethical issues related to classroom orchestration, where teachers play a crucial role. In this kind of educational contexts, it is necessary to analyze from the ethical point of view what kind of actions should trigger the LA information, how to proceed and what the impact is in terms of classroom management, intervention, regulation and assessment. Our solution to LA, involving teachers from the very beginning in the design and enactment of the monitoring process helped to overcome issues that can appear also in these smaller contexts, such as control on the analytics, awareness, etc. The teacher participation in the design of the monitoring process contributes to introduce “ethics by design” (parallel to the idea of “privacy by design”) in the application of LA solutions. According to this schema, the teacher is the one who defines the educational purposes of the analysis, reflects on the available data sources, contributes to improve the validity of the results (adding new evidence coming directly from teachers and students), and is aware of the limitations of the results obtained. Finally, the application of the approach in primary and higher education shows that the reflection on LA has to take into account the specific ways of working on the different contexts, and even legal aspects that apply to the particular case of schools, where work with minors poses specific challenges, and make us include families as new actors in the framework. The cloud-based tools that are becoming widespread at these educational levels, do not cover information needs required by LA, and may pose legal and ethical problems related to data ownership and virtual identity, difficult to solve when working with minors. Not only LA, but also the wider technology-enhanced learning community have a big challenge in providing appropriate tools to these educational levels. ",
-    "speakers": [5, 26, 27],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "https://docs.google.com/presentation/d/1Em-zxbPlu1p0gRCIr27gzLHEvuPgLMk3vuokX4QNXNE/",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/620/1/2016_LASI_Learning_Analytics_in_action_ethics_and_privacy_issues_in_the_classroom.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Privacy issues"
-    ],
-    "location": "Turing Room. Second floor @ Engineering Building",
-    "time": "10:40-11:00"
-  },
-  {
-    "id": 125,
-    "title": "Experiences III: Design-aware analytics supporting teachers’ monitoring of blended learning scenarios: Two experiences in higher education",
-    "description": "Education is gearing towards blended learning models, especially in Higher Education (The New Media Consortium, 2013). Blended learning comprises the use of different locations, interaction types and technologies. In these settings, teachers invest considerable effort to design the learning scenario and to be aware of what happens during the enactment. Using learning analytics methods to monitor the learning activities can help teachers keep track of the accomplishment of the designed learning activities and take corrective actions if needed (Griffiths, 2012). However, blended learning environments pose challenges to monitoring, due to the diversity of technologies and types of interactions involved, many of them occurring face to face, out of reach of the technological environment. We proposed a design-aware monitoring process supported by an data-gathering system named GLUE-CAS that takes into account the needs of blended learning scenarios supported by distributed learning environments (DLE). This monitoring process takes into account teachers’ design decisions to inform them about the progress of the learning activities, supported by a monitoring tool named GLIMPSE (Rodríguez-Triana et al., 2015). In this paper we present how the process was put in practice and evaluated in two different higher education real scenarios, focusing on the perspective of the participant teachers, and showing how the process helped them keep track of their collaborative learning activities. These two studies were part of the Design-Based Research approach on which we based the design and evaluation of the proposals. The issue presented in this paper is whether the script-aware monitoring process provided the participant teachers with relevant information for the management of the CSCL scenarios. The paper will describe how the teachers applied the aforementioned proposals to their courses, and whether the results of the monitoring reports were accurate and helped them identify problematic issues or confirm that the activities were developing as expected. Although the studies follow an interpretive research perspective and do not aim to generalize, some of their findings can be of general interest to the Learning Analytics community. These are, for example: the need to provide teachers with LA results they are able to understand and integrate into their practice; approaches to handle the difficulties to keep track of the activities in blended learning scenarios; and whether simple and un-intelligent analytics can be useful to the teachers or not.",
-    "speakers": [5, 26, 28],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://repositorio.grial.eu/bitstream/grial/619/2/amartine%40LASI2016.pdf",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/619/1/2016_LASI_Design_aware_analytics_supporting_teachers_monitoring_of_blended_learning_scenarios_Two_experiences_in_higher_education.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Privacy issues"
-    ],
-    "location": "M005 classroom @ Engineering Building",
-    "time": "15:40-16:00"
-  },
-  {
-    "id": 126,
-    "title": "Experiences III: Using Learning Analytics at School: a Go-Lab Study",
-    "description": "The combination of blended inquiry learning and online labs is considered as a promising approach to increase the skills and the interest of students in science, technology, engineering, and mathematics (STEM). In such a framework where students combine face-to- face interaction with peers or teachers and online interaction with labs, adequate guidance should be provided to foster effective interactions. In the Go-Lab European project, we have designed and built a set of Learning Analytics (LA) apps to address the main orchestration needs identified by expert teachers in inquiry learning and STEM. This document reports on two LA apps -Online Users Visualisation and Student Time Spent - which provide visualisations of the student activity to support teacher awareness. Two case studies using the apps were carried out in Geneva between January and March 2015: one at the École de Commerce Nicolas-Bouvier involving 1 teacher (T1) and 11 students, and another at the College Sismondi with 1 teacher (T2) and 17 students. The purpose of these studies was to evaluate the usability and usefulness of the apps to improve teacher&#39;s awareness. To achieve that aim we used three data sources: a first interview to the teachers before the experiments, observations during the lessons, and a second interview to the teachers once they had used the apps. In the first interview, the teachers were asked about the extent to which they find each of the awareness apps useful for teachers and students. T1 and T2 agreed on the usefulness of the Online Users Visualisation app for awareness of the learning progress for teachers and students. Regarding the Student Time Spent app, while it was not seen as significantly useful for awareness, it was considered potentially relevant for better understanding the students&#39; progress. Concerning the potential convenience for students, both teachers came up to the conclusion that the app could help learners to be aware of their peers&#39; progress. In both studies, the teachers designed a 90-minute activity using Go-Lab resources and Graasp, the latter being the collaborative learning platform enabling access to the online inquiry learning spaces (ILSs) in which the inquiry learning phases are supported and the learning analytics apps are embedded. In the first study, the students were allowed to work individually or in groups, and the teacher was walking around, answering the questions that emerged during the activity. Since the teacher was not nearby her computer, she decided to display the apps using the beamer, so the teacher and the students could see the visualisations. After answering the questions of the students, the teacher had a look at the apps and, based on the student distribution across the inquiry phases, she chose the next group to visit. In parallel, the students periodically observed the apps to compare their own progress with that of their peers. In the second study, the students worked in groups of 2 to 3 people sharing one computer, while the teacher controlling the situation from his desk, going to the students just when they had doubts. T2 used mainly the Online Users Visualisation app to monitor whether the students were using the ILS or not, and to be aware of the current phase they were working on. Since, in this case, the information was not shown to the students, at the end of the lesson they were asked about whether they would like to have access to the apps or not. The responses were heterogeneous: 7 students did not have a clear preference, 4 were highly interested in the apps, while another 6 students were reluctant. For those who were interested in the apps, the main benefit was to have a reference about the progress. The main disadvantages identified by the students were: the distraction the apps may cause and the stress caused by being compared among themselves. Nevertheless, they did not had any concern with the teacher accessing the information. According to the feedback provided by the teachers, despite some recommendations to improve the user interface, it was straightforward to understand the visualisations and helped them monitor the student work. Regarding the Student Time Spent app, both teachers agreed that it can be more useful for post-session reflection, especially since during the session normally they do not have enough time for these details.",
-    "speakers": [5, 4, 6],
-    "language": "en",
-    "complexity": "Medium",
-    "presentation": "http://repositorio.grial.eu/bitstream/grial/621/2/LASI_2016_%20Exp%20III_Using%20Learning%20Analytics%20at%20School_A%20Go-Lab%20Study.pdf",
-    "abstract": "http://repositorio.grial.eu/bitstream/grial/621/1/2016_LASI_Using_Learning_Analytics_at_School_a_Go_Lab_Study.pdf",
-    "video": "",
-    "tags": [
-    "Experiences",
-    "Go-Lab",
-    "School"
-    ],
-    "location": "M005 classroom @ Engineering Building",
-    "time": "16:00-16:20"
+      "UX",
+      "Design"
+    ]
   }
 ]

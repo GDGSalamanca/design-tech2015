@@ -1,354 +1,190 @@
 [{
     "id": 1,
-    "name": "Rebecca Ferguson",
-    "title": "Lecturer",
-    "company": "The Open University",
-    "country": "United Kingdom",
-    "photoUrl": "../../images/people/rebeccaferguson.jpg",
-    "bio": "",
-    "tags": ["Keynote", "Workshop"],
+    "name": "Lole Román",
+    "title": "Diseñador gráfico, tipografista",
+    "company": "The Big House",
+    "country": "Spain",
+    "photoUrl": "../../images/people/loleroman.jpeg",
+    "bio": "Diseñador gaditano, especializado en interfaz de usuario, tipografía y Iron Maiden. Domina las artes del código y el diseño de forma fluida, lo cual le da poder para afrontar proyectos de una forma muy fresca y original",
+    "tags": ["UX", "Design", "Sketch"],
+    "badges": [{
+        "name": "GDG",
+        "description": "Google Developers Group Cádiz",
+        "link": "https://developers.google.com/groups/chapter/112866714526515716260/"
+    }],
     "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.com/citations?user=lfxvlmwAAAAJ&hl=en"
+        "name": "Website",
+        "link": "http://www.thebighouse.io"
+    },{
+        "name": "Website",
+        "link": "http://www.bynewroman.com"
+    }, {
+        "name": "Twitter",
+        "link": "https://twitter.com/lolergb"
+    }, {
+        "name": "GitHub",
+        "link": "https://github.com/JoseRGB"
     }]
 }, {
     "id": 2,
-    "name": "Cristobal Romero",
-    "title": "Associate Professor",
-    "company": "University of Cordoba",
+    "name": "Alejandro López (Muokkaa)",
+    "title": "Diseñador gráfico",
+    "company": "Muokkaa Studio",
     "country": "Spain",
-    "photoUrl": "../../images/people/cristobalromero.jpg",
-    "bio": "",
-    "tags": ["Keynote", "Workshop"],
+    "photoUrl": "../../images/people/alexmuokkaa.jpg",
+    "bio": "Diseñador gráfico afincado en Madrid y apasionado de la tipografía, el 3D y la ilustración. Siempre buscando inspiración y nuevos proyectos en los que involucrarse",
+    "tags": ["Cinema4D", "Entrepreneurship"],
     "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.com/citations?user=vLlwz_4AAAAJ&hl=en"
+        "name": "Website",
+        "link": "http://www.muokkaa.com"
+    }, {
+        "name": "Twitter",
+        "link": "https://twitter.com/AlexMuokkaa"
     }]
 }, {
     "id": 3,
-    "name": "Pedro J. Muñoz Merino",
-    "title": "Visiting Professor",
-    "company": "Universidad Carlos III de Madrid",
+    "name": "Iratxe Lezameta",
+    "title": "Diseñadora digital",
+    "company": "KITXUNE",
     "country": "Spain",
-    "photoUrl": "../../images/people/pedrojmunozmerino.jpg",
-    "bio": "Pedro J. Muñoz-Merino is a Lecturer at the Universidad Carlos III de Madrid. In 2003, he received his Telecommunication Engineering degree from the Polytechnic University of Valencia, and in 2009 his PhD in Telematics Engineering from the Universidad Carlos III de Madrid. He obtained his acreditation in May 2012 as Associate Professor by the ANECA agency from the Spanish Ministry of Education. He has also received several awards like the AMPER award for the best Master Thesis in Telematics Engineering or a special PhD award by Universidad Carlos III de Madrid. He has made two long research stays: one in Ireland for more than 3 months at the Intel company in 2005, and another in Germany for more than 6 months at the Fraunhofer Institute of Technology in 2009-2010. In addition, he is author of more than 80 scientific publications and has participated in more than 20 research projects. He has been PC member of different conferences and invited as a speaker in different events in topics related to learning analytics and educational technologies. He is also an IEEE Senior Member from 2015. His skills and experience include research and development in learning analytics, educational data mining, evaluation of learning experiences, user studies, gamification or Intelligent Tutoring Systems. You can contact him at twitter at @pedmume.",
-    "tags": ["Workshop", "Experiences"],
+    "photoUrl": "../../images/people/iratxe.jpg",
+    "bio": "Diseñadora digital en KITXUNE, apasionada del diseño en todas sus formas, disfruta sobre todo creando Motion graphics, realizando desde el guión e ilustración... hasta terminar dando vida al personaje. Siempre dedica tiempo a seguir creciendo y a asimilar las nuevas tendencias",
+    "tags": ["Motion", "2D", "Illustration"],
     "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.es/citations?user=c-VhX_EAAAAJ&hl=en"
+        "name": "Website",
+        "link": "http://www.kitxune.com"
+    }, {
+        "name": "Twitter",
+        "link": "https://twitter.com/kitxune"
+    }, {
+        "name": "Twitter",
+        "link": "https://twitter.com/lilura"
+    }, {
+        "name": "Instagram",
+        "link": "https://instagram.com/kitxune"
     }]
 }, {
     "id": 4,
-    "name": "Andrii Vozniuk",
-    "title": "PhD student in Computer Science",
-    "company": "Coordination and Interaction Systems group (REACT). Swiss Federal Institute of Technology in Lausanne (EPFL)",
-    "country": "Switzerland",
-    "photoUrl": "../../images/people/AndriiVozniuk.jpg",
-    "bio": "Andrii Vozniuk is a PhD student in Computer Science in the Coordination and Interaction Systems group (REACT) at the Swiss Federal Institute of Technology in Lausanne (EPFL). His research and software engineering activities focus on interaction systems and visual analytics in the domains of education and knowledge management. In the course his PhD studies he has developed a number of tools for analysis and visualization of students' activities in order to support awareness and reflection in blended inquiry learning sessions.",
-    "tags": ["Workshop"],
+    "name": "Ignacio Palomo Duarte",
+    "title": "Senior User Experience Designer",
+    "company": "The Big House",
+    "country": "Spain",
+    "photoUrl": "../../images/people/ignaciopalomo.jpg",
+    "bio": "Ignacio Palomo es un ingeniero con alma de diseñador, enamorado del lean/agile y del desarrollo continuo. Todo muy user centric design y pivotando para generar sinergias disruptivas. Ex-thoughtworker",
+    "tags": ["UX", "Design"],
     "socials": [{
         "name": "Website",
-        "link": "https://people.epfl.ch/andrii.vozniuk?lang=es"
+        "link": "http://palomoduarte.com"
+    }, {
+        "name": "Twitter",
+        "link": "https://twitter.com/boheme"
+    }, {
+        "name": "GitHub",
+        "link": "https://github.com/3oheme"
+    }, {
+        "name": "Behance",
+        "link": "https://www.behance.net/3oheme"
     }]
 }, {
     "id": 5,
-    "name": "María Jesús Rodríguez-Triana",
-    "title": "Post-doctoral researcher",
-    "company": "Coordination and Interaction Systems group (REACT). Swiss Federal Institute of Technology in Lausanne (EPFL)",
-    "country": "Switzerland",
-    "photoUrl": "../../images/people/MariaJesusRodriguez-Triana.jpg",
-    "bio": "María Jesús Rodríguez-Triana finished her Ph.D in Information and Communication Technologies at the University of Valladolid (Spain) in 2014. Currently, she is a post-doctoral researcher in the REACT Group at EPFL, Switzerland. Her research lines address classroom orchestration, learning design, and learning analytics with a special emphasis on teachers. Currently, she is investigating the obstacles that hinder adoption of learning analytics in authentic scenarios. She has organized workshops for teacher professional development and for scientists, on inquiry-based learning, learning analytics and ethical issues in TEL.",
-    "tags": ["Workshop"],
+    "name": "JuanRamón Martín San Román",
+    "title": "Director del Master Universitario en Diseño Gráfico y de Interface para nuevos dispositivos",
+    "company": "Universidad Pontificia de Salamanca",
+    "country": "Spain",
+    "photoUrl": "../../images/people/juanramartin.jpeg",
+    "bio": "Juan Ramón Martín es director del Máster Universitario en Diseño Gráfico y de Interface para nuevos dispositivos (@designonscreens). Es profesor de la Facultad de Comunicación de la Universidad Pontificia de Salamanca desde 1994. Ha trabajado en múltiples proyectos como diseñador freelance en los ámbitos del diseño de identidad y editorial. Sueña con pantallas.",
+    "tags": ["UX", "Design"],
     "socials": [{
         "name": "Website",
-        "link": "https://people.epfl.ch/maria.rodrigueztriana?lang=en"
+        "link": "http://designonscreens.com/"
+    }, {
+        "name": "Twitter",
+        "link": "https://twitter.com/juanRa_Martin"
     }]
 }, {
     "id": 6,
-    "name": "Denis Gillet",
-    "title": "Head",
-    "company": "Coordination and Interaction Systems group (REACT). Swiss Federal Institute of Technology in Lausanne (EPFL)",
-    "country": "Switzerland",
-    "photoUrl": "../../images/people/DenisGillet.png",
-    "bio": "Denis Gillet received his Ph.D. degree in Information Systems from the Swiss Federal Institute of Technology in Lausanne (EPFL) in 1995. He is currently Associate Professor at the EPFL School of Engineering, where he leads the REACT multi-disciplinary research group. Dr. Gillet is Associate Editor of the IEEE Transactions on Learning Technologies (TLT) and of the International Journal of Technology Enhanced Learning. His current research interests include Technologies Enhanced Learning (TEL), Human Computer Interaction (HCI), Human Devices Interaction (HDI) and Optimal Coordination of Complex and Distributed Systems.",
-    "tags": ["Workshop"],
+    "name": "Felicidad García Sánchez",
+    "title": "Diseñadora gráfica",
+    "company": "Grupo de Investigación en InterAcción y eLearning. Universidad de Salamanca",
+    "country": "Spain",
+    "photoUrl": "../../images/people/felicidadgsanchez.jpg",
+    "bio": "Creativa y diseñadora de imágenes. Desde el dibujo hasta el video, pasando por los escenarios y la fotografía.",
+    "tags": ["Design"],
+    "badges": [{
+        "name": "GDG",
+        "description": "Google Developers Group Salamanca",
+        "link": "https://developers.google.com/groups/chapter/107931642576280918674/"
+        },{
+        "name": "Tech&Ladies",
+        "description": "Tech&Ladies",
+        "link": "https://techandladies.com"
+    }],
     "socials": [{
-        "name": "Website",
-        "link": "https://people.epfl.ch/Denis.Gillet"
+        "name": "Twitter",
+        "link": "http://twitter.com/felizgsanchez"
+    }, {
+        "name": "Instagram",
+        "link": "https://www.instagram.com/felicidadgsanchez/"
+    }, {
+        "name": "Pinterest",
+        "link": "https://www.pinterest.com/felizgsanchez/"
     }]
 }, {
     "id": 7,
-    "name": "Luis P. Prieto",
-    "title": "Marie Curie postdoctoral fellow",
-    "company": "(CHILI) Lab. Swiss Federal Institute of Technology in Lausanne (EPFL)",
-    "country": "Switzerland",
-    "photoUrl": "../../images/people/LuisPPrieto.jpg",
-    "bio": "Luis P. Prieto is a Marie Curie postdoctoral fellow at the (CHILI) Lab in EPFL (Switzerland). He has done research on open architectures to communicate heterogeneous learning technologies, and currently he is modelling teacher orchestration load during collaborative work in technology-enhanced classrooms. He has organized multiple collaborative workshops for professional development of teachers, as well as for scientists in the context of research projects.",
-    "tags": ["Workshop"],
+    "name": "Alicia García Holgado",
+    "title": "Ingeniera Informática",
+    "company": "Grupo de Investigación en InterAcción y eLearning. Universidad de Salamanca",
+    "country": "Spain",
+    "photoUrl": "../../images/people/aliciagarciaholgado.jpg",
+    "bio": "Ing. Informática. Miembro de GDGSalamanca y Techandladies. Coleccionista de ArtToys. Aficionada a la fotografía.",
+    "tags": ["Engineering", "Web"],
+    "badges": [{
+        "name": "GDG",
+        "description": "Google Developers Group Salamanca",
+        "link": "https://developers.google.com/groups/chapter/107931642576280918674/"
+        },{
+        "name": "Tech&Ladies",
+        "description": "Tech&Ladies",
+        "link": "https://techandladies.com"
+    }],
     "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.es/citations?user=ySpnj0MAAAAJ&hl=en"
+        "name": "Website",
+        "link": "http://grial.usal.es/aliciagh"
+    }, {
+        "name": "Twitter",
+        "link": "https://twitter.com/mambanegra86"
     }]
 }, {
     "id": 8,
-    "name": "Roberto Martinez-Maldonado",
-    "title": "Postdoctoral research associate",
-    "company": "Connected Intelligence Centre (CIC). University of Technology, Sydney (UTS)",
-    "country": "Australia",
-    "photoUrl": "../../images/people/RobertoMartinezMaldonado.jpg",
-    "bio": "Roberto Martinez-Maldonado is a postdoctoral research associate in the Connected Intelligence Centre (CIC) at the University of Technology, Sydney (UTS), Australia. He obtained his doctorate degree in 2014 from the University of Sydney, Australia. His areas of expertise include Human Computer Interaction, Learning Analytics, Artificial Intelligence and Education.",
-    "tags": ["Workshop"],
+    "name": "Roberto Therón",
+    "title": "Profesor, Investigador",
+    "company": "Universidad de Salamanca",
+    "country": "Spain",
+    "photoUrl": "../../images/people/robertotheron.jpg",
+    "bio": "Researcher focused on combining fields such as Computer Science, Artificial Intelligence, Statistics, Graphic Design, and Data Visualization as a means for understanding complex data. He is the Group manager of the Visual Analytics and Information Visualization Research Group (VisUsal) at the University of Salamanca. In addition to his academic work, he is the author of several short films (awarded at numerous flim festivals), among them 'Desilencio' (2001, screenwriter and director), 'Interruptus' (2003, co-writer), 'Guerreros del Témpano' (2005, co-writer) or 'Impávido' (2007, co-writer)",
+    "tags": ["Data Visualization", "InfoVis","UX"],
     "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.ch/citations?user=sWXrhB0AAAAJ&hl=en"
+        "name": "Website",
+        "link": "http://vis.usal.es/~visusal/grupo/"
+    }, {
+        "name": "Twitter",
+        "link": "http://twitter.com/robertotheron"
     }]
 }, {
     "id": 9,
-    "name": "Yannis Dimitriadis",
-    "title": "Full Professor",
-    "company": "GSIC/EMIC research group. University of Valladolid",
+    "name": "Bryan McEire",
+    "title": "CTO y co-fundador de Spotahome.com",
+    "company": "Spotahome.com",
     "country": "Spain",
-    "photoUrl": "../../images/people/YannisDimitriadis.jpg",
-    "bio": "Yannis Dimitriadis is a Full Professor at the University of Valladolid, Spain, where he leads the GSIC/EMIC research group. His research interests include the technological support for orchestration of learning, from learning design to enactment and evaluation. He is an experienced workshop organizer, including several workshops in past editions of the CSCL and ICLS conferences, professional development workshops for teachers, and workshops in the context of research projects.",
-    "tags": ["Workshop"],
-    "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.ch/citations?user=xrzS-v4AAAAJ&hl=en"
-    }]
-}, {
-    "id": 10,
-    "name": "Angel Hernández-García",
-    "title": "Professor",
-    "company": "Universidad Politécnica de Madrid",
-    "country": "Spain",
-    "photoUrl": "../../images/people/AngelHernandezGarcia.png",
-    "bio": "Angel Hernández-García is M.Sc. in Telecommunication Engineering, Master SAP in Integrated Information Systems, and Ph.D. in Information Systems by the Universidad Politécnica de Madrid. Ángel is Assistant Professor at the UPM's School of Telecommunication Engineering. Currently, his research lines cover information systems’ acceptance and educational technologies, with special focus on learning analytics and educational data mining methods and applications. Ángel has been guest editor of, and published research papers in international journals. He is also chair of international conferences and is reviewer and member of the editorial board for leading journals in the fields of technology enhanced learning, information systems and business.",
-    "tags": ["Workshop"],
-    "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.com/citations?user=UMJmq0cAAAAJ"
-    },{
-        "name": "ResearchGate",
-        "link": "https://www.researchgate.net/profile/Angel_Hernandez-Garcia"
-    }]
-}, {
-    "id": 11,
-    "name": "Miguel Ángel Conde",
-    "title": "Professor",
-    "company": "University of León",
-    "country": "Spain",
-    "photoUrl": "../../images/people/MiguelAngelConde.png",
-    "bio": "Miguel Ángel Conde holds a PhD in Computer Science (2012, University of Salamanca). From 2002 to 2004 he was working in educational environment teaching in several courses related to computers. In 2004 he decided to begin working on software development environments and he worked for GPM, a web development and multimedia company. In 2005 he began working for Clay Formación Internacional R&D department where he was involved in different eLearning projects. From 2010 to 2012 he was researching at the University of Salamanca and also working there as a teacher. During 2013 he worked in the Informatics and Communications Service of the University of León and as assistant lecturer in that university. Now he works as an assistant professor at the University of León. He is a member of the Robotics research group of the University of León and GRIAL research group of the University of Salamanca. His PhD thesis is focused on the merging of informal, non-formal and formal environments. He has published more than 100 papers about different topics such as eLearning, Service Oriented Architectures, Learning Analytics, Mobile Learning, Human-Computer Interaction, Educational Robotics, etc.",
-    "tags": ["Experiences"],
-    "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.es/citations?user=arTN2ogAAAAJ&hl="
-    }]
-}, {
-    "id": 12,
-    "name": "Ángel Serrano-Laguna",
-    "title": "Researcher",
-    "company": "Complutense University of Madrid",
-    "country": "Spain",
-    "photoUrl": "../../images/people/AngelSerrano-Laguna.png",
-    "bio": "Ángel Serrano-Laguna obtained his Master Degree in Computer Science at the UCM in 2012. He currently works as a full-time researcher in the eUCM research group while he completes his PhD on “Applying Learning Analytics to improve assessment in Serious Games”. His research focuses on learning analytics, serious games and e-learning tools.",
-    "tags": ["Experiences"],
-    "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.es/citations?user=0TIriuwAAAAJ&hl"
-    }]
-}, {
-    "id": 13,
-    "name": "Félix Buendía García",
-    "title": "Associate researcher",
-    "company": "Universitat Politècnica de València",
-    "country": "Spain",
-    "photoUrl": "../../images/people/fbuendia.jpg",
-    "bio": "F. Buendía-García has obtained his MSc and PhD in Computer Engineering from the Universitat Politècnica de València (UPV), Spain in 1992 and 2003, respectively. Currently, he is associate professor with tenure at the UPV, where he teaches courses on Computer Engineering. His research interests are related to web technologies and e-learning.",
-    "tags": ["Experiences"],
+    "photoUrl": "../../images/people/bryanmceire.jpg",
+    "bio": "Emprendedor e Ingeniero informático con expriencia en infraestructura de alta disponibilidad, bases de datos y desarrollo web. Énfasis en innovación y creación y evolución de productos que crean valor para la sociedad y la compañía.",
+    "tags": ["Engineering"],
     "socials": [{
         "name": "Website",
-        "link": "http://www.disca.upv.es/fbuendia/"
+        "link": "www.spotahome.com"
+    }, {
+        "name": "Twitter",
+        "link": "@mceire"
     }]
-}, {
-    "id": 14,
-    "name": "José V. Benlloch-Dualde",
-    "title": "Senior Lecturer",
-    "company": "Universitat Politècnica de València",
-    "country": "Spain",
-    "photoUrl": "../../images/people/JVBenlloch.jpg",
-    "bio": "J.V. Benlloch-Dualde was born in Valencia (Spain) in 1962. He earned an MSc in Physics from Universitat de València (UPV) in 1986. Currently, he is senior lecturer with tenure in the UPV, where he teaches courses on Computer Technology and Multimedia Systems in the same center. His research interests relate to technology-enhanced learning and, in particular, to pen-based technologies. He earned a HP Technology for Teaching Grant Initiative, Transforming Teaching and Learning through Technology in 2008.",
-    "tags": ["Experiences"],
-    "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.es/citations?user=suHwfUUAAAAJ&hl"
-    }]
-}, {
-    "id": 15,
-    "name": "Julià Minguillon",
-    "title": "Faculty",
-    "company": "Universitat Oberta de Catalunya",
-    "country": "Spain",
-    "photoUrl": "../../images/people/JMinguillon.jpg",
-    "bio": "He received his Ph.D. degree from the Universitat Autònoma de Barcelona (UAB) in September 2002. In January 2001 he joined the Universitat Oberta de Catalunya (UOC) where he is a faculty member of the Computer Science, Multimedia and Telecommunication Studies department. He has developed learning resources for object oriented programming, abstract data types engineering and compiler construction. He is also involved in the integration of e-learning standards in virtual learning environments, such as IEEE LOM, SCORM and IMS LD. His main research interests include the formal description of the learning process by means of ontologies, personalizing the learning process by means of adaptive itineraries based on reusable learning objects, and user modeling in virtual e-learning environments applying web and data mining techniques for improving user experience and usability, accessibility and mobility issues, including learning analytics and visualization techniques. He is member of the UOC's LAIKA research group. He is also interested in open educational resources and the uses of social tools for teaching and learning. In 2005 he joined the UOC UNESCO Chair in e-Learning, where he was the Academic Director from November 2009 to March 2012. He was in charge of the UOC participation in the OLCOS (Open Learning Content Observatory Services) EU funded project. He led the Spanish Government funded PERSONAL(ONTO) project, the framework that articulates all the aforementioned research lines and the E-MATH++ project, which promotes the use of learning object repositories in virtual learning environments, as well as the Spanish Government funded MAVSEL project about mining, analysis and visualization of data of e-learning scenarios in social networks. He also leaded the METAOER project which aims to create an organized collection of open resources about open educational resources and practices. He is currently now participating in EU funded projects such as GenPORT and GEDII. He has created learning resources and organized several courses and workshops related to “openness”, including open data, big data and visualization topics.",
-    "tags": ["Experiences"],
-    "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.es/citations?user=bvLG2jwAAAAJ&hl"
-    }]
-}, {
-    "id": 16,
-    "name": "Juan Triay Pallicer",
-    "title": "Research Assistant",
-    "company": "Universitat Oberta de Catalunya",
-    "country": "Spain",
-    "photoUrl": "../../images/people/JoanTriayPallicer.jpg",
-    "bio": "Juan Triay Pallicer is research assistant at Universitat Oberta de Catalunya (UOC) in Barcelona, Spain, where he does research on e-assessment, feedback and learning analytics as member of the LAIKA (Learning Analytics for Innovation and Knowledge Application in Higher Education) group. Born in Ciutadella de Menorca, Spain, Triay received the Computer Science degree from Universitat Pompeu Fabra (UPF) in 2016. He has been involved in several research and innovation projects concerning the Internet and Higher Education and cuisine. In particular, he has been involved in the Bullipedia project from elBulliFoundation, a research project on digitization different culinary processes from over the world. Nowadays he is a member of the MOOC Programme UCATx (www.ucatx.cat), launched by the Catalan Government in 2013.",
-    "tags": ["Experiences"]
-}, {
-    "id": 17,
-    "name": "Teresa Sancho",
-    "title": "Senior Lecturer",
-    "company": "Universitat Oberta de Catalunya",
-    "country": "Spain",
-    "photoUrl": "../../images/people/Teresa_Sancho-Vinuesa.png",
-    "bio": "Teresa Sancho is Senior Lecturer of Mathematics at Universitat Oberta de Catalunya (UOC) in Barcelona, Spain, where she teaches mathematics for engineers and conducts research on e- assessment, feedback and learning analytics as head of the LAIKA (Learning Analytics for Innovation and Knowledge Application in Higher Education) Group. Born in Barcelona, Spain, Dr. Sancho received the Mathematics degree from Universitat de Barcelona (UB) in 1990 and a Ph.D. degree in Electronic Engineering from Universitat Ramon Llull (URL) in 1995. She has been a visiting scientist at the Open University UK (2015). Dr. Sancho taught numerical analysis and the theory of probabilities and stochastic processes at the La Salle School of Engineering, where for six years she co-ordinated a research group on numerical methods to solve problems in fluid mechanics and electromagnetism. She was a member of the pedagogical and editorial team of the department of didactic material at Enciclopedia Catalana, S.A., Barcelona, Spain, before joining Universitat Oberta de Catalunya in 1998 where she has been involved in several positions: Academic coordinator of the Ph. D. Programme in Information and Knowledge Society, Research Director and Vicerector in Research and Innovation. Teresa Sancho has been involved in several research and innovation projects concerning the Internet and Higher Education. In particular, she has been involved in the Catalonia Internet Project, an interdisciplinary research project on the information society in Catalonia, co-directed by professors Manuel Castells and Imma Tubella. Nowadays she is the coordinator of the MOOC Programme UCATx (www.ucatx.cat), launched by the Catalan Government in 2013. She has participated in over 10 technical programme committees and has been reviewer in several academic journals. Dr. Sancho has authored over 25 academic journal and conference papers, as well as writing two books and several chapters of books.",
-    "tags": ["Experiences"],
-    "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.es/citations?user=5Ahm2dcAAAAJ&hl"
-    }]
-}, {
-    "id": 18,
-    "name": "Francesc Martori",
-    "title": "Assistant Professor",
-    "company": "Univ. Ramon Llull",
-    "country": "Spain",
-    "photoUrl": "../../images/people/FrancescMartori.jpg",
-    "bio": "Francesc Martori received his B.Sc. degree in chemical engineering from IQS Univ. Ramon Llull (URL), Barcelona, Spain, in 2008. He also received from IQS Univ. Ramon Llull (URL) a Master in Industrial Management in 2009 and a PhD in Economy and Management in 2013. He was a Visiting Scholar at the Graduate School of Education from Stanford University in 2015. Currently, he is an Assistant Professor at the Quantitative Methods Department at IQS Univ. Ramon Llull (URL). He belongs to the ASISTEMBE research group and his research focus on student modeling and analyzing the use of simulations for teaching and learning at the university level by applying learning analytics. Prof. Martori is a Member of the Catalan Society of Statistics and the Spanish Network on Learning Analytics.",
-    "tags": ["Experiences"],
-    "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.es/citations?user=NMp027QAAAAJ&hl"
-    }]
-}, {
-    "id": 19,
-    "name": "Jordi Cuadros",
-    "title": "Assistant Professor",
-    "company": "Univ. Ramon Llull",
-    "country": "Spain",
-    "photoUrl": "../../images/people/JordiCuadros.jpg",
-    "bio": "Jordi Cuadros received B.Sc. and Ph.D. degrees in chemistry from IQS Univ. Ramon Llull (URL), Barcelona, Spain, in 1997 and 2003, respectively and a degree in Education from Universidad Nacional a Distancia (UNED) in 2010. He spent two years as a Post-Doctoral Fellow with the Department of Chemistry, Carnegie Mellon University, Pittsburgh, PA. Currently, he is an Associate Professor with the Quantitatives Methods Department at IQS Univ. Ramon Llull (URL). He leads the ASISTEMBE research group and his research focus on analyzing the use of simulations for teaching and learning physical sciences at the university level by applying learning analytics. Prof. Cuadros is a Member of the Catalan Chemical Society, the American Chemical Society and its Division of Chemical Education and the Spanish Network on Learning Analytics.",
-    "tags": ["Experiences"],
-    "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.es/citations?user=4XVMM6IAAAAJ&hl"
-    }]
-}, {
-    "id": 20,
-    "name": "Lucinio González-Sabaté",
-    "title": "Full Professor",
-    "company": "Univ. Ramon Llull",
-    "country": "Spain",
-    "photoUrl": "../../images/people/LucinioGonzalezSabate.jpg",
-    "bio": "Ph.D. in chemical engineering (IQS Univ. Ramon Llull , Barcelona, Spain, 1984). He is Head of the Quantitative Methods Department at IQS Univ. Ramon Llull. He is also member of the ASISTEMBE research group and his research focus on analysing the use of simulations for teaching and learning statistics. He is a Member of the American Statistical Association.",
-    "tags": ["Experiences"],
-    "socials": [{
-        "name": "Website",
-        "link": "http://www.iqs.edu/es/dr-lucinio-gonz%C3%A1lez-sabat%C3%A9"
-    }]
-}, {
-    "id": 29,
-    "name": "Vanessa Serrano-Molinero",
-    "title": "Assistant Professor",
-    "company": "Univ. Ramon Llull",
-    "country": "Spain",
-    "photoUrl": "../../images/people/vanessa_serranomolinero.jpg",
-    "bio": "Vanessa Serrano received her B.Sc. degrees in Mathematics and Statistics from the Autonomous University of Barcelona (UAB), Barcelona, Spain, in 2005. She also received from Autonomous University of Barcelona (UAB) a Diploma of Advanced Studies in 2009 and a PhD in Business Administration from IQS Univ. Ramon Llull (URL) in 2015. Currently, she is an Assistant Professor at the Quantitative Methods Department at IQS Univ. Ramon Llull (URL). She belongs to the ASISTEMBE research group and her research focus on analyzing the use of simulations for teaching and learning Statistics at the university level by applying learning analytics. Prof. Serrano is a Member of the Catalan Society of Statistics and the Spanish Network on Learning Analytics.",
-    "tags": ["Workshop"],
-    "socials": [{
-        "name": "Website",
-        "link": "http://www.iqs.edu/es/dra-vanessa-serrano-molinero"
-    }]
-}, {
-    "id": 21,
-    "name": "Adolfo Ruiz Calleja",
-    "title": "Researcher",
-    "company": "University of Tallin",
-    "country": "Estonia",
-    "photoUrl": "../../images/people/AdolfoRuiz.jpg",
-    "bio": "Adolfo Ruiz Calleja (PhD) is a researcher currently working at Center of Educational Technology (CET) of the Tallinn University (TLU). He obtained his PhD in telecommunication engineering in 2013 from the University of Valladolid (Spain). His research has always been related to the management and integration of educational data. Specifically, he is interested on the use of social and semantic technologies to support learning, both in formal and informal contexts. His work experience includes his participation is several Spanish national and regional projects (e.g. Sofocles, EEE-Web), and other European-funded projects (e.g. Incoming, Learning Layers, Sheila). Recently he moved his attention to workplace Learning Analytics.",
-    "tags": ["Experiences"],
-    "socials": [{
-        "name": "Website",
-        "link": "https://www.gsic.uva.es/personal/adolfo"
-    }]
-}, {
-    "id": 22,
-    "name": "Mikel Villamañe",
-    "title": "Assistant professor",
-    "company": "University of the Basque Country UPV/EHU",
-    "country": "Spain",
-    "photoUrl": "../../images/people/MikelV.jpg",
-    "bio": "Mikel Villamañe is an assistant professor at the University of the Basque Country UPV/EHU where he is currently pursuing his PhD degree in Computer Science within the GaLan research group (http://galan.ehu.eus). His main interests include FYP mentoring, computer aided education and mobile technologies.",
-    "tags": ["Experiences"]
-}, {
-    "id": 23,
-    "name": "Ainhoa Álvarez",
-    "title": "Senior Lecturer",
-    "company": "University of the Basque Country UPV/EHU",
-    "country": "Spain",
-    "photoUrl": "../../images/people/AinhoaAlvarez.jpg",
-    "bio": "Dr. Ainhoa Álvarez is a Senior Lecturer at the University of the Basque Country UPV/EHU, where she develops her research activities within the GaLan research group. Her research work is mainly focused on on-line educational systems for supporting blended-learning.",
-    "tags": ["Experiences"]
-}, {
-    "id": 24,
-    "name": "Mikel Larrañaga",
-    "title": "Senior Lecturer",
-    "company": "University of the Basque Country UPV/EHU",
-    "country": "Spain",
-    "photoUrl": "../../images/people/MikelLarra.jpg",
-    "bio": "Dr. Mikel Larrañaga is a Senior Lecturer at the Department of Computer Languages and Systems at the University of the Basque Country UPV/EHU. He has been working in the Computer Based Education area within the GaLan research group for the last ten years. His current interests include knowledge acquisition, concept mapping, computer based engineering education and intelligent tutoring systems.",
-    "tags": ["Experiences"],
-    "socials": [{
-        "name": "Google Scholar",
-        "link": "https://scholar.google.es/citations?user=vyOFxGQAAAAJ&hl"
-    }]
-}, {
-    "id": 25,
-    "name": "Begoña Ferrero",
-    "title": "Lecturer",
-    "company": "University of the Basque Country UPV/EHU",
-    "country": "Spain",
-    "photoUrl": "../../images/people/BegoFerrero.jpg",
-    "bio": "Dr. Begoña Ferrero is a Lecturer at the Department of Computer Languages and Systems at the University of the Basque Country UPV/EHU, where she develops her research activities within the GaLan research group. Her research interests include all aspects of computer aided learning, but in particular the learning of procedural knowledge and tasks.",
-    "tags": ["Experiences"]
-}, {
-    "id": 26,
-    "name": "Alejandra Martínez-Monés",
-    "title": "Associate Professor",
-    "company": "University of Valladolid",
-    "country": "Spain",
-    "photoUrl": "../../images/people/AlejandraMartinezMones.png",
-    "bio": "Alejandra Martínez-Monés, PhD, is associate professor of computer science at the University of Valladolid. Her research interests in the field of Technology-Enhanced Learning relate to how to use computers to support teachers and students in the application and evaluation of innovative teaching and learning strategies, especially CSCL situations. Her research contributions include the use of Social Network Analysis to support the evaluation of CSCL environments; the integration of scripting and monitoring strategies to enhance classroom orchestration, the use of augmented reality to support seamless integration of learning spaces; and the application of mixed methods to evaluate CSCL and other complex learning situations",
-    "tags": ["Experiences"]
-}, {
-    "id": 27,
-    "name": "Sara Villagrá-Sobrino",
-    "title": "Assistant Professor",
-    "company": "University of Valladolid",
-    "country": "Spain",
-    "photoUrl": "../../images/people/SaraVillagraSobrino.png",
-    "bio": "Sara Villagrá Sobrino received the Ph.D in Technology-Enhanced Learning from the University of Oviedo (Spain) in 2012. She is an Assistant Professor at the University of Valladolid since 2012. She is a member of the interdisciplinary group GSIC-EMIC. Her current research efforts are devoted to the study of the educational implications of Technology Enhanced Learning (TEL) scenarios with special emphasis on fostering teacher’s skills during the design and the enactment of flexible CSCL activities in Primary Education with special attention to new ways of evaluating these particular settings. ",
-    "tags": ["Experiences"]
-}, {
-    "id": 28,
-    "name": "Juan I. Asensio-Pérez",
-    "title": "Associate Professor",
-    "company": "University of Valladolid",
-    "country": "Spain",
-    "photoUrl": "../../images/people/JuanIAsensioPerez.png",
-    "bio": "Juan I. Asensio-Pérez received the M.Sc. and Ph.D. degrees in telecommunications engineering from the University of Valladolid, Spain, in 1995 and 2000, respectively. He is currently an associate professor of telematics engineering at the University of Valladolid. His research interests within the field of Technology-Enhanced Learning include: Computer-Supported Collaborative Learning (CSCL) scripting, the integration of external tools in Virtual Learning Environments, the technological support for the orchestration of CSCL situations, the semantic annotation of learning tools in the Web of Data, and the application of Augmented Reality technologies for the support of CSCL situations across multiple virtual and physical spaces",
-    "tags": ["Experiences"]
 }
 ]

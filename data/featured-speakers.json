@@ -1,11 +1,21 @@
 [{
     "id": 1,
-    "name": "Rebecca Ferguson",
-    "company": "The Open University, UK",
-    "photoUrl": "../../images/people/rebeccaferguson.jpg"
+    "name": "Lole Román",
+    "company": "The Big House",
+    "photoUrl": "../../images/people/loleroman.jpeg"
 }, {
     "id": 2,
-    "name": "Cristobal Romero",
-    "company": "University of Cordoba, Spain",
-    "photoUrl": "../../images/people/cristobalromero.jpg"
+    "name": "Alejandro López (Muokkaa)",
+    "company": "Muokkaa Studio",
+    "photoUrl": "../../images/people/alexmuokkaa.jpg"
+}, {
+    "id": 3,
+    "name": "Iratxe Lezameta",
+    "company": "Kitxune Studio",
+    "photoUrl": "../../images/people/iratxe.jpg"
+}, {
+    "id": 4,
+    "name": "Ignacio Palomo Duarte",
+    "company": "The Big House",
+    "photoUrl": "../../images/people/ignaciopalomo.jpg"
 }]

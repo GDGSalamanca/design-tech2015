@@ -1,77 +1,63 @@
 [
     {
-        "title": "Host",
+        "title": "Patrocinadores Principales",
         "logos": [{
-        "name": "University of Deusto",
-            "url": "http://www.deusto.es",
-            "logoUrl": "../images/partners/deusto.jpg"
-
-        }]
-    },{
-        "title": "Co-organizer",
-        "logos": [{
-        "name": "University of the Basque Country",
-            "url": "http://www.ehu.eus/",
-            "logoUrl": "../images/partners/upv-ehu.png"
-
-        }]
-    }, {
-        "title": "Sponsors",
-        "logos": [{
-        "name": "Ministry of Economy and Competitiveness (Spain)",
-            "url": "http://www.mineco.gob.es/portal/site/mineco",
-            "logoUrl": "../images/partners/mineco.jpg"
+        "name": "The Big House",
+            "url": "http://thebighouse.io",
+            "logoUrl": "../images/partners/thebighouse.svg"
 
         },{
-        "name": "Spanish Network of Learning Analytics (SNOLA)",
-            "url": "http://snola.es",
-            "logoUrl": "../images/SNOLA_.png"
+            "name": "Muokkaa Studio",
+            "url": "http://muokkaa.com",
+            "logoUrl": "../images/partners/muokkaa.svg"
 
         },{
-            "name": "Society of Learning Analytics Research (SOLAR)",
-            "url": "http://solaresearch.org/",
-            "logoUrl": "../images/partners/solar-logo.png"
+            "name": "KITXUNE",
+            "url": "http://www.kitxune.com",
+            "logoUrl": "../images/partners/kitxunelogo.png"
 
         },{
-            "name": "Capítulo Español de la Sociedad de Educación del IEEE",
-            "url": "http://www.ieec.uned.es/es/",
-            "logoUrl": "../images/partners/cesei.png"
-
-        }]
-    }, {
-        "title": "Partners",
-        "logos": [{
-            "name": "Grupo GRIAL, Universidad de Salamanca",
+            "name": "Grupo de Investigación GRIAL. Universidad de Salamanca",
             "url": "http://grial.usal.es/",
-            "logoUrl": "../images/partners/grial_negro.png"
+            "logoUrl": "../images/partners/grial.png"
+        },{
+            "name": "Serendipity Coworking Salamanca",
+            "url": "http://serendipitycoworking.es/",
+            "logoUrl": "../images/partners/serendipity.svg"
+        }]
+    }, {
+        "title": "Patrocinador Oro",
+        "logos": [{
+            "name": "Google",
+            "url": "https://www.google.es/",
+            "logoUrl": "../images/partners/google.svg"
+        }]
+    }, {
+        "title": "Patrocinadores Plata",
+        "logos": [{
+            "name": "Universidad de Salamanca",
+            "url": "http://www.usal.es/",
+            "logoUrl": "../images/partners/usal.png"
         }, {
-            "name": "DeustoTech Learning",
-            "url": "http://dtlearning.deusto.es/",
-            "logoUrl": "../images/partners/deustotech-learning.jpg"
+            "name": "Universidad Pontificia de Salamanca",
+            "url": "https://upsa.es/",
+            "logoUrl": "../images/partners/upsa.jpg"
         }, {
-            "name": "Grupo de Robótica – Universidad de León",
-            "url": "http://robotica.unileon.es/",
-            "logoUrl": "../images/partners/robotica-ULE.png"
+            "name": "Master Universitario en Diseño Gráfico y de Interface - UPSA",
+            "url": "http://designonscreens.com/",
+            "logoUrl": "../images/partners/designonscreens.jpg"
         }, {
-            "name": "Grupo GaLan. UPV-EHU",
-            "url": "",
-            "logoUrl": "../images/partners/galan.png"
+            "name": "Charrosfera",
+            "url": "http://charrosfera.com/",
+            "logoUrl": "../images/partners/charrosfera.jpg"
         }, {
-            "name": "Grupo de Tecnologías de la Información para la Gestión Empresarial (TIGE-UPM)",
-            "url": "http://tige.ior.etsit.upm.es/",
-            "logoUrl": "../images/partners/TIGE.png"
+            "name": "Betabeers Salamanca",
+            "url": "http://betabeers.com",
+            "logoUrl": "../images/partners/betabeers-sal.png"
         }, {
-            "name": "GSIC-EMIC (Grupo de Sistemas Inteligentes y Cooperativos – Educación, Medios, Informática y Cultura)",
-            "url": "http://gsic.uva.es/",
-            "logoUrl": "../images/partners/logo-gsic.jpg"
-        }, {
-            "name": "Gradient – Universidad Carlos III de Madrid",
-            "url": "http://gradient.it.uc3m.es/",
-            "logoUrl": "../images/partners/Gradient_UC3M.png"
-        }, {
-            "name": "GIST – Universidad de Vigo",
-            "url": "http://www-gist.det.uvigo.es/",
-            "logoUrl": "../images/partners/gist-vigo.png"
+            "name": "Tech&Ladies",
+            "url": "http://techandladies.com/",
+            "logoUrl": "../images/partners/techandladies.png"
         }]
     }
 ]

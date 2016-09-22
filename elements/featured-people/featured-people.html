@@ -60,7 +60,7 @@
             <content></content>
             <div class="flex wrap layout horizontal people-wraper">
                 <template is="dom-repeat" items="[[people]]" as="person">
-                    <div class="fe-people two-column-xs four-column-md four-column-lg">
+                    <div class="fe-people two-column-xs">
                         <iron-image src="[[person.photoUrl]]" class="fe-people-img placeholder-color img-circle" preload fade sizing="cover"></iron-image>
                         <h4 class="fe-people-name">
                             <span>[[person.name]]</span>
@@ -71,7 +71,7 @@
             </div>
             <div>
                 <a data-route="speakers" href="#!/speakers" class="block-link">
-                    <paper-button>More speakers</paper-button>
+                    <paper-button>Ver todos los ponentes</paper-button>
                 </a>
             </div>
         </div>
