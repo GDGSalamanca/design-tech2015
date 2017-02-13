@@ -29,6 +29,10 @@ var components = {
 		"prism-coy": {
 			"title": "Coy",
 			"owner": "tshedor"
+		},
+		"prism-solarizedlight": {
+			"title": "Solarized Light",
+			"owner": "hectormatos2011 "
 		}
 	},
 	"languages": {
@@ -40,6 +44,7 @@ var components = {
 		},
 		"markup": {
 			"title": "Markup",
+			"aliasTitles": { "html": "HTML", "xml": "XML", "svg": "SVG", "mathml": "MathML" },
 			"option": "default"
 		},
 		"css": {
@@ -55,9 +60,6 @@ var components = {
 			"option": "default",
 			"require": "clike"
 		},
-
-
-
 		"abap": {
 			"title": "ABAP",
 			"owner": "dellagustin"
@@ -66,6 +68,10 @@ var components = {
 			"title": "ActionScript",
 			"require": "javascript",
 			"owner": "Golmote"
+		},
+		"ada": {
+			"title": "Ada",
+			"owner": "Lucretia"
 		},
 		"apacheconf": {
 			"title": "Apache Configuration",
@@ -77,6 +83,10 @@ var components = {
 		},
 		"applescript": {
 			"title": "AppleScript",
+			"owner": "Golmote"
+		},
+		"asciidoc": {
+			"title": "AsciiDoc",
 			"owner": "Golmote"
 		},
 		"aspnet": {
@@ -112,6 +122,10 @@ var components = {
 		"brainfuck": {
 			"title": "Brainfuck",
 			"owner": "Golmote"
+		},
+		"bro": {
+			"title": "Bro",
+			"owner": "wayward710"
 		},
 		"c": {
 			"title": "C",
@@ -200,6 +214,10 @@ var components = {
 			"require": "clike",
 			"owner": "arnehormann"
 		},
+		"graphql": {
+			"title": "GraphQL",
+			"owner": "Golmote"
+		},
 		"groovy": {
 			"title": "Groovy",
 			"require": "clike",
@@ -219,9 +237,18 @@ var components = {
 			"title": "Haskell",
 			"owner": "bholst"
 		},
+		"haxe": {
+			"title": "Haxe",
+			"require": "clike",
+			"owner": "Golmote"
+		},
 		"http": {
 			"title": "HTTP",
 			"owner": "danielgtaylor"
+		},
+		"icon": {
+			"title": "Icon",
+			"owner": "Golmote"
 		},
 		"inform7": {
 			"title": "Inform 7",
@@ -245,6 +272,15 @@ var components = {
 			"require": "clike",
 			"owner": "sherblot"
 		},
+		"jolie": {
+			"title": "Jolie",
+			"require": "clike",
+			"owner": "thesave"
+		},
+		"json": {
+			"title": "JSON",
+			"owner": "CupOfTea696"
+		},
 		"julia": {
 			"title": "Julia",
 			"owner": "cdagnino"
@@ -252,6 +288,11 @@ var components = {
 		"keyman": {
 			"title": "Keyman",
 			"owner": "mcdurdin"
+		},
+		"kotlin": {
+			"title": "Kotlin",
+			"require": "clike",
+			"owner": "Golmote"
 		},
 		"latex": {
 			"title": "LaTeX",
@@ -262,8 +303,16 @@ var components = {
 			"require": "css",
 			"owner": "Golmote"
 		},
+		"livescript": {
+			"title": "LiveScript",
+			"owner": "Golmote"
+		},
 		"lolcode": {
 			"title": "LOLCODE",
+			"owner": "Golmote"
+		},
+		"lua": {
+			"title": "Lua",
 			"owner": "Golmote"
 		},
 		"makefile": {
@@ -304,6 +353,10 @@ var components = {
 			"title": "Nim",
 			"owner": "Golmote"
 		},
+		"nix": {
+			"title": "Nix",
+			"owner": "Golmote"
+		},
 		"nsis": {
 			"title": "NSIS",
 			"owner": "idleberg"
@@ -315,6 +368,19 @@ var components = {
 		},
 		"ocaml": {
 			"title": "OCaml",
+			"owner": "Golmote"
+		},
+		"oz": {
+			"title": "Oz",
+			"owner": "Golmote"
+		},
+		"parigp": {
+			"title": "PARI/GP",
+			"owner": "Golmote"
+		},
+		"parser": {
+			"title": "Parser",
+			"require": "markup",
 			"owner": "Golmote"
 		},
 		"pascal": {
@@ -348,6 +414,19 @@ var components = {
 			"title": "Prolog",
 			"owner": "Golmote"
 		},
+		"properties": {
+			"title": ".properties",
+			"owner": "Golmote"
+		},
+		"protobuf": {
+			"title": "Protocol Buffers",
+			"require": "clike",
+			"owner": "just-boris"
+		},
+		"puppet": {
+			"title": "Puppet",
+			"owner": "Golmote"
+		},
 		"pure": {
 			"title": "Pure",
 			"owner": "Golmote"
@@ -374,6 +453,11 @@ var components = {
 			"require": ["markup", "javascript"],
 			"owner": "vkbansal"
 		},
+		"reason": {
+			"title": "Reason",
+			"require": "clike",
+			"owner": "Golmote"
+		},
 		"rest": {
 			"title": "reST (reStructuredText)",
 			"owner": "Golmote"
@@ -381,6 +465,10 @@ var components = {
 		"rip": {
 			"title": "Rip",
 			"owner": "ravinggenius"
+		},
+		"roboconf": {
+			"title": "Roboconf",
+			"owner": "Golmote"
 		},
 		"ruby": {
 			"title": "Ruby",
@@ -472,6 +560,10 @@ var components = {
 			"require": "markup",
 			"owner": "Golmote"
 		},
+		"xojo": {
+			"title": "Xojo (REALbasic)",
+			"owner": "Golmote"
+		},
 		"yaml": {
 			"title": "YAML",
 			"owner": "hason"
@@ -490,13 +582,19 @@ var components = {
 		"show-invisibles": "Show Invisibles",
 		"autolinker": "Autolinker",
 		"wpd": "WebPlatform Docs",
+		"custom-class": {
+			"title": "Custom Class",
+			"owner": "dvkndn"
+		},
 		"file-highlight": {
 			"title": "File Highlight",
 			"noCSS": true
 		},
 		"show-language": {
 			"title": "Show Language",
-			"owner": "nauzilus"
+			"owner": "nauzilus",
+			"noCSS": true,
+			"require": "toolbar"
 		},
 		"jsonp-highlight": {
 			"title": "JSONP Highlight",
@@ -532,6 +630,16 @@ var components = {
 			"require": "previewer-base",
 			"owner": "Golmote"
 		},
+		"previewer-time": {
+			"title": "Previewer: Time",
+			"require": "previewer-base",
+			"owner": "Golmote"
+		},
+		"previewer-angle": {
+			"title": "Previewer: Angle",
+			"require": "previewer-base",
+			"owner": "Golmote"
+		},
 		"autoloader": {
 			"title": "Autoloader",
 			"owner": "Golmote",
@@ -540,6 +648,33 @@ var components = {
 		"keep-markup": {
 			"title": "Keep Markup",
 			"owner": "Golmote",
+			"after": "normalize-whitespace",
+			"noCSS": true
+		},
+		"command-line": {
+			"title": "Command Line",
+			"owner": "chriswells0"
+		},
+		"unescaped-markup": "Unescaped Markup",
+		"normalize-whitespace": {
+			"title": "Normalize Whitespace",
+			"owner": "zeitgeist87",
+			"after": "unescaped-markup",
+			"noCSS": true
+		},
+		"data-uri-highlight": {
+			"title": "Data-URI Highlight",
+			"owner": "Golmote",
+			"noCSS": true
+		},
+		"toolbar": {
+			"title": "Toolbar",
+			"owner": "mAAdhaTTah"
+		},
+		"copy-to-clipboard": {
+			"title": "Copy to Clipboard Button",
+			"owner": "mAAdhaTTah",
+			"require": "toolbar",
 			"noCSS": true
 		}
 	}

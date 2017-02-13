@@ -1,4 +1,5 @@
 <!--
+@license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
@@ -6,7 +7,142 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
+
+<!--
+
+The `<test-fixture>` element can simplify the exercise of consistently
+resetting a test suite's DOM. To use it, wrap the test suite's DOM as a template:
+
+```html
+<test-fixture id="SomeElementFixture">
+  <template>
+    <some-element id="SomeElementForTesting"></some-element>
+  </template>
+</test-fixture>
+```
+
+Now, the `<test-fixture>` element can be used to generate a copy of its
+template:
+
+```html
 <script>
+describe('<some-element>', function () {
+  var someElement;
+
+  beforeEach(function () {
+    document.getElementById('SomeElementFixture').create();
+    someElement = document.getElementById('SomeElementForTesting');
+  });
+});
+</script>
+```
+
+Fixtured elements can be cleaned up by calling `restore` on the `<test-fixture>`:
+
+```javascript
+  afterEach(function () {
+    document.getElementById('SomeElementFixture').restore();
+    // <some-element id='SomeElementForTesting'> has been removed
+  });
+```
+
+`<test-fixture>` will create fixtures from all of its immediate `<template>`
+children. The DOM structure of fixture templates can be as simple or as complex
+as the situation calls for.
+
+## Even simpler usage in Mocha
+
+In Mocha, usage can be simplified even further. Include `test-fixture-mocha.js`
+after Mocha in the `<head>` of your document and then fixture elements like so:
+
+```html
+<script>
+describe('<some-element>', function () {
+  var someElement;
+
+  beforeEach(function () {
+    someElement = fixture('SomeElementFixture');
+  });
+});
+</script>
+```
+
+Fixtured elements will be automatically restored in the `afterEach` phase of the
+current Mocha `Suite`.
+
+## Data-bound templates
+
+Data-binding systems are also supported, as long as your (custom) template
+elements define a `stamp(model)` method that returns a document fragment. This
+allows you to stamp out templates w/ custom models for your fixtures.
+
+For example, using Polymer 0.8's `dom-template`:
+
+```html
+<test-fixture id="bound">
+  <template is="dom-template">
+    <span>{{greeting}}</span>
+  </template>
+</test-fixture>
+```
+
+You can pass an optional context argument to `create()` or `fixture()` to pass
+the model:
+
+```js
+var bound = fixture('bound', {greeting: 'ohai thurr'});
+```
+
+## The problem being addressed
+
+Consider the following `web-component-tester` test suite:
+
+```html
+<!doctype html>
+<html>
+<head>
+  <title>some-element test suite</title>
+
+  <link rel="import" href="../some-element.html">
+</head>
+<body>
+  <some-element id="SomeElementForTesting"></some-element>
+  <script>
+describe('<some-element>', function () {
+  var someElement;
+
+  beforeEach(function () {
+    someElement = document.getElementById('SomeElementForTesting');
+  });
+
+  it('can receive property `foo`', function () {
+    someElement.foo = 'bar';
+    expect(someElement.foo).to.be.equal('bar');
+  });
+
+  it('has a default `foo` value of `undefined`', function () {
+    expect(someElement.foo).to.be.equal(undefined);
+  });
+});
+  </script>
+</body>
+</html>
+```
+
+In this contrived example, the suite will pass or fail depending on which order
+the tests are run in. It is non-deterministic because `someElement` has
+internal state that is not properly reset at the end of each test.
+
+It would be trivial in the above example to simply reset `someElement.foo` to
+the expected default value of `undefined` in an `afterEach` hook. However, for
+non-contrived test suites that target complex elements, this can result in a
+large quantity of ever-growing set-up and tear-down boilerplate.
+
+@pseudoElement test-fixture
+ -->
+
+<script>
+
 (function () {
   var TestFixturePrototype = Object.create(HTMLElement.prototype);
   var TestFixtureExtension = {
@@ -20,7 +156,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     get fixtureTemplates () {
       if (!this._fixtureTemplates) {
-        this._fixtureTemplates = this.querySelectorAll('template');
+        // Copy fixtures to a true Array for Safari 7. This prevents their
+        // `content` property from being improperly garbage collected.
+        this._fixtureTemplates = Array.prototype.slice.apply(this.querySelectorAll('template'));
       }
 
       return this._fixtureTemplates;
@@ -111,7 +249,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var child = parent.firstChild;
 
       while (child) {
-        if (child.nodeType !== Node.TEXT_NODE) {
+        if (child.nodeType === Node.ELEMENT_NODE) {
           elements.push(child);
         }
 
@@ -156,8 +294,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Immediately upgrade the subtree if we are dealing with async
         // Web Components polyfill.
         // https://github.com/Polymer/polymer/blob/0.8-preview/src/features/mini/template.html#L52
-        if (window.CustomElements && CustomElements.upgradeSubtree) {
-          CustomElements.upgradeSubtree(stamped);
+        if (window.CustomElements && window.CustomElements.upgradeSubtree) {
+          window.CustomElements.upgradeSubtree(stamped);
         }
       }
 
@@ -174,8 +312,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       );
     });
 
-  document.registerElement('test-fixture', {
-    prototype: TestFixturePrototype
-  });
+  try {
+    document.registerElement('test-fixture', {
+      prototype: TestFixturePrototype
+    });
+  } catch (e) {
+    if (window.WCT) {
+      console.warn('if you are using WCT, you do not need to manually import test-fixture.html');
+    } else {
+      console.warn('test-fixture has already been registered!');
+    }
+  }
 })();
 </script>

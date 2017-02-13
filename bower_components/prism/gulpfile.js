@@ -19,7 +19,8 @@ var gulp   = require('gulp'),
 		],
 		plugins: ['plugins/**/*.js', '!plugins/**/*.min.js'],
 		showLanguagePlugin: 'plugins/show-language/prism-show-language.js',
-		autoloaderPlugin: 'plugins/autoloader/prism-autoloader.js'
+		autoloaderPlugin: 'plugins/autoloader/prism-autoloader.js',
+		changelog: 'CHANGELOG.md'
 	};
 
 gulp.task('components', function() {
@@ -69,6 +70,10 @@ gulp.task('languages-plugins', function (cb) {
 							languagesMap[p] = title;
 						}
 
+						for (var name in data.languages[p].aliasTitles) {
+							languagesMap[name] = data.languages[p].aliasTitles[name];
+						}
+
 						if(data.languages[p].require) {
 							dependenciesMap[p] = data.languages[p].require;
 						}
@@ -111,6 +116,21 @@ gulp.task('languages-plugins', function (cb) {
 			cb(err);
 		}
 	});
+});
+
+gulp.task('changelog', function (cb) {
+	return gulp.src(paths.changelog)
+		.pipe(replace(
+			/#(\d+)(?![\d\]])/g,
+			'[#$1](https://github.com/PrismJS/prism/issues/$1)'
+		))
+		.pipe(replace(
+			/\[[\da-f]+(?:, *[\da-f]+)*\]/g,
+			function (match) {
+				return match.replace(/([\da-f]{7})[\da-f]*/g, '[`$1`](https://github.com/PrismJS/prism/commit/$1)');
+			}
+		))
+		.pipe(gulp.dest('.'));
 });
 
 gulp.task('default', ['components', 'plugins', 'build']);
