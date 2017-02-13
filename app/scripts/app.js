@@ -59,6 +59,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         return value.replace(/\s+/g, '-').toLowerCase();
     };
 
+    function smoothStep(start, end, point) {
+        if (point <= start) {
+            return 0;
+        }
+        if (point >= end) {
+            return 1;
+        }
+        var x = (point - start) / (end - start);
+        return x * x * (3 - 2 * x);
+    }
+
     app.smoothScroll = function(el, optDuration, optCallback) {
         var duration = optDuration || 1;
 
@@ -92,16 +103,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
         callback(startTime);
     };
-
-    function smoothStep(start, end, point) {
-        if (point <= start) {
-            return 0;
-        }
-        if (point >= end) {
-            return 1;
-        }
-        var x = (point - start) / (end - start);
-        return x * x * (3 - 2 * x);
-    }
 
 })(document);
